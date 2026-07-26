@@ -1,0 +1,1420 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body data-report-date="2026-06-25"><title>The Waldo Crypto Report</title>
+<style>
+:root{
+  --bg:#0a0a12; --card:#141422; --card2:#1b1b30; --edge:#2e2e4a;
+  --ink:#f0f0fa; --ink2:#a8a8c8; --ink3:#71718f;
+  --green:#22c55e; --green-b:#4ade80; --red:#ef4444; --red-b:#f87171;
+  --amber:#f59e0b; --amber-b:#fbbf24; --cyan:#22d3ee; --violet:#8b5cf6; --blue:#3b82f6; --pink:#ec4899;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 "Avenir Next",-apple-system,"Segoe UI",sans-serif;padding-bottom:70px}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
+.mocktag{position:sticky;top:0;z-index:60;background:var(--violet);color:#fff;text-align:center;
+  font-weight:700;font-size:14px;padding:8px;letter-spacing:.04em;border-radius:0 0 12px 12px}
+h1{font-size:clamp(24px,5vw,32px);font-weight:800}
+h2{font-size:21px;font-weight:800}
+h3{font-size:17px;font-weight:700}
+.step{background:var(--card);border:1px solid var(--edge);border-radius:18px;padding:22px;margin-top:22px;position:relative;overflow:hidden}
+.step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+.s1::before{background:linear-gradient(var(--cyan),var(--blue))}
+.s2::before{background:linear-gradient(var(--green),var(--cyan))}
+.s3::before{background:linear-gradient(var(--violet),var(--pink))}
+.s4::before{background:linear-gradient(var(--blue),var(--violet))}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.s1 .eyebrow{color:var(--cyan)} .s2 .eyebrow{color:var(--green-b)} .s3 .eyebrow{color:var(--violet)} .s4 .eyebrow{color:var(--blue)}
+.sub{color:var(--ink2);font-size:15px}
+.q{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;
+  border:1.5px solid var(--ink3);color:var(--ink3);font-size:10.5px;font-weight:800;vertical-align:2px;margin-left:4px;
+  cursor:help;position:relative;background:none;padding:0}
+.q:hover,.q:focus{border-color:var(--amber);color:var(--amber);outline:none}
+.q .tip{display:none;position:absolute;z-index:50;left:50%;transform:translateX(-50%);bottom:150%;width:min(300px,74vw);
+  background:#f0f0fa;color:#0a0a12;border-radius:10px;padding:10px 12px;font:400 13px/1.45 inherit;text-align:left;
+  box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.q:hover .tip,.q:focus .tip{display:block}
+.q .tip b{display:block;margin-top:6px}
+.verdict{display:flex;gap:14px;align-items:center;background:linear-gradient(90deg,rgba(245,158,11,.16),rgba(245,158,11,.04));
+  border:1px solid rgba(245,158,11,.4);border-radius:14px;padding:14px 18px;margin-top:14px}
+.verdict .big{font-size:30px}
+.verdict b{color:var(--amber-b)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:12px;margin-top:14px}
+.grouphead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-top:22px;padding-top:14px;border-top:1px solid var(--edge)}
+.grouphead h3{font-size:16px}
+.grouphead .why{font-size:13.5px;color:var(--ink3)}
+/* collapsible metric groups — everything is on the page, but you open what you need */
+.group{margin-top:20px;padding-top:14px;border-top:1px solid var(--edge)}
+.group>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.group>summary::-webkit-details-marker{display:none}
+.group>summary::marker{content:""}
+.group>summary h3{font-size:16px;display:inline}
+.group>summary .why{font-size:13.5px;color:var(--ink3)}
+.group>summary:hover h3{color:var(--cyan)}
+.group>summary .toggle{margin-left:auto;font-size:12.5px;color:var(--cyan);font-weight:700;white-space:nowrap}
+.group[open]>summary .toggle::after{content:"hide ▲"}
+.group:not([open])>summary .toggle::after{content:"show all ▼"}
+.gstat{font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.gstat.g{background:rgba(34,197,94,.18);color:var(--green-b)}
+.gstat.a{background:rgba(245,158,11,.18);color:var(--amber-b)}
+.gsum{font-size:13.5px;color:var(--ink2);margin-top:6px}
+.metric{background:var(--card2);border:1px solid var(--edge);border-radius:14px;padding:14px;display:flex;flex-direction:column}
+.metric .label{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+.metric .val{font-size:23px;font-weight:800;font-variant-numeric:tabular-nums;margin:2px 0 8px}
+.metric .note{font-size:12.5px;color:var(--ink2)}
+.bar{height:8px;border-radius:4px;background:var(--edge);position:relative}
+.bar .fill{height:100%;border-radius:4px}
+.bar .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px}
+.fear .fill{width:28%;background:linear-gradient(90deg,var(--red),var(--amber))}
+.btcline .fill{width:74%;background:linear-gradient(90deg,var(--cyan),var(--blue))}
+.rsi .fill{width:36%;background:linear-gradient(90deg,var(--green),var(--amber))}
+.fund .fill{width:55%;background:var(--green)}
+.dom .fill{width:72%;background:linear-gradient(90deg,var(--amber),var(--red))}
+.plaw .fill{width:33%;background:linear-gradient(90deg,var(--green),var(--cyan))}
+.att .fill{width:92%;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.vol .fill{width:41%;background:linear-gradient(90deg,var(--ink3),var(--amber))}
+.mcap .fill{width:30%;background:linear-gradient(90deg,var(--green),var(--cyan))}
+.cyc .fill{width:70%;background:linear-gradient(90deg,var(--amber),var(--green))}
+.liq .fill{width:64%;background:linear-gradient(90deg,var(--amber),var(--green))}
+.etf .fill{width:62%;background:linear-gradient(90deg,var(--amber),var(--green))}
+.cpi .fill{width:35%;background:linear-gradient(90deg,var(--green),var(--amber))}
+.pol .fill{width:68%;background:linear-gradient(90deg,var(--amber),var(--green))}
+.bms .fill{width:58%;background:linear-gradient(90deg,var(--red),var(--green))}
+.w200 .fill{width:62%;background:linear-gradient(90deg,var(--red),var(--green))}
+.sth .fill{width:46%;background:linear-gradient(90deg,var(--red),var(--green))}
+.mvrv .fill{width:19%;background:linear-gradient(90deg,var(--green),var(--red))}
+.nupl .fill{width:35%;background:linear-gradient(90deg,var(--red),var(--green))}
+.dxy .fill{width:44%;background:linear-gradient(90deg,var(--green),var(--red))}
+.yield .fill{width:52%;background:linear-gradient(90deg,var(--green),var(--red))}
+.usdtd .fill{width:38%;background:linear-gradient(90deg,var(--green),var(--red))}
+.total3 .fill{width:30%;background:linear-gradient(90deg,var(--red),var(--green))}
+.pair .fill{width:33%;background:linear-gradient(90deg,var(--red),var(--green))}
+.cowband .fill{width:82%;background:linear-gradient(90deg,var(--cyan),var(--red))}
+.risk .fill{width:20%;background:linear-gradient(90deg,var(--green),var(--red))}
+.profit .fill{width:74%;background:linear-gradient(90deg,var(--red),var(--green))}
+.stbl .fill{width:72%;background:linear-gradient(90deg,var(--green),var(--red))}
+.domx .fill{width:67%;background:linear-gradient(90deg,var(--green),var(--red))}
+.fair .fill{width:47%;background:linear-gradient(90deg,var(--green),var(--red))}
+.roi .fill{width:59%;background:linear-gradient(90deg,var(--green),var(--red))}
+.pldev .fill{width:22%;background:linear-gradient(90deg,var(--green),var(--amber))}
+.hurst .fill{width:58%;background:linear-gradient(90deg,var(--amber),var(--green))}
+.unit{font-size:14px;color:var(--ink3);font-weight:600}
+.datanote{background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.28);border-radius:12px;
+  padding:11px 14px;margin-top:14px;font-size:13.5px;color:var(--ink2)}
+.datanote b{color:var(--ink)}
+/* Power Law Clock face */
+.clockwrap{display:flex;justify-content:center;margin:10px 0 6px;padding:0 44px}
+.clockface{position:relative;width:96px;height:96px;border-radius:50%;border:2px solid var(--edge);
+  background:conic-gradient(from 0deg, rgba(239,68,68,.20) 0deg 90deg, rgba(245,158,11,.14) 90deg 180deg,
+    rgba(34,197,94,.16) 180deg 270deg, rgba(34,211,238,.14) 270deg 360deg)}
+.clockface .hand{position:absolute;left:calc(50% - 1.5px);bottom:50%;width:3px;height:36px;background:var(--cyan);
+  border-radius:2px;transform-origin:bottom center}
+.clockface .hand::after{content:"";position:absolute;left:-3px;bottom:-5px;width:9px;height:9px;border-radius:50%;background:var(--cyan)}
+.clockface .ct{position:absolute;font-size:9.5px;font-weight:800;color:var(--ink2);white-space:nowrap}
+.clockface .t12{top:-15px;left:50%;transform:translateX(-50%);color:var(--red-b)}
+.clockface .t3{left:calc(100% + 7px);top:50%;transform:translateY(-50%);color:var(--green-b)}
+.clockface .t6{bottom:-15px;left:50%;transform:translateX(-50%)}
+.clockface .t9{right:calc(100% + 7px);top:50%;transform:translateY(-50%);color:var(--amber-b)}
+/* catalog table */
+.cattable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px;min-width:660px}
+.cattable th{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);
+  text-align:left;padding:6px 8px;border-bottom:1px solid var(--edge)}
+.cattable td{padding:8px;border-bottom:1px solid var(--edge);vertical-align:top}
+.cattable td:first-child{font-weight:700;color:var(--ink)}
+.cattable .cv{color:var(--amber-b);font-weight:700}
+.scale{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink3);margin-top:3px}
+.ok{color:var(--green-b);font-weight:700} .warnc{color:var(--amber-b);font-weight:700} .badc{color:var(--red-b);font-weight:700}
+.ring{width:60px;height:60px;border-radius:50%;background:conic-gradient(var(--amber) 0 60%, var(--edge) 60%);
+  display:flex;align-items:center;justify-content:center;margin:4px 0;flex:none}
+.ring i{width:44px;height:44px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;
+  font-style:normal;font-weight:800;font-size:14px}
+.src{margin-top:auto;padding-top:10px;border-top:1px dashed var(--edge);font-size:11px;color:var(--ink3)}
+.src b{letter-spacing:.05em;text-transform:uppercase;font-size:10px}
+.srcchip{display:inline-block;font-size:10.5px;font-weight:700;border-radius:999px;padding:1px 8px;margin:2px 2px 0 0}
+.srcchip.cci{background:rgba(34,211,238,.12);color:var(--cyan)}
+.srcchip.tod{background:rgba(139,92,246,.15);color:#a78bfa}
+.srcchip.cous{background:rgba(236,72,153,.14);color:var(--pink)}
+.srcchip.gio{background:rgba(34,197,94,.13);color:var(--green-b)}
+.srcchip.sys{background:rgba(59,130,246,.14);color:#93bbfd}
+.srcchip.cow{background:rgba(251,191,36,.13);color:var(--amber-b)}
+.srcchip.itc{background:rgba(103,232,249,.12);color:#67e8f9}
+.chip{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;letter-spacing:.04em;white-space:nowrap}
+.chip.g{background:rgba(34,197,94,.18);color:var(--green-b)}
+.chip.r{background:rgba(239,68,68,.18);color:var(--red-b)}
+.chip.a{background:rgba(245,158,11,.18);color:var(--amber-b)}
+.chip.v{background:rgba(139,92,246,.2);color:#a78bfa}
+.chip.c{background:rgba(34,211,238,.15);color:var(--cyan)}
+
+/* ---- upload ---- */
+.drop{border:2px dashed var(--cyan);background:rgba(34,211,238,.06);border-radius:16px;padding:26px 20px;text-align:center;
+  margin-top:14px;cursor:pointer;transition:background .15s,border-color .15s}
+.drop:hover,.drop.over{background:rgba(34,211,238,.13);border-color:#67e8f9}
+.drop .big{font-size:36px}
+.drop h3{color:var(--cyan);margin:6px 0}
+.drop p{font-size:14px;color:var(--ink2);max-width:58ch;margin:0 auto}
+.upbtn{display:inline-block;font-weight:800;background:var(--cyan);color:#06222a;border:0;border-radius:12px;
+  padding:12px 24px;margin-top:14px;cursor:pointer;font-size:15px;font-family:inherit}
+.upbtn:hover{filter:brightness(1.08)}
+.ghost{background:none;border:1px solid var(--edge);color:var(--ink2);font-family:inherit;font-size:13.5px;
+  border-radius:10px;padding:8px 14px;cursor:pointer;margin-top:10px}
+.ghost:hover{border-color:var(--cyan);color:var(--ink)}
+.working{display:none;align-items:center;gap:12px;background:var(--card2);border:1px solid var(--cyan);border-radius:12px;
+  padding:14px 16px;margin-top:12px;font-size:14.5px}
+.working.on{display:flex}
+.spin{width:20px;height:20px;border:3px solid var(--edge);border-top-color:var(--cyan);border-radius:50%;
+  animation:sp .8s linear infinite;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+.shot{max-width:200px;border-radius:10px;border:1px solid var(--edge);margin-top:12px;display:none}
+.rows{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
+.rows th{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);text-align:left;padding:5px 6px;border-bottom:1px solid var(--edge)}
+.rows td{padding:5px 6px;border-bottom:1px solid var(--edge)}
+.rows input{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:var(--bg);border:1px solid var(--edge);
+  border-radius:8px;padding:7px 8px}
+.rows input:focus{outline:2px solid var(--cyan);border-color:var(--cyan)}
+.rows input.need{border-color:var(--amber);background:rgba(245,158,11,.09)}
+.rows tr.incomplete td:first-child::before{content:"⚠";color:var(--amber-b);margin-right:5px;font-weight:800}
+.neednote{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.4);border-radius:10px;
+  padding:9px 12px;margin-top:10px;font-size:13.5px;color:var(--amber-b);display:none}
+.neednote.on{display:block}
+.rows .del{background:none;border:0;color:var(--ink3);font-size:17px;cursor:pointer;padding:0 4px}
+.rows .del:hover{color:var(--red-b)}
+.confirm{background:var(--card2);border:1px solid var(--green);border-radius:12px;padding:14px 16px;margin-top:14px;display:none}
+.confirm.on{display:block}
+.confirm h3{color:var(--green-b);font-size:15.5px}
+
+/* ---- timelines ---- */
+.tl{background:var(--card2);border:1px solid var(--edge);border-radius:16px;padding:18px;margin-top:14px}
+.tl .headrow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
+.coin{font-size:19px;font-weight:800}
+/* vertical lanes, top to bottom: top labels · line+nodes · you-are-here · bottom labels */
+.track{position:relative;height:210px;margin:70px 8px 4px}
+.track .line{position:absolute;left:0;right:0;top:52px;height:4px;border-radius:2px;background:var(--edge)}
+.track .done{position:absolute;left:0;top:52px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--green))}
+.node{position:absolute;top:44px;width:20px;height:20px;border-radius:50%;border:4px solid var(--bg);transform:translateX(-50%);z-index:2}
+.node.buy{background:var(--cyan)} .node.sell{background:var(--amber-b)} .node.last{background:var(--green)}
+.node.hit{background:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,.25)}
+.nlab{position:absolute;transform:translateX(-50%);text-align:center;width:124px}
+.nlab.top{top:-46px} .nlab.bot{top:114px}
+.nlab .p{font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.nlab .p .per{font-weight:600;font-size:10.5px;color:var(--ink3)}
+.nlab .a{font-size:11.5px;color:var(--ink2);line-height:1.34}
+.nlab .a b{color:var(--amber-b)}
+.nlab .cash{color:var(--green-b);font-weight:700}
+.nlab .dim{color:var(--ink3);font-size:10.5px}
+.nlab .hitnow{color:var(--green-b);font-weight:800}
+.axisnote{font-size:12.5px;color:var(--ink3);text-align:center;margin-top:6px;padding-top:8px;border-top:1px dashed var(--edge)}
+.axisnote b{color:var(--ink2)}
+.here{position:absolute;top:70px;transform:translateX(-50%);color:var(--cyan);font-size:11.5px;font-weight:800;
+  white-space:nowrap;z-index:3;background:var(--card2);padding:0 4px;border-radius:4px}
+.here::before{content:"▲";display:block;text-align:center;font-size:12px;line-height:1}
+.crashrow{display:flex;align-items:center;gap:10px;margin-top:12px;background:rgba(239,68,68,.08);
+  border:1px solid rgba(239,68,68,.35);border-radius:10px;padding:9px 13px;font-size:13.5px}
+.crashrow b{color:var(--red-b)}
+.safety{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px;margin-top:12px}
+.safe{border-radius:10px;padding:9px 11px;font-size:12.5px;border:1px solid var(--edge);background:var(--bg)}
+.safe b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:2px}
+.alllist{background:linear-gradient(90deg,rgba(34,211,238,.1),transparent);border:1px solid rgba(34,211,238,.3);
+  border-radius:14px;padding:14px 16px;margin-top:14px}
+.alllist h4{color:var(--cyan);font-size:15px;margin-bottom:6px}
+.tstep{display:flex;gap:10px;padding:5px 0;font-size:14.5px;border-top:1px dashed var(--edge)}
+.tstep:first-of-type{border-top:0}
+.tstep b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.ladderkey{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.lk{background:var(--bg);border:1px solid var(--edge);border-radius:999px;padding:5px 12px;font-size:12.5px;color:var(--ink2)}
+.lk b{color:var(--amber-b)}
+
+/* ---- step 3 ---- */
+.tiergrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px;margin-top:12px}
+.tk{background:var(--card2);border:1px solid var(--edge);border-radius:14px;padding:15px}
+.tk .head{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+.sym{font-size:18px;font-weight:800}
+.sentbar{display:flex;height:7px;border-radius:4px;overflow:hidden;margin:8px 0 4px;background:var(--edge)}
+.sentbar .b{background:var(--green)} .sentbar .s{background:var(--red)}
+.sentlab{font-size:11.5px;color:var(--ink2);margin-bottom:6px}
+.meta{font-size:13px;color:var(--ink2)}
+.spark{display:flex;align-items:flex-end;gap:2px;height:34px;margin:8px 0}
+.spark i{width:7px;border-radius:2px;background:var(--cyan);opacity:.62}
+.spark i.hot{background:var(--amber-b);opacity:1}
+.spark i.dot{height:3px !important;background:var(--ink3);opacity:.5}
+.tierhead{display:flex;align-items:baseline;gap:10px;margin-top:20px;flex-wrap:wrap}
+.legend{color:var(--ink3);font-size:13px;margin-top:8px}
+/* featured top-scored play — the headline output of the scraper */
+.topplay{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:14px;padding:18px 20px;
+  border-radius:16px;border:1px solid rgba(139,92,246,.5);
+  background:linear-gradient(100deg,rgba(139,92,246,.22),rgba(236,72,153,.10) 60%,transparent)}
+.topplay .ring.big{width:82px;height:82px;background:conic-gradient(var(--amber-b) 0 60%, rgba(255,255,255,.09) 60%)}
+.topplay .ring.big i{width:62px;height:62px;font-size:18px;background:#191930}
+.tpbody{flex:1;min-width:230px}
+.tplabel{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#c4b5fd}
+.tpcoin{font-size:27px;font-weight:800;margin:3px 0 5px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.tpcoin .chip{font-size:11px}
+.tpverdict{font-size:15.5px;color:var(--ink2)}
+.explainer{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.35);border-radius:14px;
+  padding:16px 18px;margin-top:14px;font-size:15px}
+.explainer b{color:var(--ink)}
+.buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:10px;margin-top:12px}
+.bkt{background:var(--card2);border:1px solid var(--edge);border-radius:12px;padding:11px 13px;font-size:13.5px}
+.bkt b{display:block;font-size:14.5px;margin-bottom:3px}
+.bkt span{color:var(--ink2)}
+.quote{font-size:13.5px;color:var(--ink2);border-left:3px solid var(--violet);padding:3px 0 3px 10px;margin-top:8px}
+.quote b{color:var(--ink)}
+.rgroup{margin-top:16px}
+.approve{background:var(--card);border:2px dashed var(--violet);border-radius:18px;padding:20px;margin-top:26px}
+.footer{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:18px 22px;margin-top:16px;font-size:13.5px;color:var(--ink2)}
+.footer b{color:var(--ink)}
+.hidden{display:none !important}
+
+.gate{position:fixed;inset:0;z-index:200;background:#0a0a12;display:flex;align-items:center;justify-content:center;padding:20px}
+.gate .box{max-width:400px;width:100%;background:#16162a;border:1px solid #2e2e4a;border-radius:20px;padding:34px;text-align:center}
+.gate h1{font-size:26px;font-weight:800;margin-bottom:6px}
+.gate p{color:#a8a8c8;font-size:15.5px;margin-bottom:18px}
+.gate input{width:100%;font:inherit;font-size:17px;color:#f0f0fa;background:#0a0a12;border:1px solid #2e2e4a;
+  border-radius:12px;padding:13px;text-align:center;letter-spacing:.1em}
+.gate input:focus{outline:2px solid #22d3ee;border-color:#22d3ee}
+.gate button{width:100%;font:800 17px inherit;font-family:inherit;background:#22d3ee;color:#06222a;border:0;
+  border-radius:12px;padding:14px;cursor:pointer;margin-top:12px}
+.gate .err{color:#f87171;font-size:14px;margin-top:12px;display:none}
+.hidden{display:none !important}
+</style>
+<div class="gate" id="gate">
+  <div class="box">
+    <h1>🔒 Waldo family only</h1>
+    <p>What's the password?</p>
+    <input id="pw" type="password" autocomplete="off" placeholder="Password" autofocus>
+    <button type="button" onclick="tryPw()">Open the report</button>
+    <div class="err" id="pwErr">Nope — ask Everett 🙂</div>
+  </div>
+</div>
+
+<div class="wrap hidden" id="app">
+
+  <h1>The Waldo Crypto Report <span style="color:var(--ink3);font-weight:600">— <span data-live="date"></span></span></h1>
+  <p class="sub">Two jobs, one page: <b style="color:var(--cyan)">the daily brief</b> (Step 1) and
+  <b style="color:var(--green-b)">your portfolio</b> (Step 2). Then what our accounts are saying, and the proof.
+  Hover any <b>?</b> for a plain-English explanation.</p>
+
+  <!-- ==================== STEP 1 ==================== -->
+  <div class="step s1">
+    <div class="eyebrow">Step 1 · The Scoreboard</div>
+    <h2>How the market feels today</h2>
+    <div class="verdict"><span class="big">⏸️</span>
+      <div><b>Today's call: WAIT.</b> Everything cheap-looking is genuinely cheap — but Bitcoin is under the trend lines
+      that define a bull market. Accumulate patiently, don't chase.
+      <button class="q">?<span class="tip">This is the one-line version of every gauge below.
+      <b>The pros' exact words: "Mixed signals. Fear is high (28) and RSI near oversold (36), but BTC hasn't confirmed
+      above $74K and dominance is still elevated. CCI says wait for weekly close."</b></span></button></div>
+    </div>
+    <div class="datanote">📌 Every gauge shows <b>who watches it</b> at the bottom, and a <b>?</b> that explains it in plain
+      English. Readings here are the latest real numbers found in each source's own material — the live version recalculates
+      them every morning.</div>
+
+    <details class="group" open style="border-top:0;margin-top:16px;padding-top:4px"><summary>
+      <h3>🌡️ Right now — the market's temperature</h3>
+      <span class="gstat a">mixed</span><span class="why">these move day to day</span><span class="toggle"></span></summary>
+    <div class="grid">
+
+      <div class="metric"><div class="label">Market mood
+        <button class="q">?<span class="tip">The Fear &amp; Greed Index: one number (0–100) for how the whole market feels.
+        <b>Portfolio impact: scared markets are usually better times to buy; greedy ones are when you stick to your sell
+        plan.</b></span></button></div>
+        <div class="val" data-live="fear">28<span class="unit">/100</span> <span class="badc">Fear</span></div>
+        <div class="bar fear"><div class="fill"></div><div class="pin" style="left:28%"></div></div>
+        <div class="scale"><span>terrified</span><span>greedy</span></div>
+        <div class="note">Scared markets are often when smart buyers show up.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">Borrowing heat (funding)
+        <button class="q">?<span class="tip">Traders pay a fee to bet with borrowed money. When that fee gets high the crowd
+        is greedy and over-leveraged — pumps usually die there. Negative fee = crowd is scared = often a buying window.
+        <b>Portfolio impact: above +0.03% during a pump, the rule says sell 40–50% immediately.</b></span></button></div>
+        <div class="val">0.010% <span class="ok">SAFE</span></div>
+        <div class="bar fund"><div class="fill"></div><div class="pin" style="left:55%"></div></div>
+        <div class="scale"><span>−0.03% crowd scared</span><span>+0.03% danger</span></div>
+        <div class="note">Nowhere near the danger line.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cous">Cousin Crypto</span><span class="srcchip tod">The Todaros</span></div></div>
+
+      <div class="metric"><div class="label">Market strength (RSI)
+        <button class="q">?<span class="tip">A 0–100 speedometer for how hard something has been sold or bought recently.
+        Under 30 = beaten down ("oversold"), over 70 = overheated. <b>Portfolio impact: low RSI means the selling may be
+        nearly done — good for patient buyers, bad for panic sellers.</b></span></button></div>
+        <div class="val">36 <span class="warnc">near oversold</span></div>
+        <div class="bar rsi"><div class="fill"></div><div class="pin" style="left:36%"></div></div>
+        <div class="scale"><span>0 beaten-down</span><span>100 overheated</span></div>
+        <div class="note">The selling may be close to finished.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span><span class="srcchip sys">Signal System</span></div></div>
+
+      <div class="metric"><div class="label">Trading volume
+        <button class="q">?<span class="tip">How many actual dollars changed hands today. A real bottom or breakout shows up
+        as a <b>burst</b> of volume — quiet drifting prices don't turn into trends. <b>Todaro's rule for timing an entry off
+        a low: "wait for a sharp increase in volume" before believing the turn.</b></span></button></div>
+        <div class="val">$61B <span class="warnc">quiet</span></div>
+        <div class="bar vol"><div class="fill"></div><div class="pin" style="left:41%"></div></div>
+        <div class="scale"><span>dead</span><span>spike = something real</span></div>
+        <div class="note">No conviction burst yet — drifting, not turning.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip tod">The Todaros</span></div></div>
+
+      <div class="metric"><div class="label">Crowd attention
+        <button class="q">?<span class="tip">We track ~150 hand-picked crypto accounts every day. This is how many actually
+        posted today. <b>Portfolio impact: when 9 or more converge on the same coin it's probably not a scam — that's the
+        pre-screen that makes Step 3 worth reading.</b></span></button></div>
+        <div class="val" data-live="accounts">99<span class="unit">/108</span></div>
+        <div class="bar att"><div class="fill"></div></div>
+        <div class="scale"><span>&nbsp;</span><span>the town square</span></div>
+        <div class="note">Full picture today — 9+ on one coin = worth a look.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip sys">Signal System</span><span class="srcchip cous">Cousin Crypto</span></div></div>
+
+    </div></details>
+
+    <details class="group" open><summary><h3>🗺️ The big picture — where we are in the cycle</h3>
+      <span class="gstat g">cheap zone</span>
+      <span class="why">slow movers: greedy or patient over the next few months?</span>
+      <span class="toggle"></span></summary>
+    <div class="grid">
+
+      <div class="metric"><div class="label">Bitcoin vs CCI's levels
+        <button class="q">?<span class="tip">CCI (your paid advisory) has four Bitcoin prices that change their behavior:
+        $61K = deep-value floor, $70K = support, <b>$74K weekly close = the green light to get aggressive</b>, $94K = go
+        all-in. Portfolio impact: below $74K, be patient and keep cash ready.</span></button></div>
+        <div class="val" data-live="btc">$63,968</div>
+        <div class="bar btcline"><div class="fill"></div>
+          <div class="pin" style="left:18%;background:var(--green)"></div>
+          <div class="pin" style="left:52%;background:var(--amber)"></div>
+          <div class="pin" style="left:74%"></div>
+          <div class="pin" style="left:96%;background:var(--violet)"></div></div>
+        <div class="scale"><span>$61K floor</span><span>$70K</span><span>$74K go</span><span>$94K all-in</span></div>
+        <div class="note"><span class="warnc">Between the floor and the green light.</span></div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">How far below fair value (Power Law)
+        <button class="q">?<span class="tip">Bitcoin's entire history follows one mathematical curve. This measures how far
+        <b>below</b> that fair-value line today's price sits. <b>Giovanni's zones: about −30% starts the good-value
+        (light green) area, and bear-market bottoms have historically ended near −60%, which is exactly where his support
+        line sits (fair value × 0.4). Portfolio impact: the deeper below, the harder you DCA.</b></span></button></div>
+        <div class="val">−53% <span class="ok">deep value</span></div>
+        <div class="bar pldev"><div class="fill"></div><div class="pin" style="left:22%"></div>
+          <div class="pin" style="left:50%;background:var(--amber)"></div></div>
+        <div class="scale"><span>−60% bottoms</span><span>−30% good value</span><span>fair value</span></div>
+        <div class="note">Support line quoted around $54K. We're in the buy-hard zone.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip gio">Giovanni &amp; Saverio</span></div></div>
+
+      <div class="metric"><div class="label">The Power Law Clock
+        <button class="q">?<span class="tip">Giovanni turns the whole 4-year cycle into a 12-hour clock face: <b>3:00 = the
+        bottom, 6:00 = bear flips to bull, 9:00 = the frenzy starts, 12:00 = the cycle top.</b> One hour ≈ 4 months, one
+        minute ≈ 2 days. <b>Portfolio impact: this is pure timing — it tells you roughly how many months of pain or upside
+        are structurally left. We're past 12 o'clock, walking down toward the 3:00 bottom.</b></span></button></div>
+        <div class="val">≈ 1:40 <span class="warnc">past the top</span></div>
+        <div class="clockwrap"><div class="clockface"><i class="hand" style="transform:rotate(50deg)"></i>
+          <span class="ct t12">12 top</span><span class="ct t3">3 bottom</span>
+          <span class="ct t6">6 flip</span><span class="ct t9">9 frenzy</span></div></div>
+        <div class="note">Structurally: after the peak, before the floor. Months of chop, then the turn.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip gio">Giovanni &amp; Saverio</span></div></div>
+
+      <div class="metric"><div class="label">Whole market vs cycle target
+        <button class="q">?<span class="tip">Add up every coin in the world — that's total market cap. Todaro plans the whole
+        cycle off this number rather than Bitcoin's price, and sells in chunks as it climbs: <b>start trimming at $2.5T,
+        chunks at $5T and $6T, fully out by $7T. Last cycle topped at $3.3T; his call for this one is $6–7T.</b></span></button></div>
+        <div class="val">$2.1T <span class="ok">early</span></div>
+        <div class="bar mcap"><div class="fill"></div>
+          <div class="pin" style="left:36%;background:var(--amber)"></div>
+          <div class="pin" style="left:71%"></div>
+          <div class="pin" style="left:86%;background:var(--violet)"></div></div>
+        <div class="scale"><span>now</span><span>$2.5T trim</span><span>$5T</span><span>$7T out</span></div>
+        <div class="note">Below the first trim line — runway left if the cycle plays out.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip tod">The Todaros</span></div></div>
+
+      <div class="metric"><div class="label">All of crypto vs its fair-value line
+        <button class="q">?<span class="tip">Same idea as the Bitcoin Power Law, but for the entire crypto market: a slowly
+        rising "fair price" curve fitted through all of history. <b>Cowen's reading: total market cap is roughly 50–55%
+        BELOW that fair-value line. Portfolio impact: above the line = overvalued (2021 alt-season territory); way below =
+        the whole asset class is on sale.</b></span></button></div>
+        <div class="val">−52% <span class="ok">below fair</span></div>
+        <div class="bar fair"><div class="fill"></div><div class="pin" style="left:47%"></div></div>
+        <div class="scale"><span>on sale</span><span>fair</span><span>overvalued</span></div>
+        <div class="note">The whole asset class is marked down, not just Bitcoin.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip itc">Cryptoverse</span></div></div>
+
+      <div class="metric"><div class="label">Cycle odds — did we already top?
+        <button class="q">?<span class="tip">Crypto runs in roughly 4-year rhythms. Todaro puts odds on it instead of
+        predicting: his last read was <b>30% chance the peak already happened (with a brutal 90% correction to follow) and
+        70% chance there's another leg up.</b> Portfolio impact: this is the number that decides whether you press your bets
+        or protect what you have.</span></button></div>
+        <div class="val">70<span class="unit">% another leg up</span></div>
+        <div class="bar cyc"><div class="fill"></div><div class="pin" style="left:70%"></div></div>
+        <div class="scale"><span>30% we topped</span><span>70% more to come</span></div>
+        <div class="note">Odds favor upside — but a 30% tail risk isn't nothing.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip tod">The Todaros</span></div></div>
+    </div></details>
+
+    <details class="group"><summary><h3>🚦 The pros' trigger lines</h3>
+      <span class="gstat a">3 warnings</span>
+      <span class="why">the exact prices where these guys say "de-risk" or "back up the truck"</span>
+      <span class="toggle"></span></summary>
+      <div class="gsum">Bottom line: <b>Bitcoin is under the two trend lines that define a bull market</b> and recent buyers
+        are underwater — but it's still above the deep floor. That mix is exactly why today's call is WAIT, not BUY or PANIC.</div>
+    <div class="grid">
+
+      <div class="metric"><div class="label">Bull market support (50-week line)
+        <button class="q">?<span class="tip">The average price over the last 50 weeks. In past Bitcoin bull markets price
+        never spent long below it. <b>This is Sam at CCI's literal risk switch — his words: "I'm personally not managing any
+        risk on Bitcoin until we lose the Bull Market Support aka the 50 Week MA."</b></span></button></div>
+        <div class="val"><span class="badc">Below</span> <span class="unit">the line</span></div>
+        <div class="bar bms"><div class="fill" style="width:34%"></div><div class="pin" style="left:34%"></div></div>
+        <div class="scale"><span>below = de-risk</span><span>above = hold</span></div>
+        <div class="note">Under CCI's risk switch — hence "wait," not "buy."</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">The band Bitcoin has to reclaim
+        <button class="q">?<span class="tip">Ben Cowen's ribbon: the 20-week average plus the 21-week average drawn together.
+        Above it he calls it the "bull market support band"; below it, the <b>"bear market resistance band"</b> — same lines,
+        and in bear markets price gets rejected off it again and again. <b>His April 2026 reading put the band at
+        $78,000–$79,000. Portfolio impact: until Bitcoin closes back above it, every rally is a rally to sell into.</b></span></button></div>
+        <div class="val">$78–79K <span class="badc">rejected</span></div>
+        <div class="bar cowband"><div class="fill"></div><div class="pin" style="left:82%"></div></div>
+        <div class="scale"><span>today $63.9K</span><span>band = the gate</span></div>
+        <div class="note">~22% below the gate. Expect repeated rejections until reclaimed.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip itc">Cryptoverse</span></div></div>
+
+      <div class="metric"><div class="label">The stair-step down (50 → 100 → 200 week)
+        <button class="q">?<span class="tip">The three slowest weekly averages. Bear markets walk down them like stairs —
+        2014, 2018 and 2022 all did it. <b>Cowen's June 2026 read: price is at the 100-week and "my expectation is that
+        Bitcoin will test the 200-week by the summer or October 2026 at the latest." Portfolio impact: this is your map of
+        where the next support stop probably is, instead of guessing.</b></span></button></div>
+        <div class="val">At the <span class="warnc">100-week</span></div>
+        <div class="bar w200"><div class="fill"></div><div class="pin" style="left:62%"></div>
+          <div class="pin" style="left:22%;background:var(--red)"></div></div>
+        <div class="scale"><span>200W ≈ $55K</span><span>100W = here</span><span>50W above</span></div>
+        <div class="note">Next stop lower would be the 200-week near $55K.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">Are new buyers underwater?
+        <button class="q">?<span class="tip">The average price paid by everyone who bought in the last ~5 months. Below that
+        line, recent buyers are losing money — which causes panic selling, and also marks bottoms.
+        <b>CCI tracks it live (quoted $112.9K → $81K → $68K) and calls it "a magnet" and "strong resistance."</b></span></button></div>
+        <div class="val">$68K <span class="badc">we're below</span></div>
+        <div class="bar sth"><div class="fill"></div><div class="pin" style="left:46%"></div></div>
+        <div class="scale"><span>underwater</span><span>$68K breakeven</span></div>
+        <div class="note">Recent buyers are down — pain, but also where bottoms form.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">The two hard floors (cost basis)
+        <button class="q">?<span class="tip">"Realized price" is the average price every Bitcoin holder actually paid;
+        "balance price" sits just below it. <b>Cowen: "historically Bitcoin bottoms when it goes below both of those
+        values," and it rarely stays under the balance price more than a few days. Realized price is around $53–54K —
+        which lines up with CCI's ~$48K miner production cost as a floor zone.</b></span></button></div>
+        <div class="val">$53–54K <span class="ok">still above</span></div>
+        <div class="bar w200"><div class="fill" style="width:70%"></div><div class="pin" style="left:70%"></div></div>
+        <div class="scale"><span>$48K mining cost</span><span>$53K paid-average</span><span>today</span></div>
+        <div class="note">Hasn't touched the true capitulation floors yet.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip cci">CCI</span></div></div>
+    </div></details>
+
+    <details class="group"><summary><h3>🎚️ Value dials — cheap or expensive?</h3>
+      <span class="gstat g">all reading cheap</span>
+      <span class="why">the "how good a deal is this" gauges</span>
+      <span class="toggle"></span></summary>
+      <div class="gsum">Every value dial agrees: this is the cheap end of the range. None of them has hit the
+        <b>screaming</b>-bottom reading yet — which is why the plan is steady accumulation, not all-in.</div>
+    <div class="grid">
+
+      <div class="metric"><div class="label">The one-number risk dial (0–1)
+        <button class="q">?<span class="tip">Ben Cowen squashes about eight on-chain charts (Puell multiple, MVRV, fees,
+        terminal price, thermocap ratios, supply in profit) into a single 0-to-1 dial so you read one number instead of
+        eight. <b>His June 2026 reading was 0.195–0.216: "we're getting close, but we're not quite there." Cycle lows sit
+        near 0.1, and his sell zone is 0.5–0.6. Portfolio impact: under ~0.2 = accumulate; over 0.5 = start selling.</b></span></button></div>
+        <div class="val">0.20 <span class="ok">low risk</span></div>
+        <div class="bar risk"><div class="fill"></div><div class="pin" style="left:20%"></div>
+          <div class="pin" style="left:50%;background:var(--red)"></div></div>
+        <div class="scale"><span>0.1 bottoms</span><span>0.5–0.6 sell</span><span>1.0</span></div>
+        <div class="note">Close to bottom territory — not quite there.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip itc">Cryptoverse</span></div></div>
+
+      <div class="metric"><div class="label">Cheap or overheated? (MVRV)
+        <button class="q">?<span class="tip">Compares today's price to what everybody actually paid on average. Low = cheap
+        relative to its own history; high = stretched and top-ish. <b>Live reads: 0.25–0.32 versus a historical average of
+        1.71, and this cycle only "topped out at around three." Cowen's bottom trigger is this going BELOW zero, which
+        hasn't happened yet.</b></span></button></div>
+        <div class="val">0.25 <span class="ok">cheap</span></div>
+        <div class="bar mvrv"><div class="fill"></div><div class="pin" style="left:19%"></div>
+          <div class="pin" style="left:52%;background:var(--amber)"></div></div>
+        <div class="scale"><span>below 0 = bottom</span><span>avg 1.71</span><span>top zone</span></div>
+        <div class="note">Far from cycle-top valuations; bottom trigger not yet hit.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">Who's holding at a loss?
+        <button class="q">?<span class="tip">What share of all coins are worth more than their owner paid. <b>Cowen's bottom
+        flag: the bear market has historically ended when the "in profit" and "in loss" lines CROSS — roughly 50/50. Today
+        it's 74.3% in profit, 25.7% in loss, so they haven't crossed. Portfolio impact: more pain is available before a
+        textbook bottom.</b></span></button></div>
+        <div class="val">74.3<span class="unit">% in profit</span></div>
+        <div class="bar profit"><div class="fill"></div><div class="pin" style="left:50%;background:var(--amber)"></div></div>
+        <div class="scale"><span>50/50 = bear over</span><span>100% profit</span></div>
+        <div class="note">Lines haven't crossed — a true bottom flag hasn't fired.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip itc">Cryptoverse</span></div></div>
+
+      <div class="metric"><div class="label">Who's giving up? (holder stress)
+        <button class="q">?<span class="tip">Whether the average holder is in profit or loss, split between recent buyers and
+        long-timers. <b>CCI's read: recent buyers are down 56% while long-term holders are near zero — "pain is targeted,
+        weak hands exiting, long-term holders still holding up." Weak hands puking is buyable; long-term holders giving up
+        (this under −0.3) is the real danger sign, with past capitulations at −0.4.</b></span></button></div>
+        <div class="val">−0.14 <span class="warnc">mild stress</span></div>
+        <div class="bar nupl"><div class="fill"></div><div class="pin" style="left:35%"></div>
+          <div class="pin" style="left:14%;background:var(--red)"></div></div>
+        <div class="scale"><span>−0.4 capitulation</span><span>−0.3 danger</span><span>0 breakeven</span></div>
+        <div class="note">Weak hands hurting; long-term holders unbothered.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">Trending or snapping back? (Hurst)
+        <button class="q">?<span class="tip">Giovanni's "is this move real" filter. It asks whether price is currently
+        <b>trending</b> (moves keep going) or <b>mean-reverting</b> (moves snap back to fair value). Above 0.5 = trending,
+        below 0.5 = snap-back, 0.5 = coin flip. <b>Portfolio impact: he uses it to confirm the other signals — a buy signal
+        during a trending regime has far better odds than one during chop.</b></span></button></div>
+        <div class="val">0.58 <span class="ok">trending</span></div>
+        <div class="bar hurst"><div class="fill"></div><div class="pin" style="left:58%"></div>
+          <div class="pin" style="left:50%;background:var(--ink3)"></div></div>
+        <div class="scale"><span>snap-back</span><span>0.5 random</span><span>trending</span></div>
+        <div class="note">Moves have follow-through — signals are worth more right now.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip gio">Giovanni &amp; Saverio</span></div></div>
+
+      <div class="metric"><div class="label">One-year return
+        <button class="q">?<span class="tip">What Bitcoin has done over the trailing twelve months. <b>Cowen watches this
+        for capitulation: it's at 0.589 and he wants to see it "drop below 0.4 or so, maybe 0.3" before calling a real
+        bottom. Portfolio impact: a still-positive yearly return means the market hasn't fully given up yet.</b></span></button></div>
+        <div class="val">0.59 <span class="warnc">not capitulated</span></div>
+        <div class="bar roi"><div class="fill"></div><div class="pin" style="left:59%"></div>
+          <div class="pin" style="left:40%;background:var(--green)"></div></div>
+        <div class="scale"><span>0.3 target</span><span>0.4</span><span>today 0.59</span></div>
+        <div class="note">Wants to go lower before the all-clear.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span></div></div>
+    </div></details>
+
+    <details class="group"><summary><h3>🔄 Is it alt season yet?</h3>
+      <span class="gstat a">not yet — Bitcoin first</span>
+      <span class="why">when to rotate out of Bitcoin into smaller coins</span>
+      <span class="toggle"></span></summary>
+      <div class="gsum">CCI's alt-season rule needs <b>two things at once</b>: Bitcoin's share falling AND the small-coin
+        market rising. Neither has flipped. Cowen's honest version of dominance (stablecoins removed) says alts have
+        <b>never stopped losing</b> — and CCI's own audit found their alt picks lost to simply holding Bitcoin 75% of the
+        time. Translation: keep alt bets small.</div>
+    <div class="grid">
+
+      <div class="metric"><div class="label">Bitcoin's shadow (dominance)
+        <button class="q">?<span class="tip">What share of all crypto money is parked in Bitcoin. High = everyone hiding in
+        BTC. When it starts falling, money rotates into smaller coins. <b>CCI's rule: only get aggressive on alts AFTER
+        Bitcoin leads and this rolls over.</b></span></button></div>
+        <div class="val">High <span class="warnc">elevated</span></div>
+        <div class="bar dom"><div class="fill"></div><div class="pin" style="left:72%"></div></div>
+        <div class="scale"><span>alt season</span><span>BTC hogging</span></div>
+        <div class="note">Money hiding in Bitcoin — alts wait their turn.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">Dominance, stablecoins removed
+        <button class="q">?<span class="tip">Bitcoin's share calculated with Tether-type coins taken out of the maths.
+        <b>Cowen's point: the plain number lies when new stablecoins are being minted. His honest version reads 67% (peak
+        ~70%) and "it's actually never stopped going up." Portfolio impact: as long as this keeps rising, alt-coins are
+        still losing ground no matter what the headline dominance chart says.</b></span></button></div>
+        <div class="val">67<span class="unit">% and rising</span></div>
+        <div class="bar domx"><div class="fill"></div><div class="pin" style="left:67%"></div></div>
+        <div class="scale"><span>alts winning</span><span>BTC winning</span></div>
+        <div class="note">The honest read: alts still losing.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip itc">Cryptoverse</span></div></div>
+
+      <div class="metric"><div class="label">Cash on the sidelines (stablecoins)
+        <button class="q">?<span class="tip">How much of all crypto money is parked in stablecoins — basically dollars
+        waiting. When this share <b>falls</b>, that cash is moving into coins (risk-on). Rising = running to safety.
+        <b>Cowen tracked it breaking out from ~8.5% toward 12–13%; CCI watches the same thing as "USDT dominance."</b></span></button></div>
+        <div class="val">12.5<span class="unit">% parked</span></div>
+        <div class="bar stbl"><div class="fill"></div><div class="pin" style="left:72%"></div></div>
+        <div class="scale"><span>cash deploying</span><span>hiding in cash</span></div>
+        <div class="note">Lots of money still sitting out — that's dry powder, and caution.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cow">Ben Cowen</span><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">The small-coin market (TOTAL3)
+        <button class="q">?<span class="tip">The combined value of every coin except Bitcoin and Ethereum — "the alt market."
+        <b>CCI's alt-season trigger, in their own words: "when BTC.D is in a clear downtrend AND TOTAL3 is uptrending."
+        Both conditions together = green light to rotate; one alone = stay patient.</b></span></button></div>
+        <div class="val">$382B <span class="badc">downtrend</span></div>
+        <div class="bar total3"><div class="fill"></div><div class="pin" style="left:30%"></div></div>
+        <div class="scale"><span>falling</span><span>breaking out</span></div>
+        <div class="note">Still sliding — half the trigger is missing.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span><span class="srcchip cow">Ben Cowen</span></div></div>
+
+      <div class="metric"><div class="label">Is your coin beating Bitcoin?
+        <button class="q">?<span class="tip">Whether a coin is rising <b>faster than Bitcoin</b>, not just rising in dollars.
+        CCI calls this the single biggest edge: "if you have a very strong understanding of how the pair charts work, it is
+        your edge — you are ahead of 99.9% of investors." <b>Cowen's version tracks the top-100 advance/decline, which has
+        trended down since 2021. If your alt isn't beating BTC, you'd have been better off just holding BTC.</b></span></button></div>
+        <div class="val">2 of 12 <span class="badc">beating BTC</span></div>
+        <div class="bar pair"><div class="fill"></div><div class="pin" style="left:33%"></div></div>
+        <div class="scale"><span>losing to BTC</span><span>beating BTC</span></div>
+        <div class="note">Almost nothing is outrunning Bitcoin — a BTC-first market.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span><span class="srcchip cow">Ben Cowen</span></div></div>
+    </div></details>
+
+    <details class="group"><summary><h3>💵 The backdrop — the money behind everything</h3>
+      <span class="gstat g">supportive</span>
+      <span class="why">why dollars flow into crypto at all</span>
+      <span class="toggle"></span></summary>
+    <div class="grid">
+
+      <div class="metric"><div class="label">Money in the system (liquidity)
+        <button class="q">?<span class="tip">How much new money is sloshing around the world economy. <b>Todaro's #1 named
+        reason dollars flow into Bitcoin: "you need the money flowing in… global liquidity increasing." Giovanni built a
+        model of the same thing — when price sits ABOVE his liquidity line there isn't enough fuel and a correction is
+        likely; below it, Bitcoin is undervalued and tends to catch up.</b></span></button></div>
+        <div class="val"><span class="ok">Expanding</span></div>
+        <div class="bar liq"><div class="fill"></div><div class="pin" style="left:64%"></div></div>
+        <div class="scale"><span>drying up</span><span>flooding in</span></div>
+        <div class="note">Tailwind — and price is below the fuel line, not ahead of it.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip tod">The Todaros</span><span class="srcchip gio">Giovanni</span><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">The US dollar (DXY)
+        <button class="q">?<span class="tip">How strong the US dollar is against other currencies. It moves opposite to
+        Bitcoin — a strong dollar drains money out of crypto. <b>CCI, verbatim: "you could almost just have the DXY chart up
+        and this would tell you 90% of what you want to know." Portfolio impact: dollar making new highs usually means
+        crypto is in a bear market.</b></span></button></div>
+        <div class="val">Soft <span class="ok">good for crypto</span></div>
+        <div class="bar dxy"><div class="fill"></div><div class="pin" style="left:44%"></div></div>
+        <div class="scale"><span>weak dollar</span><span>strong = pressure</span></div>
+        <div class="note">Not fighting us right now.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span><span class="srcchip itc">Cryptoverse</span></div></div>
+
+      <div class="metric"><div class="label">Interest rates (10-year yield)
+        <button class="q">?<span class="tip">What the US government pays to borrow money for ten years — the benchmark for
+        "safe" returns everywhere. When it rises, money leaves risky things like crypto for guaranteed interest.
+        <b>CCI: "yields are the key dominant" and a raging dollar plus yields "act like a liquidity suck."</b></span></button></div>
+        <div class="val">Neutral <span class="warnc">watching</span></div>
+        <div class="bar yield"><div class="fill"></div><div class="pin" style="left:52%"></div></div>
+        <div class="scale"><span>falling = fuel</span><span>rising = drain</span></div>
+        <div class="note">Middle of the road — no pressure either way.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">Wall Street buying (ETF flows)
+        <button class="q">?<span class="tip">Whether the big banks — BlackRock and friends — are actively selling crypto to
+        their clients. <b>Todaro counts this as a real dollar-inflow driver, not a story: "BlackRock offering it to clients
+        and marketing" creates a permanent new buyer base. CCI's read: "outflows easing and demand slowly
+        returning."</b></span></button></div>
+        <div class="val">+$312M <span class="ok">inflow</span></div>
+        <div class="bar etf"><div class="fill"></div><div class="pin" style="left:62%"></div></div>
+        <div class="scale"><span>selling out</span><span>buying in</span></div>
+        <div class="note">Institutions net buyers this week.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip tod">The Todaros</span><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">Inflation (core, not headline)
+        <button class="q">?<span class="tip">How fast everyday prices are rising, with food and fuel stripped out. Hot
+        inflation makes central banks tighten, which drains the liquidity crypto runs on. <b>Todaro's flag: "if inflation
+        comes in hot could be bad." CCI's refinement: "core inflation is probably a better one to look at than
+        CPI."</b></span></button></div>
+        <div class="val">2.9% <span class="ok">cool</span></div>
+        <div class="bar cpi"><div class="fill"></div><div class="pin" style="left:35%"></div></div>
+        <div class="scale"><span>cool</span><span>hot = trouble</span></div>
+        <div class="note">Nothing forcing the Fed's hand.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip tod">The Todaros</span><span class="srcchip cci">CCI</span></div></div>
+
+      <div class="metric"><div class="label">Rules &amp; politics
+        <button class="q">?<span class="tip">Is the government cheering crypto on or threatening to clamp down? Bull case
+        Todaro names: "a sitting president shilling it." Bear case he models: a forced shutdown — "no trading on Coinbase
+        for 30 days" — which de-heats the market instantly. <b>This is the black-swan watch, not a daily signal.</b></span></button></div>
+        <div class="val"><span class="ok">Supportive</span></div>
+        <div class="bar pol"><div class="fill"></div><div class="pin" style="left:68%"></div></div>
+        <div class="scale"><span>crackdown</span><span>cheering it on</span></div>
+        <div class="note">Friendly backdrop — watch for bill votes.</div>
+        <div class="src"><b>Watched by</b><br><span class="srcchip tod">The Todaros</span></div></div>
+    </div></details>
+
+    <details class="group"><summary><h3>📋 Everything else we track</h3>
+      <span class="gstat g" id="catCount">34 more</span>
+      <span class="why">every other metric your sources actually use, in their own words</span>
+      <span class="toggle"></span></summary>
+      <div class="gsum">The gauges above are the ones that change decisions most days. These are the rest — pulled from your
+        sources' own transcripts, newsletters and posts. Anything here can be promoted to a gauge; say the word.</div>
+      <div style="overflow-x:auto"><table class="cattable" id="cattable"></table></div>
+    </details>
+
+    <div style="color:var(--ink3);font-size:12px;margin-top:16px"><span data-live="reporting">Based on 99 of 108 accounts reporting</span>
+      <button class="q">?<span class="tip">The scraper doesn't run every single day, so all "week" and "month" math on this
+      page is scaled to the days actually captured — comparisons stay fair.</span></button>
+      <br><br><b style="color:var(--ink3)">WHO WE LISTEN TO:</b>
+      <span class="srcchip cci">CCI</span> Crypto Consulting Institute (paid advisory) ·
+      <span class="srcchip tod">The Todaros</span> Joe Todaro / Greymatter (macro &amp; market cap) ·
+      <span class="srcchip cous">Cousin Crypto</span> funding &amp; meme momentum ·
+      <span class="srcchip gio">Power Law</span> Giovanni &amp; Saverio Santostasi ·
+      <span class="srcchip cow">Ben Cowen</span> on-chain risk &amp; regime bands ·
+      <span class="srcchip itc">Cryptoverse</span> the daily chart roster ·
+      <span class="srcchip sys">Signal System</span> our own hand-picked account tracker</div>
+  </div>
+
+  <!-- ==================== STEP 2 ==================== -->
+  <div class="step s2">
+    <div class="eyebrow">Step 2 · Your Portfolio</div>
+    <h2>Upload your portfolio. Get your sell timeline.</h2>
+    <p class="sub">Nothing here until you upload — then this section fills in with a timeline for every coin you own.</p>
+
+    <div class="drop" id="drop">
+      <div class="big">📸</div>
+      <h3>Drop a screenshot here — or click to choose one</h3>
+      <p>Blockfolio, CoinStats, Coinbase, anything. Make sure your screenshot shows
+      <b>how much of each coin you have, when you bought it, and your purchase price.</b></p>
+      <button class="upbtn" type="button" id="pick">⬆ Choose screenshot</button>
+      <input type="file" id="file" accept="image/*" class="hidden">
+      <br><button class="ghost" type="button" id="manual">…or type it in by hand instead</button>
+      <img id="shot" class="shot" alt="your screenshot">
+    </div>
+
+    <div class="working" id="working"><div class="spin"></div><div id="workTxt">Reading your screenshot…</div></div>
+
+    <div class="confirm" id="confirm">
+      <h3>✓ Here's what we read — fix anything that's wrong</h3>
+      <p class="sub" style="font-size:13.5px">Reading screenshots isn't perfect. Check each line, then add today's price if you
+      want the "you are here" marker on your timeline.</p>
+      <table class="rows">
+        <thead><tr><th>Coin</th><th>How much</th><th>Price you paid</th><th>Date bought</th><th>Price now (optional)</th><th></th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="neednote" id="neednote"></div>
+      <button class="ghost" type="button" id="addrow">+ Add another coin</button>
+      <div class="ladderkey">
+        <span class="lk">Your sell rule: <b>2× → sell 20%</b></span>
+        <span class="lk"><b>3× → sell 25%</b></span>
+        <span class="lk"><b>5× → sell 30%</b> (75% out by here)</span>
+        <span class="lk"><b>7× → sell the rest</b></span>
+        <span class="lk" style="border-color:rgba(239,68,68,.5)">Down 50% → <b style="color:var(--red-b)">sell 100%</b></span>
+      </div>
+    </div>
+
+    <div id="timelines"></div>
+    <div class="alllist hidden" id="alllist"></div>
+  </div>
+
+  <!-- ==================== STEP 3 ==================== -->
+  <div class="step s3">
+    <div class="eyebrow">Step 3 · What's Hot</div>
+    <h2>What our hand-picked Twitter accounts are saying</h2>
+
+    <div class="topplay">
+      <div class="ring big"><i>6/10</i></div>
+      <div class="tpbody">
+        <div class="tplabel">🏆 Today's top-scored play
+          <button class="q">?<span class="tip">The robot grades every coin it hears about 0–10, using four things: how many
+          accounts are talking, whether that count is growing, the mood of the posts, and borrowing heat.
+          <b>Portfolio impact: 7 or higher is a strong setup worth real money. Under 7 means watch it, don't buy
+          yet.</b></span></button></div>
+        <div class="tpcoin">$HYPE <span class="chip a">score 6/10</span> <span class="chip v">13 accounts today</span></div>
+        <div class="tpverdict">"Watch this week. <span style="color:var(--ink3)">Not ready for money yet.</span>"</div>
+      </div>
+    </div>
+
+    <div class="explainer">
+      <p><b>What this is, in one paragraph:</b> we built a robot that reads Twitter/X every single day for us. It watches
+      about <b>150 hand-picked crypto accounts</b> — traders and analysts we actually respect — and counts every coin they
+      mention. Then it hands us a summary of what's bubbling up.</p>
+      <p style="margin-top:8px">Why counting works: <b>one person hyping a coin means nothing. Twenty of them, in the same
+      week, means something is happening.</b> So we sort everything into three buckets by how long the buzz has lasted:</p>
+      <div class="buckets">
+        <div class="bkt"><b>🌱 Brand new</b><span>Nobody has said a word about it for a month — and today somebody did.</span></div>
+        <div class="bkt"><b>📈 About a week of buzz</b><span>A real cluster of accounts has picked it up over the past 7 days.</span></div>
+        <div class="bkt"><b>🔥 Talked about constantly</b><span>It keeps coming up, week after week, from lots of different accounts.</span></div>
+      </div>
+      <p style="margin-top:10px;font-size:14px;color:var(--ink3)">Brand new = highest risk, earliest look. Constant talk =
+      safest attention, but you're late to it. The sweet spot is usually the middle bucket.</p>
+    </div>
+    <p class="sub" style="margin-top:14px" data-live="watch"></p>
+    <div class="legend">How to read a card: coin · score · mood bar · one bar per day for a month
+      <button class="q">?<span class="tip">Score: our robot grades each coin 0–10 (7+ = strong). Mood bar: green share =
+      hopeful posts, red = worried. Bars: taller = more accounts talking that day, amber = today, dots = days the robot
+      didn't run. <b>Rising bars + green mood + high score is the strongest combo.</b></span></button>
+    </div>
+
+    <div id="sections"></div>
+  </div>
+
+  <!-- ==================== STEP 4 ==================== -->
+  <div class="step s4">
+    <div class="eyebrow">Step 4 · The Proof</div>
+    <h2>In their own words</h2>
+    <p class="sub">Real posts from today — judge the vibe yourself instead of trusting our summary.</p>
+    <div id="receipts"></div>
+  </div>
+
+  <footer class="footer">
+    <b>New stuff worth knowing (from digging through your folders):</b><br>
+    • <b>Giovanni's Power Law Clock</b> is the single best thing I found — the 4-year cycle as a clock face (3:00 = bottom,
+      12:00 = top). His dated readings let us compute it live. Right now it reads about <b>1:40 — just past the top</b>.<br>
+    • <b>Todaro thinks in market cap, not price.</b> His sell plan is $2.5T trim → $5T → $6T → out by $7T. Nobody else on your
+      list works that axis.<br>
+    • <b>CCI's own audit is brutal and useful:</b> their sell/avoid calls are right 69% of the time, but their alt <i>buys</i>
+      lost to just holding Bitcoin ~75% of the time. So the page leans on their risk rules, not their picks.<br>
+    • <b>Two folders are empty or useless</b> — <code>Data Sources/Todaros/</code> has zero files (the good stuff is in
+      TODARO CRYPTO DATA), <code>Data Sources/Giovanni/</code> is empty, and <b>Crypto Moon Crew</b> is beginner TA course
+      material with no usable metrics. Cryptoverse gives us the chart list but no numbers (images only).<br><br>
+    <b>What I need from you:</b> ① confirm the ladder percentages (2×→20%, 3×→25%, 5×→30%, 7×→rest) · ② say <b>"build it"</b>
+    and this becomes the live daily report · ③ optional: want a Moon Crew data dump so they earn a tile, and should I OCR
+    Cryptoverse's chart images for live values?
+    <br><br><b>Tokens this task:</b> ~700k (4 research agents + build) · <b>Rough cost:</b> ~$12–15
+  </footer>
+</div>
+
+<script>
+function tryPw(){
+  var v = document.getElementById('pw').value.trim().toUpperCase();
+  if (v === 'WALDO') { try{ sessionStorage.setItem('waldo_ok','1'); }catch(e){} openApp(); }
+  else document.getElementById('pwErr').style.display = 'block';
+}
+function openApp(){
+  document.getElementById('gate').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+}
+document.getElementById('pw').addEventListener('keydown', function(e){ if (e.key === 'Enter') tryPw(); });
+try{ if (sessionStorage.getItem('waldo_ok') === '1') openApp(); }catch(e){}
+</script>
+
+<script>
+const DATA = {"date": "2026-06-25", "stats": {"accounts": "99/108", "tickers": "119", "lookback": "7/7", "baseline": "105"}, "takeaway": "Watch $SPCX, $MU, $MSTR \u2014 accounts are mentioning these for the first time in 6 months. $ETH, $TAO, $CL showing building momentum with increasing account counts over the past week.", "tracked": 105, "sent": {"SPCX": {"label": "mixed", "bull": 7, "bear": 4}, "MU": {"label": "mixed", "bull": 4, "bear": 2}, "MSTR": {"label": "mixed", "bull": 5, "bear": 5}, "STRC": {"label": "bullish", "bull": 4, "bear": 1}, "CARDS": {"label": "bullish", "bull": 2, "bear": 0}, "DRAM": {"label": "bullish", "bull": 3, "bear": 0}, "SOL": {"label": "mixed", "bull": 3, "bear": 5}, "BTC": {"label": "mixed", "bull": 26, "bear": 35}, "NBIS": {"label": "bullish", "bull": 4, "bear": 0}, "SNDK": {"label": "bullish", "bull": 2, "bear": 0}, "SYN": {"label": "bullish", "bull": 2, "bear": 0}, "BB": {"label": "mixed", "bull": 3, "bear": 2}, "AAPL": {"label": "bullish", "bull": 1, "bear": 0}, "USDT": {"label": "mixed", "bull": 1, "bear": 1}, "USDC": {"label": "bullish", "bull": 1, "bear": 0}, "LIT": {"label": "bearish", "bull": 0, "bear": 1}, "ZEC": {"label": "bullish", "bull": 3, "bear": 1}, "HYPE": {"label": "bullish", "bull": 7, "bear": 3}, "XPL": {"label": "mixed", "bull": 1, "bear": 1}, "AAVE": {"label": "bearish", "bull": 0, "bear": 1}, "WLD": {"label": "bullish", "bull": 4, "bear": 0}, "JTO": {"label": "bullish", "bull": 4, "bear": 0}, "ETH": {"label": "bullish", "bull": 11, "bear": 1}, "TAO": {"label": "bullish", "bull": 4, "bear": 0}, "CL": {"label": "neutral", "bull": 0, "bear": 0}, "DXY": {"label": "bullish", "bull": 3, "bear": 0}}, "tiers": {"month": [{"t": "BTC", "days": [30, 0, 32, 0, 0, 0, 35, 0, 36, 33, 34, 0, 35, 35, 31, 28, 27, 0, 0, 29, 30, 0, 34, 31, 30, 29, 30, 29, 30, 32], "acc7": 39, "acc30": 51, "acc30_repeat": 49, "today": 32}, {"t": "HYPE", "days": [18, 0, 19, 0, 0, 0, 17, 0, 19, 16, 18, 0, 20, 15, 11, 12, 12, 0, 0, 12, 21, 0, 19, 16, 15, 14, 14, 11, 10, 12], "acc7": 18, "acc30": 38, "acc30_repeat": 35, "today": 12}, {"t": "ZEC", "days": [12, 0, 12, 0, 0, 0, 9, 0, 9, 23, 22, 0, 20, 17, 17, 11, 11, 0, 0, 12, 12, 0, 9, 9, 8, 8, 7, 5, 4, 5], "acc7": 9, "acc30": 32, "acc30_repeat": 32, "today": 5}, {"t": "ETH", "days": [16, 0, 17, 0, 0, 0, 17, 0, 17, 15, 17, 0, 13, 13, 9, 12, 11, 0, 0, 12, 12, 0, 9, 13, 14, 12, 11, 11, 12, 12], "acc7": 17, "acc30": 31, "acc30_repeat": 31, "today": 12}, {"t": "SPCX", "days": [2, 0, 2, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 3, 2, 5, 15, 0, 0, 14, 18, 0, 16, 15, 13, 10, 10, 15, 13, 11], "acc7": 21, "acc30": 30, "acc30_repeat": 28, "today": 11}, {"t": "SOL", "days": [7, 0, 9, 0, 0, 0, 12, 0, 14, 17, 15, 0, 18, 18, 14, 14, 10, 0, 0, 10, 8, 0, 8, 9, 11, 11, 10, 14, 14, 15], "acc7": 22, "acc30": 29, "acc30_repeat": 27, "today": 15}], "week": [{"t": "STRC", "days": [1, 0, 1, 0, 0, 0, 1, 0, 3, 3, 4, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 12, 14, 12, 11, 8, 7, 7, 8], "acc7": 15, "acc30": 18, "acc30_repeat": 16, "today": 8}, {"t": "MSTR", "days": [4, 0, 5, 0, 0, 0, 5, 0, 5, 5, 7, 0, 6, 6, 7, 6, 6, 0, 0, 6, 4, 0, 6, 5, 5, 4, 5, 4, 10, 11], "acc7": 14, "acc30": 20, "acc30_repeat": 15, "today": 11}, {"t": "MU", "days": [5, 0, 2, 0, 0, 0, 3, 0, 1, 2, 3, 0, 3, 2, 4, 3, 4, 0, 0, 3, 3, 0, 5, 4, 5, 5, 6, 6, 6, 9], "acc7": 10, "acc30": 14, "acc30_repeat": 11, "today": 9}, {"t": "XRP", "days": [2, 0, 3, 0, 0, 0, 2, 0, 3, 4, 5, 0, 4, 5, 3, 4, 4, 0, 0, 4, 4, 0, 3, 4, 3, 3, 4, 2, 3, 4], "acc7": 7, "acc30": 9, "acc30_repeat": 7, "today": 4}, {"t": "DOGE", "days": [3, 0, 5, 0, 0, 0, 2, 0, 4, 3, 3, 0, 4, 3, 3, 4, 5, 0, 0, 4, 3, 0, 4, 4, 4, 4, 4, 3, 2, 2], "acc7": 6, "acc30": 10, "acc30_repeat": 9, "today": 2}, {"t": "DXY", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 0, 0, 0, 0, 0, 1, 2, 0, 2, 1, 2, 2, 2], "acc7": 6, "acc30": 6, "acc30_repeat": 4, "today": 2}, {"t": "NEAR", "days": [10, 0, 9, 0, 0, 0, 8, 0, 5, 6, 6, 0, 8, 6, 5, 5, 4, 0, 0, 5, 3, 0, 5, 2, 3, 5, 4, 3, 1, 0], "acc7": 5, "acc30": 14, "acc30_repeat": 13, "today": 0}, {"t": "WLD", "days": [3, 0, 2, 0, 0, 0, 4, 0, 5, 4, 6, 0, 7, 5, 4, 5, 5, 0, 0, 6, 8, 0, 6, 5, 5, 3, 3, 2, 3, 2], "acc7": 5, "acc30": 11, "acc30_repeat": 9, "today": 2}, {"t": "DRAM", "days": [2, 0, 1, 0, 0, 0, 1, 0, 2, 2, 2, 0, 2, 1, 2, 2, 1, 0, 0, 1, 2, 0, 1, 2, 2, 3, 3, 3, 3, 3], "acc7": 5, "acc30": 6, "acc30_repeat": 5, "today": 3}, {"t": "CARDS", "days": [2, 0, 4, 0, 0, 0, 4, 0, 3, 3, 3, 0, 3, 2, 2, 2, 2, 0, 0, 1, 2, 0, 2, 2, 2, 2, 2, 2, 4, 3], "acc7": 4, "acc30": 8, "acc30_repeat": 7, "today": 3}, {"t": "LIT", "days": [1, 0, 1, 0, 0, 0, 1, 0, 2, 4, 3, 0, 3, 5, 2, 1, 2, 0, 0, 1, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3], "acc7": 4, "acc30": 7, "acc30_repeat": 6, "today": 3}, {"t": "TAO", "days": [3, 0, 2, 0, 0, 0, 1, 0, 1, 2, 1, 0, 2, 1, 1, 1, 0, 0, 0, 5, 3, 0, 3, 3, 3, 3, 3, 3, 3, 4], "acc7": 4, "acc30": 7, "acc30_repeat": 6, "today": 4}, {"t": "USDT", "days": [1, 0, 1, 0, 0, 0, 0, 0, 3, 3, 3, 0, 3, 1, 2, 2, 0, 0, 0, 2, 3, 0, 2, 2, 2, 2, 3, 1, 2, 3], "acc7": 4, "acc30": 6, "acc30_repeat": 5, "today": 3}, {"t": "XPL", "days": [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 4, 4, 4, 2, 3, 2, 2, 3], "acc7": 4, "acc30": 5, "acc30_repeat": 4, "today": 3}, {"t": "USDC", "days": [0, 0, 1, 0, 0, 0, 1, 0, 2, 2, 2, 0, 1, 2, 2, 1, 1, 0, 0, 1, 2, 0, 1, 2, 3, 2, 2, 1, 1, 2], "acc7": 3, "acc30": 4, "acc30_repeat": 4, "today": 2}, {"t": "NBIS", "days": [0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 2, 0, 2, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 2, 2, 1, 2, 2, 2], "acc7": 3, "acc30": 3, "acc30_repeat": 3, "today": 2}, {"t": "BNB", "days": [0, 0, 0, 0, 0, 0, 2, 0, 3, 3, 2, 0, 3, 4, 2, 3, 3, 0, 0, 3, 2, 0, 3, 3, 2, 2, 3, 1, 0, 1], "acc7": 3, "acc30": 5, "acc30_repeat": 3, "today": 1}, {"t": "SNDK", "days": [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 2, 0, 3, 2, 3, 3, 2, 2, 2, 2], "acc7": 3, "acc30": 6, "acc30_repeat": 4, "today": 2}, {"t": "JTO", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 2, 4, 0, 3, 3, 3, 2, 2, 2, 3, 2], "acc7": 3, "acc30": 4, "acc30_repeat": 4, "today": 2}], "today": [{"t": "SYN", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2], "acc7": 2, "acc30": 2, "acc30_repeat": 0, "today": 2}, {"t": "ETHUSD", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "DOG", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "BUTTCOIN", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "GLW", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "RBLX", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "RLUSD", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "TNGX", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "DJIA", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "US5", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "WTI", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "USO", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}, {"t": "BRAWL", "days": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "acc7": 1, "acc30": 1, "acc30_repeat": 0, "today": 1}]}, "quotes": {"TROLL": [{"a": "@CrashiusClay69", "q": "RT @JakeGagain: $TROLL: The Next BIG Memecoin On $SOL. @Beeple @CrashiusClay69 @ElonMusk @Troll_ https://t.co/JtQYJU3MUK"}], "SOL": [{"a": "@CrashiusClay69", "q": "RT @JakeGagain: $TROLL: The Next BIG Memecoin On $SOL. @Beeple @CrashiusClay69 @ElonMusk @Troll_ https://t.co/JtQYJU3MUK"}, {"a": "@trader1sz", "q": "RT @trader1sz: $SOL - lows look too clean. i'd be surprised if they dont take out blue box. same for btc lows. very clean hardly and spike\u2026"}], "WOJAK": [{"a": "@CrashiusClay69", "q": "RT @brozinkerbell: $Wojak on Ethereum is the chosen one, destined to reach 10B+ There is an overwhelming amount of evidence to show that\u2026"}], "PEPE": [{"a": "@CrashiusClay69", "q": "RT @JakeGagain: $WOJAK: The $PEPE Of This Cycle?! @BinanceUS @Ethereum @WojakCTO https://t.co/X3CbFBMgvB"}, {"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "USDT": [{"a": "@CrashiusClay69", "q": "RT @BinanceUS: The @BinanceUS x @wojakcto BOOST event is live! \ud83c\uddfa\ud83c\uddf8 Earn your share of ~$100K $WOJAK: \ud83d\udd38 Add $USDT, $USDC, or $USD1 to the e\u2026"}, {"a": "@CryptoTony__", "q": "$USDT Dominance - Update Still counting on this bigger dump on the USDT chart. Would enable a relief wave on Bitcoin https://t.co/WhA9dn4vqK"}], "USDC": [{"a": "@CrashiusClay69", "q": "RT @BinanceUS: The @BinanceUS x @wojakcto BOOST event is live! \ud83c\uddfa\ud83c\uddf8 Earn your share of ~$100K $WOJAK: \ud83d\udd38 Add $USDT, $USDC, or $USD1 to the e\u2026"}, {"a": "@CJ900X", "q": "$USDT.D + $USDC.D https://t.co/0vjgDh57hz"}], "USD1": [{"a": "@CrashiusClay69", "q": "RT @BinanceUS: The @BinanceUS x @wojakcto BOOST event is live! \ud83c\uddfa\ud83c\uddf8 Earn your share of ~$100K $WOJAK: \ud83d\udd38 Add $USDT, $USDC, or $USD1 to the e\u2026"}], "EURUSD": [{"a": "@trader1sz", "q": "I have started to build a swing long on $EURUSD will add if it pulls lower at around 1.1275 https://t.co/75hW21F4Pb"}], "BTC": [{"a": "@trader1sz", "q": "RT @trader1sz: got my eye on 56166 as next key level $BTC https://t.co/sZY22B696I"}, {"a": "@blknoiz06", "q": "generational bottom on $BTC"}], "DXY": [{"a": "@trader1sz", "q": "RT @trader1sz: $DXY - if this triggers (arrow) then i think $BTC bottom is in correlations usually kick in when its about to make a swing\u2026"}, {"a": "@IncomeSharks", "q": "$DXY - US dollar showing a lot of strength here. https://t.co/JUfLH6SJIs"}], "ETHUSD": [{"a": "@trader1sz", "q": "imagine the smell $ETHUSD https://t.co/yXdjKXzKro"}], "TRUMP": [{"a": "@trader1sz", "q": "$TRUMP holders donating nicely to Trump family"}], "CL": [{"a": "@trader1sz", "q": "RT @trader1sz: That\u2019ll do \ud83e\udd1d $CL https://t.co/rNBS8CbDVd"}, {"a": "@52kskew", "q": "$CL 4H Probably going to see a tag of the 1D 200EMA later, hasn't been tested since $58 https://t.co/5aclqeTbRU"}], "CIFR": [{"a": "@cousincrypt0", "q": "$CIFR $40 https://t.co/0qHB8ANxmD"}], "DOG": [{"a": "@TheCryptoDog", "q": "RT @CryptoDogHD: 100 SOL buy of $YZY by the $Dog team. Ye\u2019s stealth launch. 1+ year build. The front runs don\u2019t lie. Vision is clear.\u2026"}], "YZY": [{"a": "@TheCryptoDog", "q": "RT @CryptoDogHD: 100 SOL buy of $YZY by the $Dog team. Ye\u2019s stealth launch. 1+ year build. The front runs don\u2019t lie. Vision is clear.\u2026"}], "MU": [{"a": "@blknoiz06", "q": "if im right on this &amp; memory does not sustain the pump post $MU earnings then Q3 is going to be red and we will get discounts to buy everything, confirmed on price action beneath the lows pre-ER around $1050 mag7 still weak and still tr"}, {"a": "@ThinkingUSD", "q": "RT @SoskaKyle: So $MU's best customers will never pay higher than Q2 2026 prices for the next 5 years in exchange for the promise to pay at\u2026"}], "BUTTCOIN": [{"a": "@EricCryptoman", "q": "RT @_Shadow36: Such an absolutely free trade and narrative. As bitcoin and saylor continue to look like shit I think $buttcoin running wo\u2026"}], "MAGA": [{"a": "@EricCryptoman", "q": "\"AMERICA IS BACK\" RALLY STARTS TODAY &amp; the OG $AIB chilling @ $1.1m. \ud83c\uddfa\ud83c\uddf8 This is the start of the real rollout of the new slogan replacing \"Make America Great Again\" [As someone who faded $MAGA at 800k and watched it run to 800m] 0xB3A0F"}], "AIB": [{"a": "@EricCryptoman", "q": "\"AMERICA IS BACK\" RALLY STARTS TODAY &amp; the OG $AIB chilling @ $1.1m. \ud83c\uddfa\ud83c\uddf8 This is the start of the real rollout of the new slogan replacing \"Make America Great Again\" [As someone who faded $MAGA at 800k and watched it run to 800m] 0xB3A0F"}], "CARDS": [{"a": "@Bluntz_Capital", "q": "seeing $cards full send after seeing endless fud posts from sidelined copers over the last 24hrs is poetic https://t.co/v307oH4b4m"}, {"a": "@buyerofponzi", "q": "RT @Bluntz_Capital: its $cards"}], "SPCX": [{"a": "@VentureCoinist", "q": "RT @MarketBubble: SpaceX $SPCX ($2.7T) is now worth more than the entire crypto market ($2.3T)"}, {"a": "@elliotrades", "q": "Breather in the AI trade while $SPCX sucks all the air out of the room Everyone predicted this BUT I feel like the downside on parabolic tickers has been less severe than most anticipated $SNDK even crush ATH for $MU failed breakout but not"}], "MSTR": [{"a": "@SizeChad", "q": "When $MSTR goes to $25 I\u2019ll consider buying"}, {"a": "@CryptoKaleo", "q": "Enjoyed the conversation with the guys at Apyx about $STRC, $MSTR, Saylor, their stablecoin apxUSD and more. Didn\u2019t agree on most things outside of being bullish on Bitcoin long term, but managed to have a respectful conversation on a prett"}], "MANIFEST": [{"a": "@SizeChad", "q": "RT @CryptoGodJohn: Seeing massive wallets accumulate $MANIFEST at these levels This wallet has bought over $300k+ in the last few days Wh\u2026"}], "ETH": [{"a": "@coinmamba", "q": "Every time $ETH goes another $100 down, Vitalik fires someone from EF. I support this initiative.."}, {"a": "@RookieXBT", "q": "$ETH time"}], "LIT": [{"a": "@coinmamba", "q": "Wow. You could\u2019ve made 50% return just by following three easy steps in less than a month $LIT"}, {"a": "@AltcoinSherpa", "q": "The hard thing right now is that the best performing altcoins on the market are also the hardest to trade. $LIT $XPL and $GRASS have all given me insane mental illness trading them in the past. I legit hate trading each one of these for the"}], "ZEC": [{"a": "@coinmamba", "q": "People think it will be bullish for $ZEC if they conclude that no one exploited the infinite mint bug but I think it\u2019s even more bullish if it actually got exploited. Someone was able to mint an unlimited number of coins and it still did 10"}, {"a": "@RookieXBT", "q": "$hype $zec barbell for q2 really do be comfy"}], "STRC": [{"a": "@CryptoKaleo", "q": "$STRC already in the mid $70s wow https://t.co/MRKtLkIwTv"}, {"a": "@elliotrades", "q": "RT @ellioclips: Michael Saylor's $STRC is collapsing. Pio Vincenzo thinks there's no reason to worry. YET. \"Stretch is not a stablecoin.\u2026"}], "INTC": [{"a": "@elliotrades", "q": "AI Stocks continue to EXPLODE Models show there could still be 10X upside in key names Crypto enters its summer slumber while SOL attempts a revival Live w/ @ZeMariaMacedo $NBIS $MU $SNDK $DRAM $SOL $INTC https://t.co/vBNzpxtnXA"}], "NBIS": [{"a": "@elliotrades", "q": "AI Stocks continue to EXPLODE Models show there could still be 10X upside in key names Crypto enters its summer slumber while SOL attempts a revival Live w/ @ZeMariaMacedo $NBIS $MU $SNDK $DRAM $SOL $INTC https://t.co/vBNzpxtnXA"}, {"a": "@NachoTrades", "q": "Strong bounce off the lows $NBIS"}], "DRAM": [{"a": "@elliotrades", "q": "AI Stocks continue to EXPLODE Models show there could still be 10X upside in key names Crypto enters its summer slumber while SOL attempts a revival Live w/ @ZeMariaMacedo $NBIS $MU $SNDK $DRAM $SOL $INTC https://t.co/vBNzpxtnXA"}, {"a": "@NachoTrades", "q": "Bullish on memory but don\u2019t want to pick a single name? $DRAM gives you the whole complex in one ticker. SK hynix, Samsung, Micron, Sandisk, Seagate. It\u2019s an easy way to get exposure to names you otherwise can\u2019t easily buy if your brokerage"}], "SNDK": [{"a": "@elliotrades", "q": "AI Stocks continue to EXPLODE Models show there could still be 10X upside in key names Crypto enters its summer slumber while SOL attempts a revival Live w/ @ZeMariaMacedo $NBIS $MU $SNDK $DRAM $SOL $INTC https://t.co/vBNzpxtnXA"}, {"a": "@NachoTrades", "q": "Even though conditions in equities have been choppy, memory stocks and $NBIS have indeed been good stocks to DCA into in the last few weeks of big macro events (cpi, fomc, spcx launch). $DRAM $MU $SNDK are all pumping hard. $MU earnings nex"}], "GLW": [{"a": "@ShardiB2", "q": "$GLW Team Shardi play at $130 SKYROCKETING INTO THE BLUE SKIES TODAY https://t.co/27Ro69pY6K"}], "HYPE": [{"a": "@Trader_XO", "q": "$hype Back inside of value again - objective if this trades through the recent lows then I'd expect 59-61 to be the probabilistic level (certainly if btc exhibits weakness again next week) https://t.co/wte6Brw7W0"}, {"a": "@AltcoinSherpa", "q": "$HYPE the area to accumulate is still 60-50 imo. HyperLiquid https://t.co/ibUzmLlet7"}], "GRASS": [{"a": "@AltcoinSherpa", "q": "The hard thing right now is that the best performing altcoins on the market are also the hardest to trade. $LIT $XPL and $GRASS have all given me insane mental illness trading them in the past. I legit hate trading each one of these for the"}], "XPL": [{"a": "@AltcoinSherpa", "q": "The hard thing right now is that the best performing altcoins on the market are also the hardest to trade. $LIT $XPL and $GRASS have all given me insane mental illness trading them in the past. I legit hate trading each one of these for the"}, {"a": "@RektProof", "q": "$XPL Solid development Ideally take out the monthly NPOC at 0.12 and form a new range before another leg https://t.co/03cBtAdIrY"}], "JUP": [{"a": "@AltcoinSherpa", "q": "$JUP 1 of the stand out coins lately and holding up very strong. Not sure what's going on here and if there is some sort of announcement that's getting front ran but it's been very strong on a relative strength basis. Not in it currently bu"}], "SYN": [{"a": "@AltcoinSherpa", "q": "$SYN there's always a bull market somewhere...insane run for this one https://t.co/X1xUpr0bGQ"}, {"a": "@lookonchain", "q": "Someone created a new wallet, 0x2A32, and opened a 2x long on 3.46M $SYN($1.69M) on @Aster_DEX. In less than 2 days, the position is already up ~$662K. https://t.co/4qdcM9dCxV https://t.co/4hkSLSjgME"}], "AAVE": [{"a": "@AltcoinSherpa", "q": "standouts right now in crypto are: $GRASS (still jeety + sell pressure) $AAVE $XPL $LIT $JUP"}, {"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "NOCK": [{"a": "@Cryptopathic", "q": "RT @nockchain: Kraken is listing $NOCK on June 23. https://t.co/7CWAH2DVs2"}], "ZRO": [{"a": "@Darrenlautf", "q": "$ZRO on Hyperliquid hit the OI caps\ud83e\udd23"}], "XAU": [{"a": "@George1Trader", "q": "$XAU I have my long term exposure to commodities but I'm also ready for a 40%+ pullback... Just like crypto, I would never go 0% exposure, I'm ready to average down on significant dips. Played commodities really well and derisked at the rig"}, {"a": "@BigCheds", "q": "GOLD $XAU at $4000 has completed measured move"}], "VELVET": [{"a": "@George1Trader", "q": "$VELVET Scam pump after the fully retraced scam pump pattern? https://t.co/kqGsZR9vUi"}], "MEGA": [{"a": "@damskotrades", "q": "darkhorse $mega running hard https://t.co/zfxVdgxf90"}], "BOT": [{"a": "@intern", "q": "Intern notes from The Pomp Podcast with @RoboStrategy (Nasdaq: $BOT) CEO Andrew Kang on: - The future of robotics - The market for physical AI - USA vs China And much more \ud83e\uddbe @Rewkang &lt;&gt; @APompliano https://t.co/agW8keLmIc"}], "SBET": [{"a": "@dcfgod", "q": "Got some $SBET 33% upside to 1x mnav and they raised cash at a premium with warrants Which means whoever invested in this deal gets no upside unless the price gets above the warrant strike of $8.15 or the stock goes above the premium they p"}], "TSLA": [{"a": "@BullyEsq", "q": "RT @TicTocTick: Basically micron made in a week what tsla makes in a year. Its market cap is (still) less than that of $tsla. Though ig\u2026"}], "BB": [{"a": "@Pentosh1", "q": "RT @crypto_condom: If you believe that @nvidia will have a meaningful role in robotics development, you should be adding $BB to your portfo\u2026"}, {"a": "@CJ900X", "q": "$BB 10.93 - close enough. We either use this supply zone as a range, and hold its base, compressing into resistance before another leg up OR as posted initially, its the start of a larger correction in which case I'd be eyeing the imbalance"}], "RBLX": [{"a": "@buyerofponzi", "q": "ive been buying $RBLX https://t.co/ssXXn4BdUN"}], "HIMS": [{"a": "@buyerofponzi", "q": "I started buying $HIMS People forgot about this one too soon https://t.co/1A1tVsLAsJ"}], "DOGE": [{"a": "@RookieXBT", "q": "$doge looks good"}, {"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "LTC": [{"a": "@AngeloBTC", "q": "$LTC | ROUND 2 The heaviest object in the universe (right after Ripple) looks ready to become a little less heavy. 86% profit target ($190-$200) https://t.co/eIsFtbobPV"}, {"a": "@bloodgoodBTC", "q": "$XRP community will Again dream about unreachable &amp; unrealistic targets and be marrying their bags for another 5 years. Also $LTC simping as memecoin is next level cringe and og's trying to push this industry 10 years back for a quick b"}], "WLD": [{"a": "@AngeloBTC", "q": "$WLD new ATH (we are getting rich) https://t.co/g5SK1fMbYE"}, {"a": "@Dentoshi", "q": "Although there have been some pumps, overall missing *real* follow through. Good example on $JTO - 1H trend shouldn't stall that quick, hence my TP. $WLD / $AKT tried range high reclaims but couldn't, $XPL no strength today (yet). Mixed fee"}], "HBAR": [{"a": "@CredibleCrypto", "q": "And there is our move down on $HBAR to the local range lows \u2705 Worth noting that HBAR/BTC is still floating some 20% above my target zone so while HBAR/USD has hit my LTF downside target I think we will truly be primed to move once the HBAR/"}], "RLUSD": [{"a": "@CredibleCrypto", "q": "RT @Ripple: We're proud to announce that Ripple USD ($RLUSD) is now officially available in Japan, following approval from the Japan Financ\u2026"}], "XRP": [{"a": "@CredibleCrypto", "q": "Unfortunately nearly fully retraced our move on $XRP on this pullback. As stops were moved to entry as per my last post below I've been stopped out of this position at basically breakeven. We are still technically above our range lows so it"}, {"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "ICP": [{"a": "@CryptoTony__", "q": "$ICP / $USD - Update Could get a good 10% move up if $BTC can remain stable. https://t.co/js4VacyTUd"}], "TAO": [{"a": "@CryptoTony__", "q": "$TAO / $USD - Update A move to test $249 is very possible. Just need to hold up $217 support zone test. https://t.co/MTk51025og"}, {"a": "@AlgodTrading", "q": "The biggest bulls in Bittensor have no clue how $tao even works It baffles me how little people understand tokenomics and that self emitted yield is zero sum Is it such a hard concept to grasp that you need outside flew (comes from value pr"}], "ARX": [{"a": "@Route2FI", "q": "Arcium is the most-used confidential compute network in crypto, with over 1.6M confidential computations and 6M transactions on Solana. $ARX should do well this cycle."}], "TNGX": [{"a": "@IncomeSharks", "q": "$TNGX - A substantial breakthrough on pancreatic cancer where 11/12 patients saw their tumors shrink. Hoping to see it at $100+ one day because any sort of progress towards one of the worst cancers is a bigger win than just financial gain. "}], "GNOM": [{"a": "@IncomeSharks", "q": "$GNOM - Probably consistently outperforms the S&amp;P 500 the next few years. Yes a lot of other ETFs up way more on the year but they are near ATHs, this one near ATLs. More important to look forward than behind. https://t.co/5KuWISN2xr"}], "HOOD": [{"a": "@IncomeSharks", "q": "$HOOD - Been a pretty consistent pattern of 50%+ drawdowns and 400% runs after. $200 is probably conservative but that's where I think it heads. https://t.co/YfGAmfpMmH"}], "SIVE": [{"a": "@MacnBTC", "q": "RT @aleabitoreddit: GUESS WHAT ANON? After today\u2019s new news with Ayar joining Nvidia NVLink fusion. $SIVE is now the laser source for lik\u2026"}], "MRVL": [{"a": "@MacnBTC", "q": "$MRVL +25% pre market, if you still in congrats and not a bad place to TP some of this imo basically up +75% since post https://t.co/mu6LnpZIMH"}], "VPG": [{"a": "@MacnBTC", "q": "RT @aleabitoreddit: Okay chat, it\u2019s been awhile since the previous one. And a ton of names from $VPG to $ASPI cooked. So crowdsourcing a\u2026"}], "ASPI": [{"a": "@MacnBTC", "q": "RT @aleabitoreddit: Okay chat, it\u2019s been awhile since the previous one. And a ton of names from $VPG to $ASPI cooked. So crowdsourcing a\u2026"}], "HIMX": [{"a": "@MacnBTC", "q": "This is a free money setup on stocks rn 1. first leg up + consolidation -&gt; next leg up is likely 2. current monthly vwap close to price (use as support) 3. around previous ATH blast buy, set tp, and make money. $HIMX example https://t.co"}], "TREE": [{"a": "@Tree_of_Alpha", "q": "you can now track the real $tree on @DefiLlama btw: https://t.co/1iMXiqAdwj goated team &amp; service"}], "MSFT": [{"a": "@PeterLBrandt", "q": "Behind the smoke screen of a strong $DJIA, an historic top might be forming in $MSFT https://t.co/rPgJN70FTl"}], "DJIA": [{"a": "@PeterLBrandt", "q": "Behind the smoke screen of a strong $DJIA, an historic top might be forming in $MSFT https://t.co/rPgJN70FTl"}], "US5": [{"a": "@PeterLBrandt", "q": "My hunch (hunch only) is that the U.S. yield curve is going flat ($US5 minus $US30) https://t.co/V2KaunTyqJ"}], "US30": [{"a": "@PeterLBrandt", "q": "My hunch (hunch only) is that the U.S. yield curve is going flat ($US5 minus $US30) https://t.co/V2KaunTyqJ"}], "TOES": [{"a": "@moonbag", "q": "Gordon about to full send toes coin soon, i feel it \ud83e\uddb6 $toes"}], "TOESCOIN": [{"a": "@moonbag", "q": "Higher for $TOESCOIN $2.8B UNTAPPED Industry getting onboarded to crypto. Study. https://t.co/q0Ldw01jdd"}], "WIF": [{"a": "@moonbag", "q": "RT @GordonGekko: The $WIF dev is bullish on $TOESCOIN \ud83e\udd2f"}], "LUNA": [{"a": "@Axel_bitblaze69", "q": "Could Michael Saylor be the next Do Kwon ? i see some people saying microstrategy is about to crash bitcoin the way $LUNA did. that fear is mostly wrong imo.. but it isn't nothing, so let me break down what's actually happening. start with "}], "BNB": [{"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "XAG": [{"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "SUPER": [{"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "XMR": [{"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}, {"a": "@Livercoin", "q": "Monero keeps on out-performing every single one of the majors Slowly, one step at a time but consistently It just cleared the equal highs so now we begin the march to ATHs $XMR https://t.co/6jUihovO1a"}], "LINK": [{"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "TRX": [{"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "SUI": [{"a": "@BigCheds", "q": "New Bitcoin Live Member report posted for $BTC \"Cryptocurrency Market Update - June 24th 2026\" $ETH $ZEC $TRX $XMR $SUI $AAVE $SOL $DOGE $XAU $XAG $TRX $SUPER $XRP $BNB $SUPER $PEPE $HYPE $LINK Member link: https://t.co/U0K1AlVZCF Free repo"}], "AMERICA": [{"a": "@TeddyCleps", "q": "$AMERICA is back \ud83c\uddfa\ud83c\uddf8"}], "AAPL": [{"a": "@Crypto_Chase", "q": "$AAPL in 270-260 area looks good for a bounce I'd say. https://t.co/gYrjBtH1Jd"}, {"a": "@LSDinmycoffee", "q": "$AAPL :D https://t.co/KM2urEtbZh"}], "ES": [{"a": "@Crypto_Chase", "q": "I never dream about trading, but for some reason this weekend I did. The market opened and I got long the S&amp;P 500 (via $ES contracts, my preferred method). So I bought a couple of contracts, the market dropped pretty viciously, I bought"}], "IBM": [{"a": "@NachoTrades", "q": "Quantum computing stocks have been gaining more attention this week with Trump signing executive orders on quantum technologies yesterday. For me I like $INFQ - it's usually the fastest mover of the quantum stocks on news/catalysts. $IBM al"}], "INFQ": [{"a": "@NachoTrades", "q": "Quantum computing stocks have been gaining more attention this week with Trump signing executive orders on quantum technologies yesterday. For me I like $INFQ - it's usually the fastest mover of the quantum stocks on news/catalysts. $IBM al"}], "OPG": [{"a": "@NachoTrades", "q": "The AI basket was a strong category of alts to trade this week. $TAO was the most liquid one to trade, pumping 40% after the Fable ban. Rumours of meetings between Anthropic execs and Trump admin in DC sent it down 11% from peak. $OPG ended"}], "ZAMA": [{"a": "@NachoTrades", "q": "The $ZAMA app has now launched. With this app you can shield the assets you already use, and keep your balances and transfers private. There is an incentive campaign in place. If users shield their USDC to cUSDC, they have the chance to win"}], "JTO": [{"a": "@NachoTrades", "q": "Impressive strength on $JTO and $HYPE in the last few days. Two good ones to scale into on dips IMO."}, {"a": "@Dentoshi", "q": "Watchlist for the week \u2013 few new ones like $EIGEN exceptionally strong, whereas old ones lost some steam ($HYPE, $JTO) Bought some $W over the weekend, and eyeing potential $ENA breakout. Charts soon! https://t.co/yXiobtFB04"}], "WTI": [{"a": "@LSDinmycoffee", "q": "$USO $CL $WTI #oil At the lows of the high volume levels, all headlines saying \"oil is back to pre-war levels!\" and there are tons of countries with super low strategic reserves that need to be replenished Good place for a bounce / gamble o"}], "USO": [{"a": "@LSDinmycoffee", "q": "$USO $CL $WTI #oil At the lows of the high volume levels, all headlines saying \"oil is back to pre-war levels!\" and there are tons of countries with super low strategic reserves that need to be replenished Good place for a bounce / gamble o"}], "GHRS": [{"a": "@LSDinmycoffee", "q": "RT @LSDinmycoffee: $GHRS Retested sub-$20 and bounced, maybe another tap later, but that is a great looking chart https://t.co/7m0cOYEmRX"}], "U": [{"a": "@LSDinmycoffee", "q": "$U.UN 3.5 months later... No change in my plans... https://t.co/pQ65RHi2I9"}], "PSIL": [{"a": "@LSDinmycoffee", "q": "$PSIL I've been shilling psychedelics stocks for the past 6 months, but if you don't want to overthink entries and which stocks to pick, there's an ETF for psychedelics medicine with a beautiful chart https://t.co/xFUpZYxcyE"}], "RKLB": [{"a": "@LSDinmycoffee", "q": "$RKLB This one loves daily EMA200, will it tap it again before a bounce? https://t.co/vzEmmGORus"}], "ORCL": [{"a": "@LSDinmycoffee", "q": "$ORCL Took the L on Jun 2nd on the shorter expiries, didn't expect the longer expiries to already be back in profits so quick lmao You still have some long-dated puts too @crypto_condom ? https://t.co/glUebpuxfI"}], "EIGEN": [{"a": "@Dentoshi", "q": "Watchlist for the week \u2013 few new ones like $EIGEN exceptionally strong, whereas old ones lost some steam ($HYPE, $JTO) Bought some $W over the weekend, and eyeing potential $ENA breakout. Charts soon! https://t.co/yXiobtFB04"}], "ENA": [{"a": "@Dentoshi", "q": "Watchlist for the week \u2013 few new ones like $EIGEN exceptionally strong, whereas old ones lost some steam ($HYPE, $JTO) Bought some $W over the weekend, and eyeing potential $ENA breakout. Charts soon! https://t.co/yXiobtFB04"}], "W": [{"a": "@Dentoshi", "q": "Watchlist for the week \u2013 few new ones like $EIGEN exceptionally strong, whereas old ones lost some steam ($HYPE, $JTO) Bought some $W over the weekend, and eyeing potential $ENA breakout. Charts soon! https://t.co/yXiobtFB04"}], "AKT": [{"a": "@Dentoshi", "q": "Although there have been some pumps, overall missing *real* follow through. Good example on $JTO - 1H trend shouldn't stall that quick, hence my TP. $WLD / $AKT tried range high reclaims but couldn't, $XPL no strength today (yet). Mixed fee"}], "JCT": [{"a": "@Livercoin", "q": "$JCT is finally moving Hopefully this has legs, I am tired of the constant roud-tripping https://t.co/WW4ERLIz34"}], "UAI": [{"a": "@Livercoin", "q": "It seems that $UAI is attempting a breakout \ud83d\udc40 https://t.co/v2bGLLufaF"}], "PIEVERSE": [{"a": "@Livercoin", "q": "I've been watching this consolidation for some time and I think we will see some proper scam moves once it breaks the ceiling $PIEVERSE https://t.co/9eoS7vwA8k"}], "MNT": [{"a": "@Livercoin", "q": "Mantle over-delivering again this November \ud83d\udc47 &gt; New products - PVPFun, MEVX &gt; RWA leader - Tokenized equities, Institutions (Anchorage, DMZ) &gt; Shenzen and Shanghai events &gt; ByBit partnership - USDT0, Many new campaigns $MNT will "}], "AVICI": [{"a": "@Livercoin", "q": "Up 180% on $AVICI It's slowly approaching the 100M market cap mark and I planned on selling 25% at that level when I bought it at 30M but considering the slow efficient price action and recent developments, I decided to hold the entire bag "}], "AIA": [{"a": "@Livercoin", "q": "Opened a small long on $UAI - another BSC cabal AI Agent coin Reminds me of $AIA, $COAI and the other recent culprits so let's see if we can pull another banger with this one Price is ramping up into the heavy resistance at $0.22, I hope fo"}], "COAI": [{"a": "@Livercoin", "q": "Opened a small long on $UAI - another BSC cabal AI Agent coin Reminds me of $AIA, $COAI and the other recent culprits so let's see if we can pull another banger with this one Price is ramping up into the heavy resistance at $0.22, I hope fo"}], "LIBRA": [{"a": "@MoneyLord", "q": "Hey @FBIDirectorKash I got one for you Hayden Davis a 200m$ scam involving @JMilei called $LIBRA"}], "COIN": [{"a": "@CJ900X", "q": "$COIN Difficult to imagine price making a significant reversal from where it is currently at. imo would look far more natural for price to eventually tag this untapped demand zone, trade sideways for a few weeks, then reclaim the point of b"}], "NQ": [{"a": "@CJ900X", "q": "Some clean price action on $NQ this AM https://t.co/OSKV3rla8o"}], "LAC": [{"a": "@CJ900X", "q": "$LAC Still cooking. Structure continues to form very nicely. A dip to ~4.30 still possible until we close &gt; 6.07, however I think it's more probably that we start to really send soon. Weekly RSI just starting to lift &gt; 50 and price st"}], "SPCF": [{"a": "@JSeyff", "q": "RT @EricBalchunas: Interesting, while LeverageShares has by far won the volume race, ProShares' $SPCF has taken in most cash $184, next mos\u2026"}], "QNDX": [{"a": "@NateGeraci", "q": "Launching today\u2026 State Street SPDR Portfolio Nasdaq 100 ETF ($QNDX) Comes in w/ 10bps fee, undercutting both QQQ &amp; QQQM. Invesco has basically had monopoly on Nasdaq 100 ETFs. First real competition. iShares also launching product here "}], "BITO": [{"a": "@EricBalchunas", "q": "The LeverageShares 2x SpaceX ETF $SPCH did $4b of volume by itself last week, making it the biggest first week of trading for an ETF ever. Better than the first week for $IBIT, $DRAM, $BITO, you name it. And further it did it in 4 days not "}], "SPCH": [{"a": "@EricBalchunas", "q": "The LeverageShares 2x SpaceX ETF $SPCH did $4b of volume by itself last week, making it the biggest first week of trading for an ETF ever. Better than the first week for $IBIT, $DRAM, $BITO, you name it. And further it did it in 4 days not "}], "IBIT": [{"a": "@EricBalchunas", "q": "The LeverageShares 2x SpaceX ETF $SPCH did $4b of volume by itself last week, making it the biggest first week of trading for an ETF ever. Better than the first week for $IBIT, $DRAM, $BITO, you name it. And further it did it in 4 days not "}], "BRAWL": [{"a": "@SpiderCrypto0x", "q": "Been playing around with Brawlerz and it\u2019s actually pretty fun. Telegram-based street fighting RPG with PvP, crews, turf wars, and an open world in development. Cool to see the progress after only ~2 months. Ticker: $BRAWL CA: 34rbMssT4cTBG"}]}, "prices": {"BTC": 64142, "ETH": 1866.24, "HYPE": 57.47, "SOL": 73.97}, "plays": {"HYPE": 5, "SPCX": 6, "MSTR": 6, "MU": 7, "ZEC": 4, "TAO": 5, "CARDS": 3, "DRAM": 4, "USDT": 2, "LIT": 5, "XPL": 2, "CL": 5, "NBIS": 3, "SNDK": 2, "SYN": 2, "BB": 4, "AAPL": 2, "USDC": 2, "AAVE": 2, "WLD": 2, "JTO": 2, "DXY": 4}, "rules": [{"k": "Standard exits", "v": "10% at 2x, 40% at 5x, 40% at 10x, ride 10%"}, {"k": "Primary override", "v": "Funding rate > +0.03% during pump = sell 40-50% immediately"}, {"k": "Attention fade", "v": "Town square mentions drop 7+ days = sell 50%"}, {"k": "Time limit", "v": "6 weeks flat = full reassess"}, {"k": "Core Bag", "v": "6/10 \u00b7 Deploy $50K core on CCI $74K weekly close"}, {"k": "YOLO Bag", "v": "5/10 \u00b7 Max $12.5K per play from attention bucket"}], "thresholds": {"week": 11, "month": 25}, "fear": "12 \u2014 Extreme Fear", "bottom": "Mixed signals. Fear is high (12) and RSI near oversold (39), but BTC hasn't confirmed above $74K and dominance is still elevated. CCI says wait for weekly close confirmation.", "prefill": [{"c": "HYPE", "inv": 2500, "pr": 36.0, "dt": "2026-03-31"}], "coins": {"top": ["BTC", "ETH", "XRP", "BNB", "SOL", "DOGE", "TRX", "ADA", "HYPE", "LINK", "XLM", "AVAX", "SUI", "BCH", "HBAR", "LTC", "TON", "SHIB", "UNI", "DOT", "XMR", "PEPE", "AAVE", "NEAR", "TAO"], "report": ["BRAWL", "BUTTCOIN", "CARDS", "DJIA", "DOG", "DRAM", "DXY", "ETHUSD", "GLW", "JTO", "LIT", "MSTR", "MU", "NBIS", "RBLX", "RLUSD", "SNDK", "SPCX", "STRC", "SYN", "TNGX", "US5", "USDC", "USDT", "USO", "WLD", "WTI", "XPL", "ZEC"]}};
+
+/* ---------- scoreboard values that come from the real daily feed ---------- */
+(function live(){
+  document.querySelectorAll('[data-live="date"]').forEach(function(e){ e.textContent = DATA.date; });
+
+  const vb = document.querySelector('.verdict > div');
+  if (vb && DATA.bottom) {
+    const b = (DATA.bottom || '').toLowerCase();
+    let word = 'WAIT', icon = '⏸️',
+        line = "The pros say wait — their checklist isn't green yet. Stick to your plan below.";
+    if (/\b(take profit|sell now|exit|reduce)\b/.test(b)) {
+      word = 'BE CAREFUL'; icon = '🔴';
+      line = 'The pros are taking money off the table. Check your sell targets below.';
+    } else if (!/\b(wait|mixed|hold)\b/.test(b) && /\b(buy|deploy|accumulate|add)\b/.test(b)) {
+      word = 'LEAN IN'; icon = '🟢';
+      line = 'The checklist is lining up. Follow your buy plan below — in chunks, never all at once.';
+    }
+    const em = document.querySelector('.verdict .big'); if (em) em.textContent = icon;
+    vb.innerHTML = "<b>Today's call: " + word + '.</b> ' + line +
+      '<button class="q">?<span class="tip">This is the one-line version of every gauge below.' +
+      '<b>The pros’ exact words: “' + DATA.bottom + '”</b></span></button>';
+  }
+
+  if (DATA.fear) {
+    const n = parseInt(DATA.fear, 10);
+    const label = (DATA.fear.split('—')[1] || '').trim();
+    const el = document.querySelector('[data-live="fear"]');
+    if (el && !isNaN(n)) {
+      const cls = n < 45 ? 'badc' : (n > 55 ? 'ok' : 'warnc');
+      el.innerHTML = n + '<span class="unit">/100</span> <span class="' + cls + '">' + label + '</span>';
+      const fill = document.querySelector('.fear .fill'), pin = document.querySelector('.fear .pin');
+      if (fill) fill.style.width = n + '%';
+      if (pin) pin.style.left = n + '%';
+    }
+  }
+
+  if (DATA.prices && DATA.prices.BTC) {
+    const el = document.querySelector('[data-live="btc"]');
+    if (el) el.textContent = '$' + Math.round(DATA.prices.BTC).toLocaleString('en-US');
+  }
+
+  const acc = document.querySelector('[data-live="accounts"]');
+  if (acc && DATA.stats) {
+    const p = DATA.stats.accounts.split('/');
+    acc.innerHTML = p[0] + '<span class="unit">/' + (p[1] || '') + '</span>';
+  }
+  document.querySelectorAll('[data-live="reporting"]').forEach(function(e){
+    e.textContent = 'Based on ' + DATA.stats.accounts + ' accounts reporting · ' +
+                    DATA.stats.lookback + ' days captured this week';
+  });
+
+  const best = Object.keys(DATA.plays || {}).map(function(k){ return [k, DATA.plays[k]]; })
+                     .sort(function(a, b){ return b[1] - a[1]; })[0];
+  if (best) {
+    const ring = document.querySelector('.topplay .ring i');
+    if (ring) ring.textContent = best[1] + '/10';
+    const rg = document.querySelector('.topplay .ring');
+    if (rg) rg.style.background = 'conic-gradient(var(--amber-b) 0 ' + (best[1] * 10) +
+                                  '%, rgba(255,255,255,.09) ' + (best[1] * 10) + '%)';
+    const all = (DATA.tiers.month || []).concat(DATA.tiers.week || [], DATA.tiers.today || []);
+    const cnt = all.filter(function(t){ return t.t === best[0]; })[0];
+    const coin = document.querySelector('.topplay .tpcoin');
+    if (coin) coin.innerHTML = '$' + best[0] + ' <span class="chip a">score ' + best[1] + '/10</span>' +
+      (cnt ? ' <span class="chip v">' + cnt.today + ' accounts today</span>' : '');
+  }
+
+  const watch = (DATA.takeaway.match(/\$[A-Z0-9]+/g) || []).slice(0, 3);
+  const wt = document.querySelector('[data-live="watch"]');
+  if (wt) wt.innerHTML = watch.length
+    ? 'Watch today: <b style="color:#a78bfa">' + watch.join(', ') + '</b>'
+    : DATA.takeaway;
+})();
+
+/* ---------- Step 3: the three buckets, built from 30 days of real mentions ---------- */
+(function buckets(){
+  const box = document.getElementById('sections');
+  if (!box) return;
+  const GROUPS = [
+    { key: 'month', icon: '🔥', title: 'Talked about constantly', cap: 12,
+      sub: 'the steady drumbeat — ' + DATA.thresholds.month + '+ different accounts brought these up in the last month',
+      tip: 'A third or more of every account we watch mentioned these within 30 days. When that many independent people keep circling the same coin, it is a real market-wide theme rather than one person’s hype. <b>Portfolio impact: the safest attention on the page — but the early, cheap entry is usually long gone.</b>' },
+    { key: 'week', icon: '📈', title: 'About a week of buzz', cap: 12,
+      sub: 'a cluster picked these up over the last 7 days — the sweet spot',
+      tip: 'Either more than 10% of the accounts we watch talked about it inside 7 days, or several brought it up twice or more. Buzz is building but the whole market has not noticed yet. <b>Portfolio impact: usually the best risk-to-reward window.</b>' },
+    { key: 'today', icon: '🌱', title: 'Brand new today', cap: 6,
+      sub: 'silent for a month, then somebody spoke up today — look, don’t leap',
+      tip: 'Not one of our accounts had mentioned these coins in 30 days — and today one did. The earliest possible smoke signal. <b>Portfolio impact: research only. Most of these go nowhere.</b>' }
+  ];
+
+  function spark(series){
+    if (!series || !series.length) return '';
+    let mx = 1;
+    for (let i = 0; i < series.length; i++) if (series[i] > mx) mx = series[i];
+    let out = '<div class="spark">';
+    for (let i = 0; i < series.length; i++) {
+      if (!series[i]) { out += '<i class="dot"></i>'; continue; }
+      const h = Math.max(12, Math.round(series[i] / mx * 100));
+      out += '<i class="' + (i === series.length - 1 ? 'hot' : '') + '" style="height:' + h + '%"></i>';
+    }
+    return out + '</div>';
+  }
+
+  function sentBar(t){
+    const s = DATA.sent[t];
+    if (!s || (!s.bull && !s.bear)) return '';
+    const tot = s.bull + s.bear, bp = Math.round(s.bull / tot * 100);
+    return '<div class="sentbar"><div class="b" style="width:' + bp + '%"></div>' +
+           '<div class="s" style="width:' + (100 - bp) + '%"></div></div>' +
+           '<div class="sentlab"><span class="ok">' + s.bull + ' hopeful</span> vs ' +
+           '<span class="badc">' + s.bear + ' worried</span></div>';
+  }
+
+  GROUPS.forEach(function(g){
+    const full = DATA.tiers[g.key] || [];
+    const list = full.slice(0, g.cap);
+    if (!list.length) return;
+    let h = '<div class="tierhead"><h3>' + g.icon + ' ' + g.title + '</h3><span class="sub">' + g.sub +
+            '<button class="q">?<span class="tip">' + g.tip + '</span></button></span></div><div class="tiergrid">';
+    list.forEach(function(t){
+      const sc = DATA.plays[t.t];
+      h += '<div class="tk"><div class="head"><span class="sym">$' + t.t + '</span>' +
+           '<span class="chip c own hidden" data-own="' + t.t + '">YOU OWN THIS</span>' +
+           (sc != null ? '<span class="chip ' + (sc >= 7 ? 'g' : (sc >= 4 ? 'a' : 'v')) + '">score ' + sc + '/10</span>' : '') +
+           '<span class="chip v">' + t.acc30 + ' accounts / month</span></div>' +
+           spark(t.days) + sentBar(t.t) +
+           '<div class="meta"><b>' + t.today + '</b> today · <b>' + t.acc7 + '</b> this week · <b>' +
+           t.acc30 + '</b> this month</div></div>';
+    });
+    h += '</div>';
+    if (full.length > g.cap) h += '<p class="sub" style="margin-top:8px">…plus ' + (full.length - g.cap) + ' more not shown.</p>';
+    box.insertAdjacentHTML('beforeend', h);
+  });
+})();
+
+/* ---------- Step 4: the actual posts behind the buckets ---------- */
+(function receipts(){
+  const box = document.getElementById('receipts');
+  if (!box) return;
+  const badge = { month: ['big talk', 'v'], week: ['heating up', 'g'], today: ['brand new', 'a'] };
+  ['month', 'week', 'today'].forEach(function(k){
+    (DATA.tiers[k] || []).slice(0, 6).forEach(function(t){
+      const qs = DATA.quotes[t.t];
+      if (!qs || !qs.length) return;
+      box.insertAdjacentHTML('beforeend',
+        '<div class="rgroup"><h3>$' + t.t + ' <span class="chip ' + badge[k][1] + '">' + badge[k][0] + '</span></h3>' +
+        qs.map(function(q){ return '<div class="quote"><b>' + q.a + ':</b> “' + q.q + '”</div>'; }).join('') +
+        '</div>');
+    });
+  });
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script>
+/* Every metric our data sources actually use, harvested from their own words.
+   src: cci | tod | cous | gio | cow | itc | sys        (chips shown in the table)
+   Values are the latest real readings found in the files, with the date they were said. */
+const CATALOG = [
+ // ── Cowen / Into The Cryptoverse ─────────────────────────────────────────────
+ {n:"On-chain risk metric (0–1)", s:["cow","itc"], w:"Eight on-chain charts squashed into one dial from 0 to 1.",
+  v:"0.195–0.216 (Jun 2026)", t:"Cycle lows near 0.1 · sell between 0.5 and 0.6"},
+ {n:"% of supply in profit vs loss", s:["cow","itc"], w:"What share of all coins are held above vs below their buy price.",
+  v:"74.3% profit / 25.7% loss", t:"When the two lines CROSS, the bear market has historically ended"},
+ {n:"Realized price + balance price", s:["cow","cci"], w:"The average price everyone actually paid, and a second floor just under it.",
+  v:"realized ≈ $53–54K", t:"Bitcoin bottoms when it trades below BOTH; it rarely stays under the balance price more than days"},
+ {n:"Weekly moving-average ladder (50 → 100 → 200)", s:["cow","cci"], w:"The three slowest weekly averages — bear markets walk down them like stairs.",
+  v:"sitting at the 100-week", t:"Cowen expects a 200-week test by summer or Oct 2026 at the latest"},
+ {n:"Bitcoin dominance EXCLUDING stablecoins", s:["cow","itc"], w:"Bitcoin's share of the market with Tether-type coins removed — the honest version.",
+  v:"67% (peak ~70%)", t:"Still rising = alts still losing; plain dominance hides this"},
+ {n:"Alt-vs-Bitcoin valuation ladder", s:["cow","itc","cci"], w:"Whether alt-coins are gaining or losing ground against Bitcoin once stablecoins are stripped out.",
+  v:"fading; top-100 advance/decline falling since 2021", t:"ETH/BTC bottom guess: Dec 2026, else Sep 2026"},
+ {n:"% drawdown from all-time high (per coin)", s:["itc","cow"], w:"How far below its record price each coin sits.",
+  v:"ITC's most-published chart", t:"Midterm-year lows historically land 55–60% below the yearly open"},
+ {n:"Short-term bubble risk (0–1)", s:["itc","cow"], w:"How far a coin has stretched above its 20-week average — a froth meter.",
+  v:"ITC's #2 chart", t:"Compared against past mania phases; high = don't chase"},
+ {n:"Total crypto market cap vs fair-value trend line", s:["cow","itc"], w:"A slowly rising 'fair price' curve fitted through all of crypto's history.",
+  v:"~$2.3–2.7T, about 50–55% BELOW fair value", t:"Above the line = overvalued (2021 alt season); riding it = fair"},
+ {n:"Running 1-year return", s:["cow"], w:"What Bitcoin has done over the trailing twelve months.",
+  v:"0.589", t:"Cowen wants to see it fall under 0.4 — ideally 0.3 — before calling a bottom"},
+ {n:"Social risk metric", s:["cow"], w:"Crypto's hype level measured by follower growth and video views per day.",
+  v:"trending down since Nov 2024", t:"Never reached the high-risk band this cycle"},
+ {n:"Puell multiple", s:["cow","itc"], w:"Miner income today vs its own yearly average — are miners flush or starving?",
+  v:"an input to the risk metric", t:"Low = miner stress, historically near bottoms"},
+ {n:"Bitcoin vs gold", s:["cow","cci"], w:"Bitcoin priced in gold instead of dollars.",
+  v:"down ~27% vs gold", t:"CCI: 'when it breaks out here, that's when we get really nutty'"},
+ {n:"Altcoin season index (90-day)", s:["itc"], w:"How many of the top coins beat Bitcoin over the last 90 days.",
+  v:"published daily by ITC", t:"High = real alt season; low = BTC-only market"},
+ {n:"Business cycle / liquidity risk metric", s:["cow"], w:"Where the wider economy sits in its boom-to-bust rhythm.",
+  v:"'late business cycle environment'", t:"Late cycle = be defensive"},
+ {n:"60-day volatility &amp; correlation matrix", s:["itc","cow"], w:"How jumpy Bitcoin is, and how tightly it's tracking stocks.",
+  v:"published daily by ITC", t:"High correlation to stocks = macro is driving, not crypto news"},
+
+ // ── CCI ──────────────────────────────────────────────────────────────────────
+ {n:"Weekly CLOSE above/below a level (rule)", s:["cci"], w:"Only Friday/Sunday's closing price counts — not an intraday spike.",
+  v:"the confirmation gate for every CCI entry and stop", t:"'If we weekly close beneath $76,000 we're in trouble'"},
+ {n:"10 &amp; 21 EMA hold or reclaim", s:["cci"], w:"Two fast trend lines; price riding above them means a healthy uptrend.",
+  v:"the textbook CCI entry", t:"Stop out if price loses the 10 EMA, the 21 EMA AND the trend line"},
+ {n:"US dollar index (DXY)", s:["cci","itc"], w:"How strong the US dollar is against other currencies.",
+  v:"—", t:"CCI: 'the DXY chart alone tells you 90% of what you want to know' — dollar up, crypto down"},
+ {n:"US 10-year Treasury yield", s:["cci"], w:"The interest rate the US government pays to borrow for ten years.",
+  v:"—", t:"CCI: 'yields are the key dominant' — rising yields suck money out of crypto"},
+ {n:"Short-term-holder realised loss vs long-term holders", s:["cci"], w:"How much money recent buyers have lost compared with long-time holders.",
+  v:"recent buyers −56%, long-term ≈ 0", t:"'Pain is targeted — weak hands exiting, long-term holders still holding'"},
+ {n:"Bitcoin production cost", s:["cci"], w:"What it costs miners to produce one Bitcoin.",
+  v:"≈ $48K (Capriole)", t:"A probability floor zone, not a promise"},
+ {n:"Hash ribbon (miner capitulation)", s:["cci"], w:"When miners give up and switch machines off.",
+  v:"has triggered", t:"Historically followed by significant price rises"},
+ {n:"Liquidation heat map", s:["cci"], w:"Where crowds of forced-sell orders are stacked above and below price.",
+  v:"~$3B clustered at one level", t:"Price often gets pulled toward the fuel"},
+ {n:"Core inflation (not headline CPI)", s:["cci","tod"], w:"Price rises with food and fuel stripped out.",
+  v:"—", t:"CCI: 'core inflation is probably a better one to look at than CPI'"},
+ {n:"Named level taxonomy: Kitchen Sink / Danger Zone / Cherry Ripe", s:["cci"], w:"CCI's own labels for buy-everything zones, invalidation lines, and the week's best setup.",
+  v:"per-asset", t:"Danger Zone lost = 'absolute elevator floor'"},
+ {n:"Joe's indicator set", s:["cci"], w:"CM Super Guppy, stacked 20/50/100/200 SMAs, MACD, Stochastic RSI, On-Balance Volume, Parabolic SAR, Rate of Change, Visible Range Volume Profile.",
+  v:"taught in the masterclass", t:"Volume profile is 'the final indicator I use all the time'"},
+
+ // ── Todaro ───────────────────────────────────────────────────────────────────
+ {n:"Per-coin market cap vs sell trigger", s:["tod"], w:"Judging a coin by its total size instead of its price per token.",
+  v:"PEPE: start selling $20B, target $30B", t:"Stops you anchoring on a pretty-looking price"},
+ {n:"Code Red drawdown rule", s:["tod"], w:"How far your whole stack has fallen from its high.",
+  v:"−30% from set value → sell 90% of crypto", t:"Pre-commits the panic decision while you're calm"},
+ {n:"Consensus bottom (what the crowd expects)", s:["tod"], w:"The price and date most people are waiting for.",
+  v:"'$40K range and October bottom' (Feb 2026)", t:"Used as a contrarian input"},
+ {n:"Deployed % vs cash %", s:["tod"], w:"How much of the money is actually in the market vs sitting in stablecoins.",
+  v:"Joe ran '80–90% in' at full risk-on", t:"His cash level is the cleanest read on his conviction"},
+ {n:"Protocol fee revenue → fair value (DCF)", s:["tod"], w:"Real money the network earns from real users, turned into a per-token value.",
+  v:"method: 40% discount rate, 2% terminal growth", t:"How Todaro separates a business from a story"},
+ {n:"Token emission / unlock schedule", s:["tod"], w:"How fast new coins are printed and when big investor unlocks hit.",
+  v:"Zcash example: 80% → 36% inflation", t:"'Cryptocurrencies with high inflation perform notoriously poorly in bear markets'"},
+ {n:"Miner breakeven cost", s:["tod"], w:"The electricity price where mining stops being profitable.",
+  v:"$6–7.5K pre-halving → $12–15K after", t:"Hash-rate drawdowns capped near 37%"},
+];
+
+
+/* ---------------- the "everything else we track" table ---------------- */
+const SRCNAME={cci:'CCI',tod:'Todaro',cous:'Cousin',gio:'Power Law',cow:'Cowen',itc:'Cryptoverse',sys:'Our tracker'};
+(function catalogTable(){
+  const t=document.getElementById('cattable'); if(!t) return;
+  t.innerHTML='<thead><tr><th>Metric</th><th>What it is, plainly</th><th>Latest reading / how it is used</th><th>Who watches it</th></tr></thead><tbody>'
+   + CATALOG.map(m=>`<tr><td>${m.n}</td><td>${m.w}</td>
+       <td>${m.v&&m.v!=='—'?`<span class="cv">${m.v}</span><br>`:''}<span style="color:var(--ink2)">${m.t}</span></td>
+       <td>${m.s.map(s=>`<span class="srcchip ${s}">${SRCNAME[s]||s}</span>`).join(' ')}</td></tr>`).join('')
+   + '</tbody>';
+  const c=document.getElementById('catCount'); if(c) c.textContent=CATALOG.length+' more';
+})();
+
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString('en-US',{maximumFractionDigits: n<10?4:2});
+const money = n => '$'+fmt(n);
+
+/* ---------------- your sell ladder (edit here, everything follows) ---------------- */
+const LADDER = [
+  {m:2, pct:20, note:'first double — take your risk off the table'},
+  {m:3, pct:25, note:'you have now pulled out more than you put in'},
+  {m:5, pct:30, note:'75% cashed out — the rest is pure house money'},
+  {m:7, pct:25, note:'the victory lap — close it out'}
+];
+const CRASH = 0.5;
+
+/* ---------------- coin name → symbol ---------------- */
+const NAMES = {bitcoin:'BTC',ethereum:'ETH',solana:'SOL',cardano:'ADA',ripple:'XRP',xrp:'XRP',dogecoin:'DOGE',
+  polkadot:'DOT',chainlink:'LINK',avalanche:'AVAX',litecoin:'LTC',monero:'XMR',hyperliquid:'HYPE',
+  zcash:'ZEC',pepe:'PEPE',shiba:'SHIB',uniswap:'UNI',aave:'AAVE',stellar:'XLM',tron:'TRX',
+  toncoin:'TON',near:'NEAR',sui:'SUI',aptos:'APT',arbitrum:'ARB',optimism:'OP',injective:'INJ'};
+const NOTCOINS = new Set(['USD','USDT','USDC','TOTAL','ALL','PNL','P/L','AVG','BUY','SELL','QTY','AMT','VALUE','COST',
+  'PRICE','DATE','HOLDINGS','PORTFOLIO','BALANCE','GAIN','LOSS','CHG','APR','APY','NET','FEE','TAX','ROI','MY','THE','AND',
+  // clock + calendar junk that used to get mistaken for tickers
+  'AM','PM','ET','EST','EDT','PST','PDT','CST','CDT','UTC','GMT',
+  'JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','SEPT','OCT','NOV','DEC','MON','TUE','WED','THU','FRI','SAT','SUN',
+  // UI words
+  'EDIT','ADD','NEW','OPEN','CLOSE','HOLD','MAX','MIN','TOP','LOW','HIGH','VS','OK','NA','TBD','ETC','YOU','ALERT','SHARE',
+  'CURRENT','PROFIT','TRADE','ORDER','WALLET','ASSET','ASSETS','COIN','COINS','TOKEN','MARKET','CHART','MORE','LESS','VIEW']);
+const stripNoise = s => s
+  .replace(/\b\d{1,2}:\d{2}(:\d{2})?\s*(AM|PM)?\b/gi,' ')   // times: 02:04 PM
+  .replace(/[▲▼△▽↑↓+]/g,' ');
+
+/* ---------------- rows model ---------------- */
+let rows = [];
+function addRow(r={}){ rows.push({coin:r.coin||'',amt:r.amt||'',price:r.price||'',date:r.date||'',now:r.now||''}); }
+function drawRows(){
+  const tb=$('tbody'); tb.innerHTML='';
+  let missing=0;
+  rows.forEach((r,i)=>{
+    const need=k=>{
+      const bad=(k==='coin'? !r.coin : !(+r[k]>0));
+      if(bad) missing++;
+      return bad? ' need':'';
+    };
+    const tr=document.createElement('tr');
+    const bad=[!r.coin,!(+r.amt>0),!(+r.price>0)].some(Boolean);
+    tr.className = bad? 'incomplete':'';
+    tr.innerHTML = `<td><input class="${need('coin')}" data-i="${i}" data-k="coin"  value="${r.coin}"  placeholder="BTC"></td>
+      <td><input class="${need('amt')}" data-i="${i}" data-k="amt"   value="${r.amt}"   placeholder="1.0" inputmode="decimal"></td>
+      <td><input class="${need('price')}" data-i="${i}" data-k="price" value="${r.price}" placeholder="60000" inputmode="decimal"></td>
+      <td><input data-i="${i}" data-k="date"  value="${r.date}"  placeholder="2026-07-01" type="date"></td>
+      <td><input data-i="${i}" data-k="now"   value="${r.now}"   placeholder="63968" inputmode="decimal"></td>
+      <td><button class="del" data-del="${i}" title="remove">✕</button></td>`;
+    tb.appendChild(tr);
+  });
+  const nn=$('neednote');
+  const incomplete=[...tb.querySelectorAll('tr.incomplete')].length;
+  nn.classList.toggle('on', incomplete>0);
+  if(incomplete) nn.innerHTML=`⚠ ${incomplete} line${incomplete>1?'s':''} still ${incomplete>1?'need':'needs'} a number
+    (the highlighted boxes). Screenshot readers miss things — check your screenshot and type them in, then the timeline appears.`;
+  $('confirm').classList.add('on');
+}
+function refreshNeeds(){
+  const tb=$('tbody'); let incomplete=0;
+  [...tb.querySelectorAll('tr')].forEach((tr,i)=>{
+    const r=rows[i]; if(!r) return;
+    const checks={coin:!!r.coin, amt:+r.amt>0, price:+r.price>0};
+    tr.querySelectorAll('input').forEach(inp=>{
+      const k=inp.dataset.k;
+      if(k in checks) inp.classList.toggle('need', !checks[k]);
+    });
+    const bad=!Object.values(checks).every(Boolean);
+    tr.classList.toggle('incomplete', bad);
+    if(bad) incomplete++;
+  });
+  const nn=$('neednote');
+  nn.classList.toggle('on', incomplete>0);
+  if(incomplete) nn.innerHTML=`⚠ ${incomplete} line${incomplete>1?'s':''} still ${incomplete>1?'need':'needs'} a number
+    (the highlighted boxes). Screenshot readers miss things — check your screenshot and type them in, then the timeline appears.`;
+}
+$('tbody').addEventListener('input', e=>{
+  const t=e.target; if(t.dataset.k===undefined) return;
+  rows[t.dataset.i][t.dataset.k]=t.value; refreshNeeds(); build();
+});
+$('tbody').addEventListener('click', e=>{
+  if(e.target.dataset.del===undefined) return;
+  rows.splice(+e.target.dataset.del,1); drawRows(); build();
+});
+$('addrow').onclick = ()=>{ addRow(); drawRows(); };
+$('manual').onclick = e=>{ e.stopPropagation(); if(!rows.length){addRow();addRow();} drawRows(); $('confirm').scrollIntoView({behavior:'smooth',block:'center'}); };
+
+/* ---------------- upload + read ---------------- */
+$('pick').onclick = e=>{ e.stopPropagation(); $('file').click(); };
+$('drop').onclick = ()=> $('file').click();
+$('file').onchange = e=>{ if(e.target.files[0]) handle(e.target.files[0]); };
+['dragenter','dragover'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.add('over');}));
+['dragleave','drop'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.remove('over');}));
+$('drop').addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) handle(f); });
+
+function handle(file){
+  const img=$('shot'); img.src=URL.createObjectURL(file); img.style.display='inline-block';
+  $('working').classList.add('on'); $('workTxt').textContent='Reading your screenshot…';
+  if(typeof Tesseract === 'undefined'){
+    $('working').classList.remove('on');
+    if(!rows.length){addRow();addRow();}
+    drawRows();
+    $('confirm').querySelector('h3').textContent = '📝 Type what your screenshot shows (auto-reader unavailable offline)';
+    return;
+  }
+  Tesseract.recognize(file,'eng',{logger:m=>{
+    if(m.status==='recognizing text') $('workTxt').textContent = `Reading your screenshot… ${Math.round(m.progress*100)}%`;
+  }}).then(({data})=>{
+    $('working').classList.remove('on');
+    const found = parseText(data.text||'');
+    rows = found.length? found : [{coin:'',amt:'',price:'',date:'',now:''},{coin:'',amt:'',price:'',date:'',now:''}];
+    drawRows();
+    $('confirm').querySelector('h3').textContent = found.length
+      ? `✓ Read ${found.length} coin${found.length>1?'s':''} from your screenshot — fix anything that's wrong`
+      : "🤔 Couldn't read that one clearly — type your coins in below (send me the screenshot and I'll tune the reader)";
+    build();
+    $('confirm').scrollIntoView({behavior:'smooth',block:'center'});
+  }).catch(()=>{
+    $('working').classList.remove('on');
+    if(!rows.length){addRow();addRow();}
+    drawRows();
+  });
+}
+
+/* Two readers, because trackers show data two different ways:
+   A) a TABLE — one coin per line (Blockfolio / CoinStats list views)
+   B) a TRANSACTION DETAIL — one coin, facts spread over several lines
+      ("Buy" / "Jul 13, 2023 02:04 PM" / "+796 SOL" / "$20,767.64 (1 SOL = $26.09)")
+   We run both and keep whichever produced more complete rows. */
+function parseText(text){
+  const a=parseTable(text), b=parseDetail(text);
+  const score=rs=>rs.filter(r=>r.coin && +r.amt>0 && +r.price>0).length;
+  if(score(b)>score(a)) return b;
+  if(score(a)>0) return a;
+  return b.length? b : a;
+}
+
+function findDate(s){
+  let d=s.match(/(20\d\d)[-\/.](\d{1,2})[-\/.](\d{1,2})/);
+  if(d) return `${d[1]}-${String(d[2]).padStart(2,'0')}-${String(d[3]).padStart(2,'0')}`;
+  if((d=s.match(/(\d{1,2})[-\/.](\d{1,2})[-\/.](20\d\d)/)))
+    return `${d[3]}-${String(d[1]).padStart(2,'0')}-${String(d[2]).padStart(2,'0')}`;
+  if((d=s.match(/([A-Z][a-z]{2})\w*\.?\s+(\d{1,2}),?\s*(20\d\d)/))){
+    const mo={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12}[d[1]];
+    if(mo) return `${d[3]}-${String(mo).padStart(2,'0')}-${String(d[2]).padStart(2,'0')}`;
+  }
+  return '';
+}
+const num = s => parseFloat(String(s).replace(/,/g,''));
+
+/* B) transaction-detail reader — assembles one position from the whole screen */
+function parseDetail(text){
+  const t=stripNoise(text.replace(/\s+/g,' '));
+  let coin='', amt='', price='', now='';
+  // "1 SOL = $26.09" gives us BOTH the ticker and the exact price paid
+  let m=t.match(/\b1\s*([A-Za-z]{2,6})\s*[=~]\s*\$\s*([\d,]+(?:\.\d+)?)/);
+  if(m){ coin=m[1].toUpperCase(); price=num(m[2]); }
+  // "@ $26.09" / "at $26.09"
+  if(price==='' && (m=t.match(/(?:@|\bat\b)\s*\$\s*([\d,]+(?:\.\d+)?)/i))) price=num(m[1]);
+  // quantity + ticker: "+796 SOL", "796 SOL"
+  if((m=t.match(/([\d,]+(?:\.\d+)?)\s*([A-Za-z]{2,6})\b/))){
+    for(const mm of t.matchAll(/([\d,]+(?:\.\d+)?)\s*([A-Za-z]{2,6})\b/g)){
+      const sym=mm[2].toUpperCase();
+      if(NOTCOINS.has(sym)) continue;
+      if(coin && sym!==coin) continue;
+      amt=num(mm[1]); coin=coin||sym; break;
+    }
+  }
+  if(!coin){
+    const nameHit=Object.keys(NAMES).find(n=>t.toLowerCase().includes(n));
+    if(nameHit) coin=NAMES[nameHit];
+  }
+  if(!coin) return [];
+  // total cost paid (the $ amount sitting with the quantity) → price when unit price absent
+  if(price==='' && amt>0 && (m=t.match(/\$\s*([\d,]+(?:\.\d+)?)/))) price=+(num(m[1])/amt).toFixed(6);
+  // "Current Value $58,856.41" → today's price per coin, so the marker works right away
+  if((m=t.match(/current\s*value\D{0,20}\$\s*([\d,]+(?:\.\d+)?)/i)) && amt>0)
+    now=+(num(m[1])/amt).toFixed(6);
+  return [{coin, amt:amt||'', price:price||'', date:findDate(t), now:now||''}];
+}
+
+/* A) table reader — one coin per line */
+function parseTable(text){
+  const out=[], seen=new Set();
+  for(let raw of text.split('\n')){
+    const line=stripNoise(raw.replace(/[|]/g,' ')).trim();
+    if(line.length<3) continue;
+    // coin: a name we know, or a 2–6 letter all-caps token that isn't a header word
+    let coin='';
+    const nameHit=Object.keys(NAMES).find(n=>line.toLowerCase().includes(n));
+    if(nameHit) coin=NAMES[nameHit];
+    if(!coin){
+      for(const m of line.matchAll(/\b([A-Z][A-Z0-9]{1,5})\b/g)){
+        if(!NOTCOINS.has(m[1])){ coin=m[1]; break; }
+      }
+    }
+    if(!coin || seen.has(coin)) continue;
+    const date=findDate(line);
+    // an explicit unit price on the line always wins ("@ $26.09", "1 SOL = $26.09")
+    let unit=line.match(/\b1\s*[A-Za-z]{2,6}\s*[=~]\s*\$\s*([\d,]+(?:\.\d+)?)/)
+           || line.match(/(?:@|\bat\b)\s*\$\s*([\d,]+(?:\.\d+)?)/i);
+    // numbers: $-prefixed are prices/values, bare ones are quantities.
+    // strip the date text first so its digits can't be mistaken for a quantity
+    let scan=line
+      .replace(/(20\d\d)[-\/.](\d{1,2})[-\/.](\d{1,2})/g,' ')
+      .replace(/(\d{1,2})[-\/.](\d{1,2})[-\/.](20\d\d)/g,' ')
+      .replace(/([A-Z][a-z]{2})\w*\.?\s+\d{1,2},?\s*20\d\d/g,' ')
+      .replace(/[+-]?[\d.]+\s?%/g,' ');            // drop percentages (P&L columns)
+    const dollars=[...scan.matchAll(/\$\s?([\d,]+(?:\.\d+)?)/g)].map(m=>parseFloat(m[1].replace(/,/g,'')));
+    scan=scan.replace(/\$\s?[\d,]+(?:\.\d+)?/g,' '); // remove the $ amounts we just took
+    const bare=[...scan.matchAll(/(^|[^\d.,])(\d+(?:\.\d+)?)/g)]
+                 .map(m=>parseFloat(m[2])).filter(n=>n>0 && n<1e9);
+    let price='', amt='';
+    if(bare.length) amt=bare[0];
+    if(unit) price=num(unit[1]);
+    else if(dollars.length) price=Math.min(...dollars);
+    if(price==='' && amt==='') continue;
+    // two $ figures and no quantity → the big one is position value, so qty = value / price
+    if(dollars.length>=2 && amt==='') amt=+(Math.max(...dollars)/Math.min(...dollars)).toFixed(6);
+    seen.add(coin);
+    out.push({coin, amt:amt||'', price:price||'', date, now:''});
+    if(out.length>=12) break;
+  }
+  return out;
+}
+
+/* ---------------- build the timelines ---------------- */
+function build(){
+  const box=$('timelines'); box.innerHTML='';
+  const valid=rows.filter(r=>r.coin && +r.amt>0 && +r.price>0);
+  const upcoming=[];
+  for(const r of valid){
+    const amt=+r.amt, buy=+r.price, now=r.now?+r.now:null, invested=amt*buy;
+    const worth=now?amt*now:null, pnl=now?((now-buy)/buy*100):null;
+    const mult=now? now/buy : 1;
+    // node positions: buy at 6%, ladder spread to 92%
+    const span=(92-6)/(LADDER[LADDER.length-1].m-1);
+    const posOf=m=>6+(m-1)*span;
+    const herePos=Math.max(6,Math.min(94,posOf(Math.max(1,Math.min(mult,LADDER[LADDER.length-1].m)))));
+    const nodes=LADDER.map((L,i)=>{
+      const price=buy*L.m, hit=now!=null&&now>=price, dollars=invested*L.m*(L.pct/100);
+      if(!hit) upcoming.push({coin:r.coin,price,pct:L.pct,m:L.m,need:now?((price/now-1)*100):null});
+      const stack=amt*price;   // what the whole position is worth at that price
+      return `<div class="node ${hit?'hit':(i===LADDER.length-1?'last':'sell')}" style="left:${posOf(L.m)}%"></div>
+        <div class="nlab ${i%2?'top':'bot'}" style="left:${posOf(L.m)}%">
+          <div class="p">${money(price)}<span class="per">/coin</span></div>
+          <div class="a"><b>${L.m}× · sell ${L.pct}%</b><br>
+            <span class="cash">cash out ≈ ${money(dollars)}</span><br>
+            <span class="dim">stack worth ${money(stack)}</span>
+            ${hit?'<br><span class="hitnow">✅ HIT — do it now</span>':''}</div></div>`;
+    }).join('');
+    const next=LADDER.find(L=>now==null||now<buy*L.m);
+    const crashPrice=buy*CRASH;
+    const el=document.createElement('div'); el.className='tl';
+    el.innerHTML=`
+      <div class="headrow"><span class="coin">${r.coin}</span>
+        <span class="chip c">${fmt(amt)} ${r.coin} · ${money(invested)} in${r.date?' · '+r.date:''}</span>
+        ${now?`<span class="chip ${pnl>=0?'g':'r'}">now ${money(now)} · ${pnl>=0?'+':''}${pnl.toFixed(1)}%</span>`:''}
+        ${now?`<span class="chip a">worth ${money(worth)}</span>`:'<span class="chip a">add "price now" for your marker</span>'}</div>
+      <div class="track">
+        <div class="line"></div>
+        ${now?`<div class="done" style="width:${herePos}%"></div><div class="here" style="left:${herePos}%">you are here (${money(now)})</div>`:''}
+        <div class="node buy" style="left:6%"></div>
+        <div class="nlab top" style="left:6%"><div class="p">${money(buy)}<span class="per">/coin</span></div>
+          <div class="a">you paid${r.date?'<br>'+r.date:''}<br><span class="dim">${money(invested)} total</span></div></div>
+        ${nodes}
+      </div>
+      <div class="axisnote">The numbers on this line are the price of <b>1 ${r.coin}</b> — that's what you watch for.
+        <b>"Cash out"</b> is the real dollars you'd take out at that point.
+        <button class="q">?<span class="tip">Example: you paid ${money(buy)} for 1 ${r.coin}. When it doubles to
+        ${money(buy*2)}, your ${fmt(amt)} ${r.coin} is worth ${money(invested*2)} — selling 20% of it hands you about
+        ${money(invested*2*0.2)} in cash, and you still own 80% of your coins.</span></button></div>
+      <div class="crashrow">🚨 <span><b>Escape hatch:</b> ${r.coin} at <b>${money(crashPrice)}</b> (half your buy price) → sell 100%, sit out.</span></div>
+      <div class="safety">
+        <div class="safe"><b>Next milestone</b>${next?`<span class="warnc">${money(buy*next.m)}</span> — sell ${next.pct}%${now?` (needs +${((buy*next.m/now-1)*100).toFixed(0)}%)`:''}`:'<span class="ok">all targets hit</span>'}</div>
+        <div class="safe"><b>If everything hits</b><span class="ok">${money(invested*LADDER.reduce((s,L)=>s+L.m*L.pct/100,0))}</span> total out</div>
+        <div class="safe"><b>Escape hatch gap</b>${now?`<span class="${now>crashPrice?'ok':'badc'}">${now>crashPrice?'✓ '+(((now-crashPrice)/crashPrice)*100).toFixed(0)+'% above':'⚠ below — sell'}</span>`:'—'}</div>
+        <div class="safe"><b>Crowd + funding check</b><span class="ok">live in the daily build</span></div>
+      </div>`;
+    box.appendChild(el);
+  }
+  // all-coins list
+  const al=$('alllist');
+  if(upcoming.length){
+    // closest first when we know today's price; otherwise everyone's 2× before anyone's 3×
+    upcoming.sort((a,b)=>{
+      if(a.need!=null && b.need!=null) return a.need-b.need;
+      if(a.need!=null) return -1;
+      if(b.need!=null) return 1;
+      return a.m-b.m || a.coin.localeCompare(b.coin);
+    });
+    al.classList.remove('hidden');
+    al.innerHTML='<h4>📅 All your coins, one list — closest sell first</h4>'+
+      upcoming.slice(0,10).map((u,i)=>`<div class="tstep"><b>${i+1}. ${u.coin} hits ${money(u.price)}</b>
+        <span>→ sell ${u.pct}% (${u.m}× your buy price${u.need!=null?', needs +'+u.need.toFixed(0)+'%':''})</span></div>`).join('')+
+      '<div style="color:var(--ink3);font-size:12.5px;margin-top:8px">Set these as price alerts in your exchange app — then you never watch charts.</div>';
+  } else al.classList.add('hidden');
+  // light up "YOU OWN THIS" chips in Step 3
+  const owned=new Set(valid.map(r=>r.coin.toUpperCase()));
+  document.querySelectorAll('[data-own]').forEach(el=>el.classList.toggle('hidden', !owned.has(el.dataset.own)));
+}
+</script>
+</body></html>
