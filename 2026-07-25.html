@@ -834,20 +834,8 @@ h3{font-size:17px;font-weight:700}
   </div>
 
   <footer class="footer">
-    <b>New stuff worth knowing (from digging through your folders):</b><br>
-    • <b>Giovanni's Power Law Clock</b> is the single best thing I found — the 4-year cycle as a clock face (3:00 = bottom,
-      12:00 = top). His dated readings let us compute it live. Right now it reads about <b>1:40 — just past the top</b>.<br>
-    • <b>Todaro thinks in market cap, not price.</b> His sell plan is $2.5T trim → $5T → $6T → out by $7T. Nobody else on your
-      list works that axis.<br>
-    • <b>CCI's own audit is brutal and useful:</b> their sell/avoid calls are right 69% of the time, but their alt <i>buys</i>
-      lost to just holding Bitcoin ~75% of the time. So the page leans on their risk rules, not their picks.<br>
-    • <b>Two folders are empty or useless</b> — <code>Data Sources/Todaros/</code> has zero files (the good stuff is in
-      TODARO CRYPTO DATA), <code>Data Sources/Giovanni/</code> is empty, and <b>Crypto Moon Crew</b> is beginner TA course
-      material with no usable metrics. Cryptoverse gives us the chart list but no numbers (images only).<br><br>
-    <b>What I need from you:</b> ① confirm the ladder percentages (2×→20%, 3×→25%, 5×→30%, 7×→rest) · ② say <b>"build it"</b>
-    and this becomes the live daily report · ③ optional: want a Moon Crew data dump so they earn a tile, and should I OCR
-    Cryptoverse's chart images for live values?
-    <br><br><b>Tokens this task:</b> ~700k (4 research agents + build) · <b>Rough cost:</b> ~$12–15
+    <b>The Waldo Crypto Report</b> — built fresh every morning from what our tracked accounts actually said.<br>
+    Not financial advice. It's a discipline tool: decide your sell prices while you're calm, then follow them.
   </footer>
 </div>
 
@@ -873,21 +861,48 @@ const DATA = {"date": "2026-07-25", "stats": {"accounts": "96/108", "tickers": "
   document.querySelectorAll('[data-live="date"]').forEach(function(e){ e.textContent = DATA.date; });
 
   const vb = document.querySelector('.verdict > div');
-  if (vb && DATA.bottom) {
+  if (vb) {
     const b = (DATA.bottom || '').toLowerCase();
-    let word = 'WAIT', icon = '⏸️',
-        line = "The pros say wait — their checklist isn't green yet. Stick to your plan below.";
+    const fearN = parseInt(DATA.fear, 10);
+    const mood = isNaN(fearN) ? null
+               : (fearN < 25 ? 'really scared' : fearN < 45 ? 'scared'
+               : fearN > 75 ? 'really greedy' : fearN > 55 ? 'greedy' : 'calm');
+    const btc = DATA.prices && DATA.prices.BTC
+              ? '$' + Math.round(DATA.prices.BTC).toLocaleString('en-US') : null;
+
+    let word = 'WAIT', icon = '⏸️', what, means, doThis;
+
     if (/\b(take profit|sell now|exit|reduce)\b/.test(b)) {
-      word = 'BE CAREFUL'; icon = '🔴';
-      line = 'The pros are taking money off the table. Check your sell targets below.';
+      word = 'TAKE SOME PROFIT'; icon = '🔴';
+      what  = 'The people we follow are selling into this strength' +
+              (mood ? ', and the market is feeling ' + mood + ' (' + fearN + ' out of 100)' : '') + '.';
+      means = 'When everyone feels great is exactly when prices usually stop going up.';
+      doThis = 'Look at Step 2. If any of your coins hit a sell price, sell that slice today. ' +
+               'You never go broke taking profit.';
     } else if (!/\b(wait|mixed|hold)\b/.test(b) && /\b(buy|deploy|accumulate|add)\b/.test(b)) {
-      word = 'LEAN IN'; icon = '🟢';
-      line = 'The checklist is lining up. Follow your buy plan below — in chunks, never all at once.';
+      word = 'GOOD TIME TO BUY'; icon = '🟢';
+      what  = 'The checks the pros use have turned green' +
+              (btc ? ' and Bitcoin is at ' + btc : '') + '.';
+      means = "That doesn't mean prices only go up from here — it means the odds are better than usual.";
+      doThis = 'Buy in thirds, not all at once. Put one chunk in now and keep the rest ready ' +
+               'for a red day. Your exact plan is in Step 2.';
+    } else {
+      what  = mood ? 'The market is ' + mood + ' right now — the fear meter reads ' + fearN + ' out of 100'
+                   : 'The market is mixed right now';
+      what += btc ? ', and Bitcoin is sitting at ' + btc + ', below the $74,000 mark the pros want to see first.'
+                  : ', and the pros are still waiting on their confirmation.';
+      means = 'Scared markets are usually where the good buying happens — but nobody has confirmed the turn yet, ' +
+              'so prices can still drop from here.';
+      doThis = "So don't dump money in all at once, and don't panic-sell either. " +
+               'Keep buying small amounts on a schedule, and check Step 2 for the exact prices ' +
+               'where you should sell some of what you already own.';
     }
+
     const em = document.querySelector('.verdict .big'); if (em) em.textContent = icon;
-    vb.innerHTML = "<b>Today's call: " + word + '.</b> ' + line +
-      '<button class="q">?<span class="tip">This is the one-line version of every gauge below.' +
-      '<b>The pros’ exact words: “' + DATA.bottom + '”</b></span></button>';
+    vb.innerHTML = "<b>Today's call: " + word + '.</b> ' + what + ' ' + means +
+      '<br><br><b style="color:var(--ink)">What to do:</b> ' + doThis +
+      (DATA.bottom ? '<button class="q">?<span class="tip">Where this comes from: every gauge on this page, ' +
+        'boiled down to one call.<b>The pros’ exact words today: “' + DATA.bottom + '”</b></span></button>' : '');
   }
 
   if (DATA.fear) {
