@@ -1,5 +1,6 @@
 
 
+
 # Everett's Visual Reply Rule (every session, phone or Mac)
 
 - Everett reads VISUALS, not walls of text. For every substantive answer, build a polished HTML page (ELI5 infographic style; live calculator when numbers are involved) and publish it with the Artifact tool so it pops up as a tappable card in the chat.

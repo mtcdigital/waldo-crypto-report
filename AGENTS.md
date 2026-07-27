@@ -1,5 +1,6 @@
 
 
+
 # Everett's Visual Reply Rule (every session, phone or Mac)
 
 - Everett reads VISUALS, not walls of text. For every substantive answer, build a polished HTML page (ELI5 infographic style; live calculator when numbers are involved) and save it in this repo at `_visuals/YYYY-MM-DD-<topic>.html`, then commit it. That folder is Everett's permanent decision log in GitHub.
