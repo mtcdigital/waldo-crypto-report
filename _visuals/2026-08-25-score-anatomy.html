@@ -1,0 +1,132 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anatomy of the Four Scores</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff;--cyan:#22d3ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 40px}
+.wrap{max-width:880px;margin:0 auto;padding:0 18px}
+header{text-align:center;padding:34px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:2rem;margin:8px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);max-width:36em;margin:0 auto}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+h2{font-size:1.12rem;margin-bottom:4px}
+p{margin:8px 0}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+.formula{background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px;margin:12px 0;text-align:center}
+.formula b{color:var(--cyan)}
+table{width:100%;border-collapse:collapse;font-size:.87rem;font-variant-numeric:tabular-nums}
+th{color:var(--muted);text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;padding:7px 8px;border-bottom:1px solid var(--line)}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.wb{height:8px;border-radius:4px;background:var(--cyan);display:inline-block;vertical-align:middle}
+.up{color:var(--green);font-weight:700}.dn{color:var(--red);font-weight:700}.md{color:var(--yellow);font-weight:700}
+.tablebox{overflow-x:auto}
+.chip{display:inline-block;padding:1px 9px;border-radius:999px;font-size:.68rem;font-weight:800}
+.c-cci{background:rgba(34,211,238,.14);color:var(--cyan)}
+.c-cowen{background:rgba(255,211,92,.14);color:var(--yellow)}
+.c-gio{background:rgba(46,230,168,.14);color:var(--green)}
+.c-mkt{background:rgba(92,157,255,.14);color:var(--blue)}
+.c-scr{background:rgba(183,140,255,.14);color:var(--purple)}
+.check{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.9rem}
+.check b{color:var(--blue)}
+footer{background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:20px;margin:24px 0;font-size:.9rem}
+footer h2{color:var(--blue)}
+ul{margin:8px 0 8px 20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+.scorehead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.scorehead .n{font-size:1.6rem;font-weight:800;color:var(--cyan)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Guest Report · Score Anatomy · Aug 25, 2026</div>
+  <h1>🔬 Anatomy of the Four Scores</h1>
+  <p class="sub">Exactly what feeds each 0–100 number on the AI Report tab — every input, its weight, and how the math works. Nothing hidden.</p>
+</header>
+
+<section>
+  <h2>The one formula behind all four</h2>
+  <div class="formula">Every input votes between <b>−1 (very bearish)</b> and <b>+1 (very bullish)</b> →<br>
+  each vote is multiplied by its <b>weight</b> (how much we trust that input) →<br>
+  the weighted average is mapped onto <b>0–100, where 50 = perfectly neutral</b>.</div>
+  <p class="small muted">So: 100 and 0 are hard walls — a score can never go past them. 39 means "the blend of votes leans mildly bearish." Weight = the evidence's own importance × the source's trust score from Step 4 (CCI 10/10, Cowen 10/10, market data 10/10, Giovanni 7/10, Twitter Scraper 5/10). Fresh quotes pulled daily from CCI's Discord and Cowen's videos join the vote and fade to zero over 21 days.</p>
+</section>
+
+<section>
+  <div class="scorehead"><h2>1 · Is it a good time to buy Bitcoin?</h2><span class="n">≈39</span></div>
+  <p class="small muted">"Is Bitcoin cheap versus its own history?" Five live inputs vote:</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Input</th><th>Source</th><th>Weight</th><th>Today's vote</th></tr></thead>
+    <tbody>
+      <tr><td>Distance from the power-law fair value (−45% below ≈ $143K)</td><td><span class="chip c-gio">Giovanni</span></td><td><span class="wb" style="width:70px"></span> 0.70</td><td class="up">strongly bullish</td></tr>
+      <tr><td>Price vs the 200-week average (+23% above the crash floor)</td><td><span class="chip c-cci">CCI</span></td><td><span class="wb" style="width:80px"></span> 0.80</td><td class="dn">bearish — far off the bargain zone</td></tr>
+      <tr><td>Weekly RSI (58 — not washed out)</td><td><span class="chip c-cci">CCI</span></td><td><span class="wb" style="width:70px"></span> 0.70</td><td class="dn">mildly bearish</td></tr>
+      <tr><td>Fear &amp; Greed at 74 (greed — contrarian input)</td><td><span class="chip c-mkt">Market</span></td><td><span class="wb" style="width:60px"></span> 0.60</td><td class="dn">bearish — crowd too excited</td></tr>
+      <tr><td>1-year return (−29% — a painful year favors buyers)</td><td><span class="chip c-cowen">Cowen</span></td><td><span class="wb" style="width:70px"></span> 0.70</td><td class="up">bullish</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Why it reads ~39:</b> the power law screams "cheap," but after the +25% jump the other four inputs say the easy bargain is gone — greed is high, RSI recovered, price left the crash zone. Two bullish votes lose to three bearish ones. This is exactly why the front page says "one long-term model says cheap, but most of our checks say not a bargain today."</p>
+</section>
+
+<section>
+  <div class="scorehead"><h2>2 · Has the market proved it is trending upwards?</h2><span class="n">≈65</span></div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Input</th><th>Source</th><th>Weight</th><th>Today's vote</th></tr></thead>
+    <tbody>
+      <tr><td>Price vs the 50-week average (CCI's own risk switch)</td><td><span class="chip c-cci">CCI</span></td><td><span class="wb" style="width:100px"></span> 1.00</td><td class="md">near the line — mixed</td></tr>
+      <tr><td>BTC vs CCI's decision ladder ($74K green light → $94K all-in)</td><td><span class="chip c-cci">CCI</span></td><td><span class="wb" style="width:100px"></span> 1.00</td><td class="up">bullish — above $74K</td></tr>
+      <tr><td>Price vs Cowen's 20/21-week band</td><td><span class="chip c-cowen">Cowen</span></td><td><span class="wb" style="width:80px"></span> 0.80</td><td class="up">bullish — back above it</td></tr>
+      <tr><td>Price vs the 100-week average</td><td><span class="chip c-cowen">Cowen</span></td><td><span class="wb" style="width:60px"></span> 0.60</td><td class="dn">still below</td></tr>
+      <tr><td>7-day Twitter sentiment on BTC (237 bull vs 169 bear)</td><td><span class="chip c-scr">Scraper</span></td><td><span class="wb" style="width:30px"></span> 0.30</td><td class="up">mildly bullish</td></tr>
+      <tr><td>Fresh CCI calls (Paolo: breakout bullish; Greg: ETF inflows)</td><td><span class="chip c-cci">CCI</span></td><td><span class="wb" style="width:80px"></span> 0.80 each</td><td class="up">bullish, fading over 21 days</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Why it reads ~65:</b> most trend inputs turned up, but the 100-week line and the not-yet-confirmed weekly closes hold it under the "confirmed" bar. Two Friday closes above $74K would push it into the green zone.</p>
+</section>
+
+<section>
+  <div class="scorehead"><h2>3 · How volatile is the crypto market right now?</h2><span class="n">≈49</span></div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Input</th><th>Source</th><th>Weight</th><th>Today's vote</th></tr></thead>
+    <tbody>
+      <tr><td>Funding rate (+0.009%/8h — how much borrowed money is betting up; the vetted traders' #1 tool)</td><td><span class="chip c-scr">Scraper</span></td><td><span class="wb" style="width:50px"></span> 0.50</td><td class="md">calm-ish — mildly reassuring</td></tr>
+      <tr><td>Trading volume vs its 30-day average (1.6× — a real move, which cuts both ways)</td><td><span class="chip c-mkt">Market</span></td><td><span class="wb" style="width:40px"></span> 0.40</td><td class="md">mixed</td></tr>
+      <tr><td>Fresh risk warnings from the sources (when they appear)</td><td><span class="chip c-cci">CCI</span> <span class="chip c-cowen">Cowen</span></td><td><span class="wb" style="width:80px"></span> 0.80 each</td><td class="muted">none active today</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Why it reads ~49:</b> leverage is not crowded (good) but volume shows a market moving hard and fast (jumpy). Net: right on neutral — "somewhat jumpy." Higher always means calmer on this one.</p>
+</section>
+
+<section>
+  <div class="scorehead"><h2>4 · Is it altcoin season yet?</h2><span class="n">≈20</span></div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Input</th><th>Source</th><th>Weight</th><th>Today's vote</th></tr></thead>
+    <tbody>
+      <tr><td>Bitcoin dominance (59.3% vs CCI's ~52% alt-season line)</td><td><span class="chip c-cci">CCI</span></td><td><span class="wb" style="width:100px"></span> 1.00</td><td class="dn">strongly bearish for alts</td></tr>
+      <tr><td>7-day Twitter sentiment on the major alts (286 bull vs 74 bear)</td><td><span class="chip c-scr">Scraper</span></td><td><span class="wb" style="width:25px"></span> 0.25</td><td class="up">bullish — but a small vote on purpose</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Why it reads ~20:</b> money share is still flowing toward Bitcoin, and dominance is the heavyweight vote. Twitter loves the alts, but chatter gets a deliberately small say — talk is cheap; the money-share number is not. Alt hype from the paid rooms is shown as context but never counted as a buy vote.</p>
+</section>
+
+<section>
+  <h2>✅ How to validate this</h2>
+  <div class="check"><b>On the report:</b> each of the four boxes now carries an italic *footnote listing exactly these inputs. Step 4's weights table is the source-trust column above. The evidence cards on Tab 1 are these same votes, written in plain English.</div>
+  <div class="check"><b>In the code:</b> every input, weight, and vote formula lives in <span style="font-family:ui-monospace,Menlo,monospace">portfolio_engine.py → gather_evidence()</span> — one function, human-readable, with each vote's reasoning as a sentence.</div>
+  <div class="check"><b>Scores shown are from today's Aug 25 build</b> and drift slightly through the day as live prices refresh.</div>
+</section>
+
+<footer>
+  <h2>👉 What's next for Everett</h2>
+  <ul>
+    <li><b>Nothing required</b> — the *footnotes are live on the guest report; this page is your deep-dive reference.</li>
+    <li>Want any input added, dropped, or re-weighted? Name it — each is one line in the engine.</li>
+    <li>Still pending from earlier: the market-cap chart's year of history (CoinGecko cooldown) — say "refresh the guest report" later and it lands.</li>
+  </ul>
+  <p class="small muted" style="margin-top:10px">This task: ~30k tokens (~$0.65). Changed: guest score-box footnotes + "How a coin qualifies" bullets; this reference page.</p>
+</footer>
+</div>
