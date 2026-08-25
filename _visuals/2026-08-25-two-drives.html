@@ -1,0 +1,97 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Two Data Sources Folders</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 40px}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px}
+header{text-align:center;padding:34px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:2rem;margin:8px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);max-width:36em;margin:0 auto}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+h2{font-size:1.12rem;margin-bottom:6px}
+p{margin:8px 0}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.drive{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px}
+.drive.old{border-top:4px solid var(--yellow)}
+.drive.real{border-top:4px solid var(--green)}
+.drive h3{font-size:1rem;margin-bottom:2px}
+.drive .acct{font-size:.78rem;color:var(--muted);margin-bottom:10px}
+.f{display:flex;gap:8px;align-items:baseline;font-size:.88rem;padding:4px 0;border-bottom:1px solid rgba(39,48,67,.6)}
+.f:last-child{border-bottom:none}
+.f .ic{flex-shrink:0}
+.gone{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red)}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.7rem;font-weight:800;margin-left:6px}
+.pill.frozen{background:rgba(255,211,92,.15);color:var(--yellow)}
+.pill.live{background:rgba(46,230,168,.15);color:var(--green)}
+.check{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.9rem}
+.check b{color:var(--blue)}
+.warn{background:rgba(255,211,92,.08);border:1px solid rgba(255,211,92,.4);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:.9rem}
+.warn b{color:var(--yellow)}
+footer{background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:20px;margin:24px 0;font-size:.9rem}
+footer h2{color:var(--blue)}
+ul{margin:8px 0 8px 20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">SharedBrain Mystery · Aug 25, 2026 · nothing was changed to make this page</div>
+  <h1>🗂️ The Two Data Sources Folders</h1>
+  <p class="sub">You have two lookalike "data sources" folders in two different Google accounts. One is a frozen July experiment. One is the real thing — and the real one is complete and untouched.</p>
+</header>
+
+<section>
+  <h2>Side by side</h2>
+  <div class="cols">
+    <div class="drive old">
+      <h3>🧊 The old experiment <span class="pill frozen">FROZEN JULY 9</span></h3>
+      <div class="acct">Account: <b>everettwaldo@gmail.com</b> → "Waldo Bros Crypto Drive" → "DATA SOURCES" (all caps)</div>
+      <div class="f"><span class="ic">📄</span><span>Waldo Bros - Start Here (DATA SOURCES).html</span></div>
+      <div class="f"><span class="ic">📁</span><span>Automated Twitter Scraper <span class="muted small">(July snapshot)</span></span></div>
+      <div class="f"><span class="ic">📁</span><span>CCI Discord</span></div>
+      <div class="f"><span class="ic">📁</span><span>Giovanni Santostasi - YouTube Transcripts</span></div>
+      <div class="f"><span class="ic">🚫</span><span class="gone">Todaro Family</span><span class="small muted">— never existed here (created Aug 12, a month after the freeze)</span></div>
+      <div class="f"><span class="ic">🚫</span><span class="gone">Ben Cowen · CCI-Quantum · Strategy · FOMO Feed…</span></div>
+      <p class="small muted" style="margin-top:8px">This was the July 9 "make a duplicate Claude can draw on" experiment. Nothing has written to it since. Nothing reads from it.</p>
+    </div>
+    <div class="drive real">
+      <h3>✅ The real one <span class="pill live">LIVE — COMPLETE</span></h3>
+      <div class="acct">Account: <b>everett@mtcdigitalservices.com</b> → Shared drives → <b>SharedBrain</b> → "Data Sources"</div>
+      <div class="f"><span class="ic">📁</span><span><b>Todaro Family - added by Everett</b> ✓ present</span></div>
+      <div class="f"><span class="ic">📁</span><span><b>Automated Twitter Scraper - added by Everett</b> ✓ present</span></div>
+      <div class="f"><span class="ic">📁</span><span>Ben Cowen · CCI Discord · CCI-Quantum Profits · Crypto Consulting Institute · Crypto Moon Crew · FOMO Trader Feed · Giovanni · Into The Cryptoverse · Strategy · + system folders</span></div>
+      <div class="f"><span class="ic">🕐</span><span>Folder contents last changed <b>Aug 13</b> — 12 days before tonight. Nothing moved.</span></div>
+      <p class="small muted" style="margin-top:8px">This is the only folder the daily report reads. Proof it's healthy: tonight's report pulled the CCI Discord log from it at 2:55 AM without a hiccup.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>🔍 Tell which one you're in — 5 seconds</h2>
+  <div class="check"><b>1. Look at the avatar, top-right of Drive.</b> Gmail account = you're in the old experiment's world. mtcdigitalservices = the real one.</div>
+  <div class="check"><b>2. Look for "Strategy - added by Connor."</b> Only the real folder has it. If you don't see it, you're in the old duplicate.</div>
+  <div class="check"><b>3. Folder-name style.</b> Real one: names end in "- added by Everett / Connor." Old one: bare names, and the folder itself is "DATA SOURCES" in all caps.</div>
+</section>
+
+<section>
+  <h2>🤔 The one loose end</h2>
+  <div class="warn"><b>The old duplicate DOES contain an (outdated) "Automated Twitter Scraper" folder.</b> You said the folder you're in is missing that one too. If you run the 5-second check and you're somehow in the REAL folder and still can't see Todaro Family / Automated Twitter Scraper — tell me, because that would mean a sharing-permission change on those two items (both are "added by Everett"), and I'll trace it. Not touching anything until you say so.</div>
+</section>
+
+<footer>
+  <h2>👉 What's next for Everett</h2>
+  <ul>
+    <li><b>Do the 5-second check</b> (avatar + "Strategy" folder) and tell me which drive you were in.</li>
+    <li><b>Nothing was changed</b> to answer this — read-only lookups on both accounts. Tonight's work never wrote to Drive at all.</li>
+    <li><b>Later, if you want:</b> I can archive the old July duplicate so this confusion can't happen again — only with your explicit go-ahead.</li>
+  </ul>
+  <p class="small muted" style="margin-top:10px">This task: ~15k tokens (~$0.35). Files changed: none (this page only).</p>
+</footer>
+</div>
