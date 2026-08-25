@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Machine — Everett's Cycle Workflow</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff;--orange:#ff9f43}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.5;padding-bottom:70px}
+.wrap{max-width:1020px;margin:0 auto;padding:0 18px}
+header{padding:30px 0 8px;text-align:center}
+h1{font-size:1.8rem}h2{font-size:1.3rem;margin-bottom:8px}
+.sub{color:var(--muted);font-size:.92rem;margin-top:4px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;margin:18px 0}
+.muted{color:var(--muted)}.small{font-size:.84rem}
+/* flowchart */
+.flow{display:flex;flex-direction:column;align-items:center}
+.node{border-radius:12px;padding:12px 18px;text-align:center;max-width:640px;width:100%;border:1px solid var(--line);background:var(--panel2);font-size:.92rem}
+.node b{font-size:1rem}
+.node.start{border-color:var(--blue);background:rgba(92,157,255,.1)}
+.node.decide{border-color:var(--yellow);background:rgba(255,211,92,.08);border-radius:18px}
+.node.action{border-color:var(--green);background:rgba(46,230,168,.08)}
+.node.danger{border-color:var(--red);background:rgba(255,92,108,.08)}
+.node.hold{border-color:var(--purple);background:rgba(183,140,255,.08)}
+.arrow{color:var(--muted);font-size:1.3rem;padding:4px 0;line-height:1}
+.arrow span{font-size:.72rem;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:2px 10px;vertical-align:middle;margin:0 6px}
+.branch{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;width:100%;max-width:900px;margin:4px 0}
+.branch2{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:760px;margin:4px 0}
+@media(max-width:760px){.branch,.branch2{grid-template-columns:1fr}}
+.bnode{border-radius:12px;padding:10px 12px;font-size:.84rem;border:1px solid var(--line);background:var(--panel2)}
+.bnode .tag{display:block;font-size:.7rem;font-weight:800;letter-spacing:.5px;margin-bottom:4px}
+.g .tag{color:var(--green)}.y .tag{color:var(--yellow)}.r .tag{color:var(--red)}.b .tag{color:var(--blue)}
+.g{border-color:rgba(46,230,168,.5)}.y{border-color:rgba(255,211,92,.5)}.r{border-color:rgba(255,92,108,.5)}.b{border-color:rgba(92,157,255,.5)}
+/* bars */
+.bars{display:flex;gap:26px;align-items:flex-end;justify-content:center;height:230px;margin:18px 0 6px}
+.barcol{text-align:center;width:150px}
+.barwrap{position:relative;height:180px;display:flex;align-items:flex-end;justify-content:center;gap:8px}
+.bar{width:52px;border-radius:6px 6px 0 0;position:relative}
+.bar .v{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:.7rem;font-weight:800;white-space:nowrap}
+.bar.peak{background:rgba(92,157,255,.35);border:1px solid var(--blue)}
+.bar.kept{background:var(--green)}
+.barlab{font-size:.8rem;margin-top:8px;color:var(--muted)}
+.cap{font-weight:800;color:var(--green)}
+/* sliders */
+.slider-row{margin:12px 0}
+.slider-row .lab{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:3px}
+.slider-row .val{font-weight:800;color:var(--blue)}
+input[type=range]{width:100%;accent-color:var(--blue);cursor:pointer}
+.out{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
+.out .row{display:flex;justify-content:space-between;padding:4px 0;font-size:.9rem}
+.out .row b{font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+svg text{fill:var(--muted);font-size:10px}
+footer{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:26px 0;font-size:.86rem}
+.big{font-size:1.3rem;font-weight:800}
+</style>
+</head>
+<body>
+<div id="gate" style="position:fixed;inset:0;background:#0b0e14;display:flex;align-items:center;justify-content:center;z-index:99"><div style="background:#141926;border:1px solid #273043;border-radius:16px;padding:36px;text-align:center;max-width:340px"><div style="font-size:2.4rem">🧭</div><h2 style="margin:10px 0 4px;color:#e8ecf4">WALDO HQ</h2><p style="font-size:.85rem;color:#94a0b8;margin-bottom:14px">Family passphrase to enter</p><input type="password" id="pw" placeholder="passphrase" style="width:100%;background:#0d1117;border:1px solid #273043;border-radius:8px;color:#e8ecf4;padding:9px 10px"><br><button style="margin-top:12px;width:100%;background:#5c9dff;color:#0b0e14;font-weight:800;border:none;border-radius:9px;padding:10px;cursor:pointer" onclick="gateTry()">Enter</button><p style="font-size:.8rem;color:#94a0b8;margin-top:8px" id="pwErr"></p></div></div>
+<div class="wrap" id="app" style="display:none">
+<header>
+  <h1>⚙️ THE MACHINE</h1>
+  <div class="sub">Your whole cycle as one workflow — Aug 26, 2026 &middot; you're at the purple box &middot; live version: WALDO HQ dashboard (push pending)</div>
+</header>
+
+<!-- FLOWCHART -->
+<section>
+  <h2>🗺️ The workflow (top to bottom = this cycle, start to finish)</h2>
+  <div class="flow" style="margin-top:14px">
+    <div class="node start"><b>▶ START — TODAY</b><br><span class="small">$126.3k on Coinbase &middot; ~60% deployed in 6 alts &middot; BTC ~$80k &middot; missed the first +30% pop (nobody said "go" — that's WHY this machine now exists)</span></div>
+    <div class="arrow">↓</div>
+    <div class="node decide"><b>◆ BUY GATE — every Friday, check the weekly close</b><br><span class="small">(the machine checks; you click)</span></div>
+    <div class="branch">
+      <div class="bnode g"><span class="tag">IF 2 CLOSES > $74k</span>BUY T1: $10k<br><span class="small muted">CCI's "74kish" support = your own June trigger</span></div>
+      <div class="bnode g"><span class="tag">IF CLOSE > $86k</span>BUY T2: $12k<br><span class="small muted">strength confirmation ($82k = CCI bull line on the way)</span></div>
+      <div class="bnode b"><span class="tag">IF BTC HITS $68k / $65k</span>T3 AUTO-BUYS<br><span class="small muted">standing limit orders — "everything on sale" pre-paid</span></div>
+    </div>
+    <div class="branch2">
+      <div class="bnode r"><span class="tag">IF WEEKLY CLOSE < $71.5k</span>KILL SWITCH — cancel T1/T2, dip orders only</div>
+      <div class="bnode y"><span class="tag">ALWAYS</span>NO new debt &middot; NO same-day vibe trades &middot; NO adds into +60% candles</div>
+    </div>
+    <div class="arrow">↓ <span>deployed ≈ $96-110k basis</span></div>
+    <div class="node hold"><b>◈ HOLD PHASE — you are here</b><br><span class="small">6 bags (PUMP · HYPE · ZEC · DOGE · PEPE · ONDO) &middot; 95%-alts by your call &middot; expectation: blue-chip alt ≈ 5x from cycle start &middot; dashboard watches every trigger daily</span></div>
+    <div class="arrow">↓ <span>the run happens</span></div>
+    <div class="node decide"><b>◆ SELL GATE — the multiple ladder (YOUR math, now official)</b></div>
+    <div class="branch">
+      <div class="bnode g"><span class="tag">AT 5x (~$500k)</span>SELL THE BASIS (~$100k)<br><span class="small muted">original stake off the table — house money forever after</span></div>
+      <div class="bnode g"><span class="tag">AT ~7x (bag ≈ $560k)</span>SELL DOWN TO $75k RUNNER<br><span class="small muted">banked ≈ $585-600k total</span></div>
+      <div class="bnode g"><span class="tag">RUNNER AT ~10x</span>EXIT ~$107-130k<br><span class="small muted">grand total ≈ $700-750k pre-tax 🎯</span></div>
+    </div>
+    <div class="branch2">
+      <div class="bnode r"><span class="tag">🚨 CODE RED (overrides everything)</span>>$400k then −25% from peak → sell 50% TODAY &middot; >$750k then −30% → sell 90% TODAY</div>
+      <div class="bnode y"><span class="tag">⏰ TIME-STOP</span>Feb 2027: ladder out regardless of price (power-law camp says top is later — if they're right, the runner catches it)</div>
+    </div>
+    <div class="arrow">↓ <span>after tax: first $108.7k of gains FREE, ~20% after</span></div>
+    <div class="node action"><b>💰 EXIT — target ~$600-650k net</b><br><span class="small">→ USDC at ~6% (~$36k/yr interest) &middot; $50k/yr life (Thailand = half) &middot; kill remaining card debt</span></div>
+    <div class="arrow">↓ <span>bear market 2027-2029</span></div>
+    <div class="node action"><b>🔁 NEXT CYCLE — seed $500-600k</b><br><span class="small">same machine, bigger numbers → 5x = $2.5-3M → <b>21 BTC at the next bear bottom</b> 🏁</span></div>
+  </div>
+</section>
+
+<!-- HISTORY BARS -->
+<section>
+  <h2>📊 Why the machine exists — peak vs. kept, three cycles</h2>
+  <p class="small muted">The green bar is what you walked away with. The goal isn't a bigger blue bar — it's a green bar that's 60-75% of the blue one.</p>
+  <div class="bars">
+    <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:8px"><span class="v">$11k</span></div><div class="bar kept" style="height:2px"><span class="v">~$0</span></div></div><div class="barlab">Cycle 1 ('17-18)<br><span class="cap">0% kept</span></div></div>
+    <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:180px"><span class="v">$1M</span></div><div class="bar kept" style="height:8px"><span class="v">$40k</span></div></div><div class="barlab">Cycle 2 ('20-22)<br><span class="cap">4% kept</span></div></div>
+    <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:117px"><span class="v">$650k</span></div><div class="bar kept" style="height:25px"><span class="v">$140k</span></div></div><div class="barlab">Cycle 3 ('23-26)<br><span class="cap">22% kept</span></div></div>
+    <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:135px;opacity:.5"><span class="v">$750k?</span></div><div class="bar kept" style="height:95px;background:var(--yellow)"><span class="v">$525k+?</span></div></div><div class="barlab">Cycle 4 (NOW)<br><span class="cap" style="color:var(--yellow)">target 70%</span></div></div>
+  </div>
+  <p class="small muted" style="text-align:center">The trend is real: 0% → 4% → 22%. The only sells that ever fired were WRITTEN triggers. Cycle 4 is all written triggers.</p>
+</section>
+
+<!-- EXIT MATH -->
+<section>
+  <h2>🧮 Your exit math, exact (drag the sliders — your voice-memo numbers preloaded)</h2>
+  <div class="grid2" style="margin-top:8px">
+    <div>
+      <div class="slider-row"><div class="lab"><span>Basis deployed this cycle</span><span class="val" id="v_b">$100,000</span></div><input type="range" id="s_b" min="70000" max="150000" step="5000" value="100000"></div>
+      <div class="slider-row"><div class="lab"><span>First trim at (multiple)</span><span class="val" id="v_m1">5.0x</span></div><input type="range" id="s_m1" min="3" max="7" step="0.5" value="5"></div>
+      <div class="slider-row"><div class="lab"><span>Big sell-down at</span><span class="val" id="v_m2">7.0x</span></div><input type="range" id="s_m2" min="5" max="10" step="0.5" value="7"></div>
+      <div class="slider-row"><div class="lab"><span>Runner kept at big sell</span><span class="val" id="v_k">$75,000</span></div><input type="range" id="s_k" min="25000" max="150000" step="5000" value="75000"></div>
+      <div class="slider-row"><div class="lab"><span>Runner exits at</span><span class="val" id="v_m3">10.0x</span></div><input type="range" id="s_m3" min="7" max="15" step="0.5" value="10"></div>
+      <svg id="chart" viewBox="0 0 460 220" style="width:100%;margin-top:8px;background:var(--panel2);border:1px solid var(--line);border-radius:12px"></svg>
+      <p class="small muted" style="margin-top:4px">Portfolio value through the cycle. Green dots = your three sells firing.</p>
+    </div>
+    <div class="out">
+      <div class="row"><span>① At <b id="o_m1">5x</b>: portfolio hits</span><b id="o_p1">$500,000</b></div>
+      <div class="row"><span>&nbsp;&nbsp;&nbsp;sell the basis →</span><b style="color:var(--green)" id="o_s1">bank $100,000</b></div>
+      <div class="row"><span>② Run to <b id="o_m2">7x</b>: bag grows to</span><b id="o_p2">$560,000</b></div>
+      <div class="row"><span>&nbsp;&nbsp;&nbsp;sell down to runner →</span><b style="color:var(--green)" id="o_s2">bank $485,000</b></div>
+      <div class="row"><span>③ Runner to <b id="o_m3">10x</b> →</span><b style="color:var(--green)" id="o_s3">bank $107,000</b></div>
+      <div class="row" style="border-top:1px solid var(--line);padding-top:8px"><span><b>Grand total pre-tax</b></span><b class="big" id="o_tot">$692,000</b></div>
+      <div class="row"><span>− tax (first $108.7k of gains free, then 20%)</span><b style="color:var(--red)" id="o_tax">−$96,700</b></div>
+      <div class="row"><span><b>NET WALKS AWAY</b></span><b class="big" style="color:var(--green)" id="o_net">$595,000</b></div>
+      <div class="row small muted"><span>Next-cycle seed after ~1yr living (~$50k)</span><b id="o_seed">~$545,000</b></div>
+      <p class="small" style="margin-top:10px" id="o_verdict"></p>
+      <p class="small muted" style="margin-top:8px">Honesty tag: the 5x assumption is YOUR baseline. Finance-leader's realistic band: 2-4x (5x = great year). The machine works at any multiple — the ladder just fires lower.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>What's next:</b> ① Push the dashboard live (the `!` command from chat) — then this whole flowchart runs itself with live prices. ② Friday Aug 28 close vs $74k = first gate. ③ Forensic trade history + all-channel CCI sweep land in the brain when the agents finish. &nbsp;|&nbsp; Docs 00-09 updated in <b>Everett Master Cycle Plan</b>. &nbsp;|&nbsp; <span class="muted">This page: ~40k tokens (~$0.80). Not financial advice — it's your own plan, drawn.</span>
+</footer>
+</div>
+
+<script>
+function fmt(n){return "$"+Math.round(n).toLocaleString("en-US");}
+function calc(){
+  var B=+s_b.value,m1=+s_m1.value,m2=+s_m2.value,K=+s_k.value,m3=+s_m3.value;
+  v_b.textContent=fmt(B);v_m1.textContent=m1.toFixed(1)+"x";v_m2.textContent=m2.toFixed(1)+"x";
+  v_k.textContent=fmt(K);v_m3.textContent=m3.toFixed(1)+"x";
+  var p1=B*m1, s1=Math.min(B,p1);            // sell the basis at m1
+  var r1=p1-s1;                               // stays in
+  var p2=r1*(m2/m1);                          // grows to m2
+  var k=Math.min(K,p2), s2=p2-k;              // sell down to runner
+  var s3=k*(m3/m2);                           // runner exit
+  var tot=s1+s2+s3;
+  var gains=Math.max(0,tot-B), taxable=Math.max(0,gains-108700), tax=taxable*0.20, net=tot-tax;
+  o_m1.textContent=m1.toFixed(1)+"x";o_m2.textContent=m2.toFixed(1)+"x";o_m3.textContent=m3.toFixed(1)+"x";
+  o_p1.textContent=fmt(p1);o_s1.textContent="bank "+fmt(s1);
+  o_p2.textContent=fmt(p2);o_s2.textContent="bank "+fmt(s2);
+  o_s3.textContent="bank "+fmt(s3);
+  o_tot.textContent=fmt(tot);o_tax.textContent="−"+fmt(tax);o_net.textContent=fmt(net);
+  o_seed.textContent="~"+fmt(net-50000);
+  o_verdict.innerHTML = net>=750000 ? "<b style='color:var(--green)'>🎉 Over the $750k dream number NET.</b>"
+    : net>=550000 ? "<b style='color:var(--yellow)'>✅ Lands in the happy zone — next cycle seeds $500k+, lifestyle covered.</b>"
+    : "<b style='color:var(--red)'>Below the $500k seed — raise a multiple or the basis to see what it takes.</b>";
+  // chart
+  var W=460,H=220,pad=30, maxV=Math.max(p2,B*m3*0.2,tot)*1.05;
+  function X(f){return pad+f*(W-2*pad);}function Y(v){return H-pad-(v/maxV)*(H-2*pad);}
+  // path: 1x -> m1 (full B growing) -> sell -> m2 (r1 growing) -> sell -> m3 (runner)
+  var pts=[[0,B],[0.35,p1]], sells=[[0.35,p1]];
+  pts.push([0.36,r1]); pts.push([0.65,p2]); sells.push([0.65,p2]);
+  pts.push([0.66,k]); pts.push([0.9,s3]); sells.push([0.9,s3]);
+  var line=pts.map(function(p,i){return (i?"L":"M")+X(p[0]).toFixed(1)+","+Y(p[1]).toFixed(1)}).join(" ");
+  var dots=sells.map(function(p){return '<circle cx="'+X(p[0]).toFixed(1)+'" cy="'+Y(p[1]).toFixed(1)+'" r="5" fill="#2ee6a8"/>'}).join("");
+  var glines="",gl=[250000,500000,750000];
+  gl.forEach(function(v){if(v<maxV)glines+='<line x1="'+pad+'" y1="'+Y(v)+'" x2="'+(W-pad)+'" y2="'+Y(v)+'" stroke="#273043" stroke-dasharray="4 4"/><text x="'+(pad+2)+'" y="'+(Y(v)-4)+'">'+fmt(v)+'</text>';});
+  document.getElementById("chart").innerHTML=glines+'<path d="'+line+'" fill="none" stroke="#5c9dff" stroke-width="3" stroke-linejoin="round"/>'+dots+
+   '<text x="'+X(0.02)+'" y="'+(H-10)+'">start</text><text x="'+X(0.3)+'" y="'+(H-10)+'">'+m1.toFixed(0)+'x sell #1</text><text x="'+X(0.6)+'" y="'+(H-10)+'">'+m2.toFixed(0)+'x sell #2</text><text x="'+X(0.85)+'" y="'+(H-10)+'">'+m3.toFixed(0)+'x runner out</text>';
+}
+["s_b","s_m1","s_m2","s_k","s_m3"].forEach(function(id){window[id]=document.getElementById(id);window[id].addEventListener("input",calc);});
+["v_b","v_m1","v_m2","v_k","v_m3","o_m1","o_m2","o_m3","o_p1","o_s1","o_p2","o_s2","o_s3","o_tot","o_tax","o_net","o_seed","o_verdict"].forEach(function(id){window[id]=document.getElementById(id);});
+calc();
+</script>
+<script>
+function gateTry(){var v=(document.getElementById("pw").value||"").trim().toUpperCase();if(v==="WALDO"){try{localStorage.setItem("hq_gate","1")}catch(e){};openApp();}else{document.getElementById("pwErr").textContent="Nope — ask Everett.";}}
+function openApp(){document.getElementById("gate").style.display="none";document.getElementById("app").style.display="block";}
+try{if(localStorage.getItem("hq_gate")==="1")openApp();}catch(e){}
+document.getElementById("pw").addEventListener("keydown",function(e){if(e.key==="Enter")gateTry();});
+</script>
+</body>
+</html>
