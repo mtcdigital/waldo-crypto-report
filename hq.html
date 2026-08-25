@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>WALDO HQ — Cycle Decision Engine</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff;--orange:#ff9f43}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.5;padding-bottom:70px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+header{padding:26px 0 6px;text-align:center}
+h1{font-size:1.7rem}h2{font-size:1.25rem;margin-bottom:6px}h3{font-size:1rem;margin-bottom:6px}
+.sub{color:var(--muted);font-size:.9rem;margin-top:4px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+.muted{color:var(--muted)}.small{font-size:.84rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}}
+.metric{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.metric .lab{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.metric .val{font-size:1.25rem;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.metric .chg{font-size:.78rem;font-weight:700}
+.up{color:var(--green)}.dn{color:var(--red)}
+.rung{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0;font-size:.9rem}
+.rung .trig{width:150px;font-weight:800;flex-shrink:0;font-variant-numeric:tabular-nums}
+.rung.hit{border-left-color:var(--green);background:rgba(46,230,168,.07)}
+.rung.close{border-left-color:var(--yellow)}
+.rung.armed{border-left-color:var(--line)}
+.rung.danger{border-left-color:var(--red)}
+.st{margin-left:auto;font-size:.72rem;font-weight:800;padding:2px 10px;border-radius:999px;flex-shrink:0}
+.st.hit{background:rgba(46,230,168,.15);color:var(--green)}
+.st.close{background:rgba(255,211,92,.15);color:var(--yellow)}
+.st.armed{background:rgba(148,160,184,.12);color:var(--muted)}
+.st.danger{background:rgba(255,92,108,.15);color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{color:var(--muted);text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;padding:7px 8px;border-bottom:1px solid var(--line)}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+input[type=number],input[type=text],input[type=password]{background:#0d1117;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:7px 10px;font-size:.9rem;width:120px}
+button{background:var(--blue);color:#0b0e14;font-weight:800;border:none;border-radius:9px;padding:9px 16px;cursor:pointer;font-size:.9rem}
+button.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.instr{border:2px solid var(--green);background:rgba(46,230,168,.06);border-radius:16px;padding:20px;margin:16px 0}
+.instr h2{color:var(--green)}
+.instr li{margin:7px 0}
+ul{margin:8px 0 8px 20px}
+.codered{border:2px solid var(--red);background:rgba(255,92,108,.06);border-radius:16px;padding:20px;margin:16px 0}
+.codered h2{color:var(--red)}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.7rem;font-weight:800;margin-left:6px;vertical-align:middle}
+.b-src{background:rgba(92,157,255,.15);color:var(--blue)}
+.b-str{background:rgba(148,160,184,.14);color:var(--muted)}
+.gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:99}
+.gate .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:36px;text-align:center;max-width:340px}
+#staleBanner{display:none;background:rgba(255,211,92,.12);border:1px solid rgba(255,211,92,.4);color:var(--yellow);border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.85rem}
+footer{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:24px 0;font-size:.85rem}
+a{color:var(--blue)}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:.85em}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate"><div class="box">
+  <div style="font-size:2.4rem">🧭</div>
+  <h2 style="margin:10px 0 4px">WALDO HQ</h2>
+  <p class="small muted" style="margin-bottom:14px">Family passphrase to enter</p>
+  <input type="password" id="pw" placeholder="passphrase" style="width:100%"><br>
+  <button style="margin-top:12px;width:100%" onclick="gateTry()">Enter</button>
+  <p class="small muted" id="pwErr" style="margin-top:8px"></p>
+</div></div>
+
+<div class="wrap" id="app" style="display:none">
+<header>
+  <h1>🧭 WALDO HQ — Cycle Decision Engine</h1>
+  <div class="sub">Everett's live plan &middot; prices auto-refresh from CoinGecko &middot; last update: <span id="asof">—</span> &middot; plan version 2026-08-26</div>
+</header>
+
+<div id="staleBanner">⚠️ Live prices unavailable right now (rate limit) — showing the Aug 25, 2026 snapshot. Refresh in a minute.</div>
+
+<!-- LIVE METRICS -->
+<section>
+  <h2>📡 Live metrics</h2>
+  <div class="grid4" id="metrics" style="margin-top:10px"></div>
+  <div class="grid4" style="margin-top:10px">
+    <div class="metric"><div class="lab">Total crypto mkt cap</div><div class="val" id="mTotal">—</div><div class="chg muted">last cycle peak ~$3.9T</div></div>
+    <div class="metric"><div class="lab">Last Friday weekly close</div><div class="val" id="mWk">—</div><div class="chg" id="mWkSt">—</div></div>
+    <div class="metric"><div class="lab">Portfolio (crypto + cash)</div><div class="val" id="mPort">—</div><div class="chg muted">edit holdings below</div></div>
+    <div class="metric"><div class="lab">Portfolio peak (tracked)</div><div class="val" id="mPeak">—</div><div class="chg" id="mDD">—</div></div>
+  </div>
+</section>
+
+<!-- INSTRUCTION CARD -->
+<div class="instr">
+  <h2>🎯 DO THIS NOW <span class="small muted">(auto-computed from the rules below)</span></h2>
+  <ul id="instructions"><li>Loading…</li></ul>
+</div>
+
+<!-- BUY SIDE -->
+<section>
+  <h2>🟢 Buy-side triggers (deployment tranches)</h2>
+  <p class="small muted">Weekly closes only — wicks don't count. Dry powder today ≈ $22-24k (debt cushion until Sakline refund ~Sep 24; then +$15k joins). NO new-debt money, ever.</p>
+  <div id="buyRungs" style="margin-top:10px"></div>
+</section>
+
+<!-- HOLDINGS -->
+<section>
+  <h2>💼 Holdings <span class="small muted">(units — saved in this browser only)</span></h2>
+  <div class="scrollx" style="overflow-x:auto"><table id="holdTable">
+    <thead><tr><th>Asset</th><th>Units</th><th>Live price</th><th>Value</th><th>24h</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div style="margin-top:10px"><button class="ghost" onclick="resetHoldings()">Reset to Aug 25 snapshot</button></div>
+</section>
+
+<!-- SELL LADDERS -->
+<section>
+  <h2>🪜 Sell ladders — the three global triggers (2026 edition)</h2>
+  <p class="small muted">Any ladder firing = act. Lesson from 2024: rungs sit where cycles actually go. Sells are same-day market orders; proceeds → USDC/BTC, never new alts. Time-stop: <b>Feb 2027 — ladder out regardless</b> (short-term-gains note: first ~$108.7k of gains are tax-free via the verified loss carryover; ~20% after).</p>
+  <div class="grid3" style="margin-top:10px">
+    <div><h3>Portfolio value</h3><div id="ladPort"></div></div>
+    <div><h3>BTC price</h3><div id="ladBTC"></div></div>
+    <div><h3>Total mkt cap</h3><div id="ladMC"></div></div>
+  </div>
+</section>
+
+<!-- PER COIN -->
+<section>
+  <h2>🪙 Per-coin decision trees</h2>
+  <p class="small muted"><span class="badge b-src">SOURCED</span> = level cited by a named source (CCI / analysts / your feed). <span class="badge b-str">STRETCH</span> = extension rung, no source — capped at sane multiples on purpose (2024's mistake was dream rungs).</p>
+  <div id="coinTrees" style="margin-top:10px"></div>
+</section>
+
+<!-- CODE RED -->
+<div class="codered">
+  <h2>🚨 CODE RED PROTOCOL (2026 edition — standing rule)</h2>
+  <ul>
+    <li>Once portfolio has surpassed <b>$400k</b>: a <b>25% drop from peak</b> → sell 50% of crypto that day.</li>
+    <li>Once portfolio has surpassed <b>$750k</b>: a <b>30% drop from peak</b> → sell 90% of crypto that day. (Your 2024 rule, kept.)</li>
+    <li>BTC weekly close below <b>$71,500</b> → all buy tranches cancel. Below <b>$65k</b>: dip orders fire, nothing else.</li>
+    <li id="crStatus">Status: —</li>
+  </ul>
+</div>
+
+<!-- SOURCES -->
+<section>
+  <h2>🧠 What the sources say (synthesized — the "instructions, not homework" layer)</h2>
+  <div class="scrollx" style="overflow-x:auto"><table>
+    <thead><tr><th>Source</th><th>Freshest word (date)</th><th>The instruction hidden in it</th></tr></thead>
+    <tbody>
+      <tr><td><b>CCI (live Discord pull Aug 25)</b></td><td>Joe SL Aug 21-23: 25/25/25/25 DCA template, "$74k = high time frame support"; expects a higher low. Sam Aug 20: "not a tradable opportunity after a 20% move"; "$82k = bull confirmation" (Aug 12/14)</td><td>Don't chase. Tranche at closes. $82k weekly close = full green.</td></tr>
+      <tr><td><b>Your Twitter feed (Aug 20-24)</b></td><td>rekt: bearish under $76.15k wkly. Axel: over $77-78k wkly → $94k. DonAlt: possible cycle low, resistance $82k/$95k. Bears: $55k</td><td>The $74-82k band is the battlefield. Above = up, below = wait.</td></tr>
+      <tr><td><b>Todaro (Aug 12)</b></td><td>SOL 30% / PUMP 15% (wanted ~pullback entry) / BTC-ETH-ZEC 10% ea / HYPE 5th. "Trust the WHEN, question the WHAT"</td><td>His book is alt-heavy like yours — but anchored by SOL/BTC/ETH, not memes.</td></tr>
+      <tr><td><b>Power law (Perrenod Aug 9)</b></td><td>Fair value $125-149k; floor ~$60-63k; June's $61k = deepest deviation ever; peak 2028-2030, "flat year then recovery"</td><td>$80k is CHEAP vs fair value. But their clock says the big top is NOT Feb 2027.</td></tr>
+      <tr><td><b>Cowen/ITC (thru Aug 22)</b></td><td>October 2026 bottom call intact; no post-rally thesis yet</td><td>Keep the dip orders funded — his October scenario is your T3.</td></tr>
+      <tr><td><b>Telegram (Sam Max)</b></td><td>Silent since June; members' $52-60k buys never filled</td><td>Dead feed. Weight = 0 until he posts.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <b>Rules of the page:</b> This is Everett's own plan, not financial advice. Passphrase is a curtain, not a vault — don't put anything here you'd hate a stranger seeing (debt details live only in the local SharedBrain docs). &nbsp;Holdings are stored in YOUR browser (localStorage), never uploaded. &nbsp;Prices: CoinGecko public API. &nbsp;Full receipts &amp; source files: SharedBrain → Individual Folders → Everett → projects → Everett Master Cycle Plan (docs 00-08). &nbsp;Daily scraper report: <a href="index.html">today's report</a> &middot; <a href="archive.html">archive</a>.
+</footer>
+</div>
+
+<script>
+// ---------- gate ----------
+function gateTry(){
+  var v=(document.getElementById("pw").value||"").trim().toUpperCase();
+  if(v==="WALDO"){try{localStorage.setItem("hq_gate","1")}catch(e){};openApp();}
+  else{document.getElementById("pwErr").textContent="Nope — ask Everett.";}
+}
+function openApp(){document.getElementById("gate").style.display="none";document.getElementById("app").style.display="block";}
+try{if(localStorage.getItem("hq_gate")==="1")openApp();}catch(e){}
+document.getElementById("pw").addEventListener("keydown",function(e){if(e.key==="Enter")gateTry();});
+
+// ---------- config ----------
+var SNAP={bitcoin:{p:80400,c:4.4,mc:1.61e12},hyperliquid:{p:80.76,c:1.5},"pump-fun":{p:0.004859,c:-2.6},zcash:{p:851,c:1.6},dogecoin:{p:0.0921,c:1.5},pepe:{p:0.0000042,c:0.14},"ondo-finance":{p:0.392,c:4.9},solana:{p:101.35,c:8}};
+var SNAP_TOTAL=2.72e12, SNAP_WK=76900;
+var IDS=["bitcoin","hyperliquid","pump-fun","zcash","dogecoin","pepe","ondo-finance","solana"];
+var NAMES={bitcoin:"BTC",hyperliquid:"HYPE","pump-fun":"PUMP",zcash:"ZEC",dogecoin:"DOGE",pepe:"PEPE","ondo-finance":"ONDO",solana:"SOL"};
+var DEF_HOLD={hyperliquid:193.2,"pump-fun":4017000,zcash:14.95,dogecoin:121000,pepe:1966000000,"ondo-finance":16150,solana:0,bitcoin:0,usdc:52320};
+var P={}, TOTALMC=SNAP_TOTAL, WK=SNAP_WK, WK2OK=false, live=false;
+
+function fmt(n){if(n>=1e12)return "$"+(n/1e12).toFixed(2)+"T";if(n>=1e9)return "$"+(n/1e9).toFixed(1)+"B";if(n>=1e6)return "$"+(n/1e6).toFixed(2)+"M";return "$"+Math.round(n).toLocaleString("en-US");}
+function fmtP(n){if(n>=1000)return "$"+Math.round(n).toLocaleString("en-US");if(n>=1)return "$"+n.toFixed(2);if(n>=0.001)return "$"+n.toFixed(4);return "$"+n.toFixed(8).replace(/0+$/,"");}
+
+function getHold(){try{var h=JSON.parse(localStorage.getItem("hq_hold")||"null");if(h)return h;}catch(e){}return JSON.parse(JSON.stringify(DEF_HOLD));}
+function setHold(h){try{localStorage.setItem("hq_hold",JSON.stringify(h))}catch(e){}}
+function resetHoldings(){setHold(JSON.parse(JSON.stringify(DEF_HOLD)));render();}
+
+// ---------- data ----------
+function loadSnap(){P={};IDS.forEach(function(id){P[id]={p:SNAP[id].p,c:SNAP[id].c};});TOTALMC=SNAP_TOTAL;WK=SNAP_WK;WK2OK=false;live=false;}
+loadSnap();
+
+function fetchLive(){
+  var u="https://api.coingecko.com/api/v3/simple/price?ids="+IDS.join(",")+"&vs_currencies=usd&include_24hr_change=true&include_market_cap=true";
+  Promise.all([
+    fetch(u).then(function(r){return r.json()}),
+    fetch("https://api.coingecko.com/api/v3/global").then(function(r){return r.json()}),
+    fetch("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=16&interval=daily").then(function(r){return r.json()})
+  ]).then(function(res){
+    var d=res[0];IDS.forEach(function(id){if(d[id]&&d[id].usd){P[id]={p:d[id].usd,c:d[id].usd_24h_change||0,mc:d[id].usd_market_cap};}});
+    if(res[1]&&res[1].data&&res[1].data.total_market_cap)TOTALMC=res[1].data.total_market_cap.usd;
+    var fri=[];(res[2].prices||[]).forEach(function(pt){var dt=new Date(pt[0]);if(dt.getUTCDay()===6)fri.push(pt[1]);});
+    if(fri.length){WK=fri[fri.length-1];WK2OK=fri.length>=2&&fri[fri.length-1]>74000&&fri[fri.length-2]>74000;}
+    live=true;document.getElementById("staleBanner").style.display="none";
+    document.getElementById("asof").textContent=new Date().toLocaleString();
+    render();
+  }).catch(function(e){document.getElementById("staleBanner").style.display="block";document.getElementById("asof").textContent="snapshot Aug 25, 2026";render();});
+}
+
+// ---------- ladders config ----------
+function portVal(){var h=getHold(),v=h.usdc||0;IDS.forEach(function(id){v+=(h[id]||0)*(P[id]?P[id].p:0);});return v;}
+
+var LAD_PORT=[[500000,"Sell 25% of crypto → USDC","his 2024 structure"],[750000,"Sell another 25-35% (walk-away number)",""],[1000000,"Sell most — keep 10% runner",""]];
+var LAD_BTC=[[94000,"Trim 20% of alts (feed's breakout target hit)","Axel/rekt structure"],[110000,"Trim another 25% (2024 rung that DID hit)",""],[126000,"ATH retest — sell to 35% exposure",""],[150000,"Exit zone — runner only",""]];
+var LAD_MC=[[3.3e12,"Trim 20% of alts","below last-cycle peak on purpose"],[4.0e12,"Heavy trim — sell half of what's left","~last cycle's $3.9T top"],[5.0e12,"Exit — runner only","new-high territory"]];
+
+var COINS=[
+ {id:"zcash",rungs:[[911,"Trim 20%","SOURCED","CMC-AI fib ext"],[1000,"Sell 25%","SOURCED","AltcoinSherpa + BeInCrypto target"],[1300,"Sell down to runner","STRETCH","no source"]],note:"CCI's only held alt. Your June ladder ($480/580/680) already blew through — don't repeat that."},
+ {id:"hyperliquid",rungs:[[100,"Trim 25%","SOURCED","prediction mkts ~51% by YE; Sherpa"],[130,"Sell 25%","STRETCH","~ where mcap ≈ $30B"],[160,"Sell to runner","STRETCH","2x from ATH"]],note:"Add ONLY on weekly close > $83.3 (ATH, CCI's own rule) or dip to ~$62 (Joe SL's entry zone). Multicoin moved $31.7M to Coinbase at the ATH — someone big is selling."},
+ {id:"pump-fun",rungs:[[0.0064,"Trim 25%","SOURCED","range breakout level"],[0.0088,"Sell 25% (ATH)","SOURCED","CryptoGodJohn 'new ATHs'"],[0.013,"Sell to runner","STRETCH","1.5x ATH"]],note:"Your #1 bag from an emotional add. $5.5B lawsuit overhang. NO adds."},
+ {id:"dogecoin",rungs:[[0.10,"Trim 20%","SOURCED","breakout confirm past 200D EMA"],[0.15,"Sell 25%","STRETCH","mid prior-cycle range"],[0.22,"Sell to runner","STRETCH","Aug 2025 level"]],note:"RSI was 78 on the bounce. Commodity ruling = real tailwind, but it's still a meme."},
+ {id:"pepe",rungs:[[0.0000046,"Trim 20%","SOURCED","3-mo high breakout"],[0.0000055,"Sell 25%","SOURCED","derived next leg"],[0.00001,"Sell to runner","STRETCH","~2.4x"]],note:"Fastest to give gains back if the bounce stalls. Funding was crowded-long on Aug 22 (exit signal per your own pivot rules)."},
+ {id:"ondo-finance",rungs:[[0.50,"Trim 20%","SOURCED","Coinpedia target"],[0.75,"Sell 25%","STRETCH","mid-range to ATH"],[1.00,"Sell to runner","STRETCH","half of ATH $2.14"]],note:"Add trigger: daily close > $0.42. The only alt you own with real revenue traction ($1B+ TVL)."}
+];
+
+// ---------- render ----------
+function render(){
+  // metrics
+  var m="";["bitcoin","zcash","hyperliquid","pump-fun","dogecoin","pepe","ondo-finance","solana"].forEach(function(id){
+    var d=P[id],cls=d.c>=0?"up":"dn",sign=d.c>=0?"+":"";
+    m+='<div class="metric"><div class="lab">'+NAMES[id]+'</div><div class="val">'+fmtP(d.p)+'</div><div class="chg '+cls+'">'+sign+d.c.toFixed(1)+'% 24h</div></div>';
+  });
+  document.getElementById("metrics").innerHTML=m;
+  document.getElementById("mTotal").textContent=fmt(TOTALMC);
+  document.getElementById("mWk").textContent=fmt(WK);
+  document.getElementById("mWkSt").innerHTML=WK>74000?'<span class="up">above $74k trigger'+(WK2OK?' — 2 in a row ✓':' — need 2 in a row')+'</span>':'<span class="dn">below $74k trigger</span>';
+
+  var pv=portVal();
+  document.getElementById("mPort").textContent=fmt(pv);
+  var peak=0;try{peak=+localStorage.getItem("hq_peak")||0}catch(e){}
+  if(pv>peak){peak=pv;try{localStorage.setItem("hq_peak",String(peak))}catch(e){}}
+  document.getElementById("mPeak").textContent=fmt(peak);
+  var dd=peak>0?(1-pv/peak)*100:0;
+  document.getElementById("mDD").innerHTML=dd>1?'<span class="dn">−'+dd.toFixed(1)+'% from peak</span>':'<span class="up">at/near peak</span>';
+
+  // holdings table
+  var h=getHold(),rows="";
+  IDS.forEach(function(id){
+    var d=P[id],u=h[id]||0,v=u*d.p,cls=d.c>=0?"up":"dn";
+    rows+='<tr><td><b>'+NAMES[id]+'</b></td><td><input type="number" step="any" value="'+u+'" onchange="updHold(\''+id+'\',this.value)"></td><td>'+fmtP(d.p)+'</td><td>'+fmt(v)+'</td><td class="'+cls+'">'+(d.c>=0?"+":"")+d.c.toFixed(1)+'%</td></tr>';
+  });
+  rows+='<tr><td><b>USDC cash</b></td><td><input type="number" step="any" value="'+(h.usdc||0)+'" onchange="updHold(\'usdc\',this.value)"></td><td>$1.00</td><td>'+fmt(h.usdc||0)+'</td><td class="muted">6.5% APY</td></tr>';
+  rows+='<tr><td colspan="3"><b>TOTAL</b></td><td colspan="2"><b>'+fmt(pv)+'</b></td></tr>';
+  document.querySelector("#holdTable tbody").innerHTML=rows;
+
+  // buy rungs
+  var btc=P.bitcoin.p, b="";
+  function rung(cls,trig,txt,st){return '<div class="rung '+cls+'"><span class="trig">'+trig+'</span><span>'+txt+'</span><span class="st '+cls+'">'+st+'</span></div>';}
+  b+=rung(WK2OK?"hit":(WK>74000?"close":"armed"),"2× wkly close > $74k","T1: buy $10k (Fri close counter: "+(WK>74000?"1+":"0")+"/2). CCI's own '74kish' HTF support.",WK2OK?"FIRED — EXECUTE":(WK>74000?"1 OF 2":"ARMED"));
+  b+=rung(btc>=82000?"hit":(btc>=79000?"close":"armed"),"Wkly close > $82k","CCI bull confirmation (Sam Aug 12/14). Confidence upgrade — not a buy by itself.",btc>=82000?"AT LEVEL — need close":(btc>=79000?"CLOSE":"ARMED"));
+  b+=rung(btc>=86000?"hit":"armed","Wkly close > $86k","T2: buy $12k ($8k BTC-or-core / max $4k alts, sell ladders pre-written).",btc>=86000?"AT LEVEL — need close":"ARMED");
+  b+=rung(btc<=68000?"hit":"armed","BTC $68k / $65k","T3: standing limit orders $6k + $6k. Place them NOW so the dip buys itself (Cowen's October scenario).",btc<=68000?"IN ZONE":"ARMED");
+  b+=rung(btc<71500?"danger":"armed","Wkly close < $71.5k","KILL SWITCH: cancel T1-T2. Below $65k: dip orders only.",btc<71500?"TRIGGERED":"SAFE");
+  document.getElementById("buyRungs").innerHTML=b;
+
+  // global ladders
+  function ladder(el,defs,cur){
+    var out="";defs.forEach(function(d){
+      var hit=cur>=d[0],cls=hit?"hit":(cur>=d[0]*0.9?"close":"armed");
+      out+=rung(cls,fmt(d[0]),d[1]+(d[2]?' <span class="small muted">('+d[2]+')</span>':""),hit?"HIT — EXECUTE":(cls==="close"?"CLOSE":"ARMED"));
+    });document.getElementById(el).innerHTML=out;
+  }
+  ladder("ladPort",LAD_PORT,pv);
+  ladder("ladBTC",LAD_BTC,btc);
+  ladder("ladMC",LAD_MC,TOTALMC);
+
+  // coin trees
+  var ct="";
+  COINS.forEach(function(c){
+    var d=P[c.id],hv=(getHold()[c.id]||0)*d.p;
+    ct+='<div style="background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0">';
+    ct+='<h3>'+NAMES[c.id]+' — '+fmtP(d.p)+' <span class="small muted">(your bag: '+fmt(hv)+')</span></h3>';
+    c.rungs.forEach(function(r){
+      var mult=(r[0]/d.p),hit=d.p>=r[0],cls=hit?"hit":(d.p>=r[0]*0.92?"close":"armed");
+      var badge=r[2]==="SOURCED"?'<span class="badge b-src">SOURCED</span>':'<span class="badge b-str">STRETCH</span>';
+      ct+=rung(cls,fmtP(r[0]),r[1]+" "+badge+' <span class="small muted">'+r[3]+' &middot; '+mult.toFixed(2)+'x from here</span>',hit?"HIT — EXECUTE":(cls==="close"?"CLOSE":"ARMED"));
+    });
+    ct+='<p class="small muted" style="margin-top:6px">'+c.note+'</p></div>';
+  });
+  document.getElementById("coinTrees").innerHTML=ct;
+
+  // code red status
+  var cr="Status: ";
+  if(peak<400000)cr+="not active yet (arms at $400k portfolio). ";
+  else cr+= dd>=(peak>750000?30:25)?"🚨 TRIGGERED — execute the sell TODAY. ":"armed, watching drawdown ("+dd.toFixed(1)+"%). ";
+  cr+= btc<71500?"⚠️ BTC under $71.5k — tranches cancelled.":"BTC above kill-switch.";
+  document.getElementById("crStatus").innerHTML=cr;
+
+  // instruction card
+  var ins=[];
+  if(btc<65000){ins.push("<b>BTC under $65k:</b> dip orders fire. NOTHING else. No panic sells of the core plan — Code Red rules only.");}
+  else if(btc<71500){ins.push("<b>Kill switch zone:</b> no buys. Hold. Wait for a weekly close back above $74k.");}
+  else{
+    if(WK2OK){ins.push("<b>T1 CONDITION MET</b> (two Friday closes > $74k): buy the $10k tranche. Split: half BTC-or-strongest core, half your top-conviction alt — NOT the frothiest one.");}
+    else{ins.push("<b>HOLD — do not add today.</b> The move already happened (+25% week). Next checkpoint: <b>Friday's close vs $74k</b> ("+(WK>74000?"1 of 2 closes done":"0 of 2")+"). CCI, your feed, and the plan all agree: chase nothing.");}
+    ins.push("<b>Place the standing dip orders NOW</b> if not placed: $6k at BTC $68k, $6k at $65k. That's Cowen's October scenario pre-paid.");
+    ins.push("<b>Sell-side:</b> every rung above marked HIT is an order, not a suggestion. ZEC is closest — trim rung at $911.");
+  }
+  ins.push("<b>Sept debt cliff:</b> ~$36.7k leaves 0% in September. Balance-transfer plan + Sakline refund (~Sep 23) handle it — don't feed it from crypto, don't feed crypto from it.");
+  ins.push("<b>Never:</b> new debt into crypto &middot; same-day unplanned trades &middot; adds into a +60% weekly candle.");
+  document.getElementById("instructions").innerHTML=ins.map(function(i){return "<li>"+i+"</li>"}).join("");
+}
+function updHold(id,v){var h=getHold();h[id]=parseFloat(v)||0;setHold(h);render();}
+
+render();
+fetchLive();
+setInterval(fetchLive,120000);
+</script>
+</body>
+</html>
