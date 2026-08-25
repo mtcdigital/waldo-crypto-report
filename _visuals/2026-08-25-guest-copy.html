@@ -1,0 +1,84 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Guest Copy</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 40px}
+.wrap{max-width:820px;margin:0 auto;padding:0 18px}
+header{text-align:center;padding:34px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:2rem;margin:8px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);max-width:34em;margin:0 auto}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+h2{font-size:1.12rem;margin-bottom:6px}
+p{margin:8px 0}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+.linkbox{background:var(--panel2);border:2px solid var(--green);border-radius:14px;padding:18px;text-align:center;margin:14px 0}
+.linkbox .u{font-size:1.05rem;font-weight:800;word-break:break-all}
+.linkbox .pw{margin-top:8px;font-size:.9rem;color:var(--muted)}
+.linkbox .pw b{color:var(--yellow);letter-spacing:.12em}
+.row{display:flex;gap:10px;align-items:baseline;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin:6px 0;font-size:.9rem}
+.row .n{width:26px;font-weight:800;color:var(--green);flex-shrink:0}
+.check{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.9rem}
+.check b{color:var(--blue)}
+.warn{background:rgba(255,211,92,.08);border:1px solid rgba(255,211,92,.4);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:.9rem}
+.warn b{color:var(--yellow)}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#0d1117;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+footer{background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:20px;margin:24px 0;font-size:.9rem}
+footer h2{color:var(--blue)}
+ul{margin:8px 0 8px 20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Waldo Crypto Report · Guest Copy · Aug 25, 2026</div>
+  <h1>🕶️ The Guest Copy</h1>
+  <p class="sub">An exact duplicate of today's daily report, on its own separate link, with every trace of the Todaros removed. The real report was not touched.</p>
+</header>
+
+<section>
+  <h2>📤 The link to send them</h2>
+  <div class="linkbox">
+    <div class="u"><a href="https://mtcdigital.github.io/crypto-brain-report/">mtcdigital.github.io/crypto-brain-report</a></div>
+    <div class="pw">password: <b>PREVIEW</b></div>
+  </div>
+  <div class="warn"><b>Why the password isn't WALDO — on purpose.</b> Whatever password you give the Todaros, they'll have forever. If it were WALDO, they'd hold the key to the family report and HQ too — the exact pages full of "what Joe said" that this copy exists to hide. So the guest door got its own key. If you want it to be WALDO anyway, say the word — it's a one-line change.</div>
+</section>
+
+<section>
+  <h2>🧹 What got scrubbed (and only this)</h2>
+  <div class="row"><span class="n">37</span><span>mentions of Todaro / Joe Todaro / "the Todaros" — and their fund <b>Greymatter Capital</b>, which identifies them just as surely → all reworded to "a macro analyst" or removed from source lists.</span></div>
+  <div class="row"><span class="n">✓</span><span>"Joe Todaro" removed from the sources list, the source-weights table, and every "Watched by:" tag.</span></div>
+  <div class="row"><span class="n">✓</span><span>The market-cap chart renamed ("vs the historical sell ladder") and its ladder credited to "previous-cycle analyst commentary."</span></div>
+  <div class="row"><span class="n">✓</span><span>Every metric, chart, score, and data point kept — same numbers, same tabs, same everything.</span></div>
+  <div class="row"><span class="n">🔒</span><span>The scrubber refuses to publish if even one trace survives — today's copy verified: <b>0 matches</b> for todaro/greymatter in the whole page.</span></div>
+</section>
+
+<section>
+  <h2>🔁 Refreshing it later (ad hoc, like you asked)</h2>
+  <p>It does NOT auto-update. Whenever you want the guest copy to catch up to the daily report, just tell me "refresh the guest report" — or run:</p>
+  <p><code>python3 "~/Claude code projects/Waldo Bros Crypto/make_guest_copy.py"</code></p>
+  <p class="small muted">It re-scrubs that day's report, re-verifies zero traces, and pushes to the guest link. The daily pipeline never knows it exists.</p>
+</section>
+
+<section>
+  <h2>✅ Untouched, verified</h2>
+  <div class="check"><b>The real report:</b> mtcdigital.github.io/waldo-crypto-report — same link, same password (WALDO), same 11:45 daily build. Zero changes.</div>
+  <div class="check"><b>Google Drive:</b> nothing moved, nothing renamed, nothing written. The guest copy lives in a new folder (<code>~/Claude code projects/crypto-brain-report</code>) and a new GitHub repo, nowhere near the SharedBrain.</div>
+  <div class="check"><b>One thing to know:</b> both repos sit on your public GitHub profile (github.com/mtcdigital). If a Todaro pokes around your profile they could find the family repo's name — the WALDO password is what protects it, which is the other reason the guest copy got a different one.</div>
+</section>
+
+<footer>
+  <h2>👉 What's next for Everett</h2>
+  <ul>
+    <li><b>Send them:</b> the link above + password PREVIEW. That's it.</li>
+    <li><b>Decide:</b> keep PREVIEW as the guest password, or tell me to make it WALDO (not recommended, see above).</li>
+    <li>Before each time you show them, say "refresh the guest report" so they see current numbers.</li>
+  </ul>
+  <p class="small muted" style="margin-top:10px">This task: ~35k tokens (~$0.75). New: make_guest_copy.py + crypto-brain-report repo. Changed: nothing else.</p>
+</footer>
+</div>
