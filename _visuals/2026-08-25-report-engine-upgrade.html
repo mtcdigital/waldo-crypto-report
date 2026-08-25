@@ -1,0 +1,124 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Engine Learns to Listen</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 40px}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+header{text-align:center;padding:34px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:2rem;margin:8px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);max-width:36em;margin:0 auto}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+h2{font-size:1.15rem;margin-bottom:6px;text-wrap:balance}
+h3{font-size:.82rem;margin:14px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+p{margin:8px 0}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+.tag{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:6px}
+.tag.old{background:rgba(255,92,108,.15);color:var(--red)}
+.tag.new{background:rgba(46,230,168,.15);color:var(--green)}
+.chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.7rem;font-weight:800;vertical-align:middle;margin-left:8px;background:rgba(46,230,168,.15);color:var(--green)}
+.timeline{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.t{display:flex;gap:12px;align-items:baseline;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:.9rem}
+.t .clock{width:64px;flex-shrink:0;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
+.t.bad .clock{color:var(--red)}
+.quote{background:var(--panel2);border-left:4px solid var(--purple);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:.88rem}
+.quote b{color:var(--purple)}
+table{width:100%;border-collapse:collapse;font-size:.9rem;font-variant-numeric:tabular-nums}
+th{color:var(--muted);text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;padding:8px;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+td.num{text-align:right;font-weight:700}
+.up{color:var(--green)}.dn{color:var(--red)}
+.tablebox{overflow-x:auto}
+.check{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.9rem}
+.check b{color:var(--blue)}
+footer{background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:20px;margin:24px 0;font-size:.9rem}
+footer h2{color:var(--blue)}
+ul{margin:8px 0 8px 20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+.bignum{font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Waldo Crypto Report · Engine Upgrade · Aug 25, 2026</div>
+  <h1>🧭 The Engine Learns to Listen</h1>
+  <p class="sub">You said the $1M portfolio "should factor in what everybody is saying" and "wait for all the data sources." You were right on both. All of it is fixed, rebuilt, and already live on the website.</p>
+</header>
+
+<section>
+  <h2>1. It now waits for every source <span class="chip">LIVE</span></h2>
+  <p>The report was publishing at 11:20 — <b>20 minutes before</b> the CCI Discord pull and 40 before the transcript sync. Today's report literally could not contain today's CCI. New morning order:</p>
+  <h3><span class="tag old">Before</span></h3>
+  <div class="timeline">
+    <div class="t bad"><span class="clock">11:20</span><span>Report built &amp; published 🚀 …</span></div>
+    <div class="t bad"><span class="clock">11:40</span><span>…then CCI Discord finally arrives 😬</span></div>
+  </div>
+  <h3><span class="tag new">Now</span></h3>
+  <div class="timeline">
+    <div class="t"><span class="clock">11:00</span><span>Twitter scrape + signal report</span></div>
+    <div class="t"><span class="clock">11:05</span><span>CCI Discord pull</span></div>
+    <div class="t"><span class="clock">11:45</span><span>AI reads the sources → report builds → publishes. <b>Last, on purpose.</b></span></div>
+  </div>
+  <p class="small muted">The report's front page now shows a "Built at … after every source reported in" strip with a ✓ or ⌛ per source — so "we waited" is visible, not a promise.</p>
+</section>
+
+<section>
+  <h2>2. It now factors in what everybody is saying <span class="chip">LIVE</span></h2>
+  <p>Two new ears, both feeding the scores that set the $1M split:</p>
+  <p><b>🗣 An AI reader</b> goes through each morning's CCI Discord posts and Ben Cowen's newest video, and turns real, quotable calls into dated evidence. It ran for real today and pulled these out of yesterday's CCI chat:</p>
+  <div class="quote"><b>CCI (Paolo):</b> the ~$16K one-move rebound broke major resistance — bullish, but likely needs a retracement.</div>
+  <div class="quote"><b>CCI (Greg):</b> strong Bitcoin ETF inflows several days running (~$500M / $600M / $300M) supporting the move.</div>
+  <div class="quote"><b>CCI (Paolo):</b> sentiment flipped from fear to excitement — bears waiting for lower entries may never get them.</div>
+  <p><b>📊 The crowd's vote:</b> the 110 tracked accounts' bullish-vs-bearish balance now counts — averaged over <b>7 days</b> (one loud day can't move the dial) and only when 20+ opinions came in. This week: BTC 237 bullish vs 169 bearish.</p>
+  <p class="small muted">Guardrails from the money-owner review: the crowd keeps a small weight (it mostly echoes price — in 2021 Twitter was loudest at the top), and alt-coin hype from paid rooms is shown as context but never counted as buy evidence.</p>
+</section>
+
+<section>
+  <h2>3. High risk now acts like high risk <span class="chip">LIVE</span></h2>
+  <p>Before, all three risk levels read the evidence the same way and only the caps differed. Now <b>each level asks a different first question</b>: low risk asks "is Bitcoin cheap?", high risk asks "is Bitcoin actually moving?" — so high risk steps in on confirmation, exactly like your HQ tranche plan.</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Risk level</th><th style="text-align:right">Invested before</th><th style="text-align:right">Invested now</th><th style="text-align:right">If trend confirms</th><th style="text-align:right">If kill switch hits</th></tr></thead>
+    <tbody>
+      <tr><td>Low</td><td class="num">35.6%</td><td class="num">35.8%</td><td class="num up">36.5%</td><td class="num dn">32.1%</td></tr>
+      <tr><td>Medium <span class="muted small">(default)</span></td><td class="num">51.8%</td><td class="num">53.6%</td><td class="num up">55.1%</td><td class="num dn">46.0%</td></tr>
+      <tr><td><b>High</b></td><td class="num">61.6%</td><td class="num"><b>66.4%</b></td><td class="num up"><b>68.8%</b></td><td class="num dn"><b>53.4%</b></td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Why not more?</b> Your brothers' own line from this week: 70%+ deployed <i>before confirmation</i> is too much, and BTC could still dip 20% first. High risk now sits at <b>66% with cash at 34%</b> (was 38%) and crosses ~69% only when the Friday closes actually confirm — the same trigger your HQ page waits for. The report now shows this as a "🎯 What would change this number" line under the pie, so the cash never looks like laziness again — it reads as a plan.</p>
+  <p class="small muted">Alts are still 0% today at every level — on purpose. New hard rule: no alt money while rotation is dead (Bitcoin dominance still rising). When rotation wakes up, high risk opens the alt door first and widest. A strong Bitcoin trend is a reason to buy Bitcoin, not its cousins.</p>
+</section>
+
+<section>
+  <h2>4. A stranger can now read it <span class="chip">LIVE</span></h2>
+  <ul>
+    <li><b>New first line:</b> "Every morning an AI system reads our crypto sources… and rebuilds this page around one question: if this system controlled $1,000,000, what would it do today, and why?" — that's your share pitch, verbatim, at the top.</li>
+    <li><b>Tabs renamed to questions:</b> The $1M answer · The evidence · What's buzzing · Your coins.</li>
+    <li><b>Plain-English risk explainer</b> sits right under the risk buttons — the "same facts, different first question" paragraph.</li>
+    <li>The ? explainers, the sources strip, and the freshness badges do the rest.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>✅ How to validate this</h2>
+  <div class="check"><b>Open the live report</b> (password WALDO): <a href="https://mtcdigital.github.io/waldo-crypto-report/">mtcdigital.github.io/waldo-crypto-report</a>. Top of Tab 1: the "Built at … after every source reported in" strip — Cowen's video honestly shows ⌛ (his last upload was Aug 14).</div>
+  <div class="check"><b>Click "High risk."</b> Under the pie: 66.4% invested, and the 🎯 scenario line showing 68.8% on confirmation / 53.4% on kill switch — weekly closes only.</div>
+  <div class="check"><b>Scroll to Step 4 (the reasoning).</b> You'll see the CCI (Paolo) and CCI (Greg) quotes from Aug 24 sitting in the evidence list with dates and weights — that's "what everybody is saying," scored.</div>
+  <div class="check"><b>Tomorrow at 11:45</b> the whole chain runs by itself for the first time. The sync log will show "AI stance reader done" before "scorecard built."</div>
+</section>
+
+<footer>
+  <h2>👉 What's next for Everett</h2>
+  <ul>
+    <li><b>Nothing required</b> — it's live now, and tomorrow morning runs the new order automatically.</li>
+    <li><b>Optional but valuable:</b> forward me any Todaro texts / call notes — the hand-logged notes channel is wired but empty, and it's the one voice the AI reader can't hear.</li>
+    <li><b>One design choice to know:</b> even on kill-switch, high risk never drops below ~33% invested — that's the value-investor floor (in a real crash the "cheap" score climbs and the system wants to be a buyer). It's now visible in the scenario line; say the word if you want that floor lowered.</li>
+    <li>2 free ultrareviews left if you want the report generator itself audited like we did HQ.</li>
+  </ul>
+  <p class="small muted" style="margin-top:10px">This task: ~130k tokens (~$2.70). Changes: portfolio_engine.py, signal_scorecard.py, report_template.html, twitter_daily.sh, new auto_stances.py, cron reorder. Allocation logic reviewed by the finance-leader agent against the brothers' Aug 25 guidance and the Aug 14 family spec before shipping.</p>
+</footer>
+</div>
