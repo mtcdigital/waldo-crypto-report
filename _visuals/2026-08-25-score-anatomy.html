@@ -53,7 +53,35 @@ a{color:var(--blue)}
   <div class="formula">Every input votes between <b>−1 (very bearish)</b> and <b>+1 (very bullish)</b> →<br>
   each vote is multiplied by its <b>weight</b> (how much we trust that input) →<br>
   the weighted average is mapped onto <b>0–100, where 50 = perfectly neutral</b>.</div>
-  <p class="small muted">So: 100 and 0 are hard walls — a score can never go past them. 39 means "the blend of votes leans mildly bearish." Weight = the evidence's own importance × the source's trust score from Step 4 (CCI 10/10, Cowen 10/10, market data 10/10, Giovanni 7/10, Twitter Scraper 5/10). Fresh quotes pulled daily from CCI's Discord and Cowen's videos join the vote and fade to zero over 21 days.</p>
+  <p class="small muted">So: 100 and 0 are hard walls — a score can never go past them. 39 means "the blend of votes leans mildly bearish." Fresh quotes pulled daily from CCI's Discord and Cowen's videos join the vote and fade to zero over 21 days.</p>
+
+  <h2 style="margin-top:18px">Why two CCI inputs can carry different weights</h2>
+  <p class="small">Every weight is <b style="color:var(--cyan)">two layers multiplied together</b>:</p>
+  <ul class="small">
+    <li><b>Layer 1 — input importance</b> (0 to 1): how central that specific gauge is <i>in the source's own playbook</i>. CCI calls the 200-week band "the major accumulation zone — every past cycle low touched it," so it gets 0.8; they treat weekly RSI as a supporting tell, so it gets 0.7. These were set by us when we built the engine, from how heavily each source leans on that tool in their own material — and each one is a single editable line.</li>
+    <li><b>Layer 2 — source trust</b> (your Step 4 scores): CCI 1.0, Cowen 1.0, market data 1.0, Giovanni 0.7, Twitter Scraper 0.5.</li>
+  </ul>
+  <p class="small muted">Final weight = importance × trust. That's why two CCI inputs differ (different importance, same trust), and why a Twitter input is always small (any importance × 0.5 trust).</p>
+
+  <h2 style="margin-top:18px">The actual formulas — not a vibe</h2>
+  <p class="small">Every vote is plain arithmetic on a live number, clamped to ±1. The exact recipes running today:</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Input</th><th>Vote formula (clamped to −1…+1)</th><th>Plain English</th></tr></thead>
+    <tbody>
+      <tr><td>Power law</td><td>−(deviation%) ÷ 55</td><td>45% below fair value → vote +0.82</td></tr>
+      <tr><td>Weekly RSI</td><td>(45 − RSI) ÷ 25</td><td>RSI 58 → vote −0.52</td></tr>
+      <tr><td>Fear &amp; Greed</td><td>(45 − FG) ÷ 30</td><td>FG 74 → vote −0.97 (greed = contrarian bearish)</td></tr>
+      <tr><td>1-year return</td><td>−(return%) ÷ 50</td><td>−29% year → vote +0.58 (pain favors buyers)</td></tr>
+      <tr><td>vs 200-week avg</td><td>−(gap%) ÷ 20</td><td>+23% above → vote −1.0 (left the bargain zone)</td></tr>
+      <tr><td>vs 50-week avg</td><td>(gap%) ÷ 15</td><td>−3% below → vote −0.2</td></tr>
+      <tr><td>CCI ladder</td><td>stepped: ≥$94K:+1 · ≥$74K:+0.6 · ≥$70K:−0.2 · ≥$61K:−0.6 · else −1</td><td>$79K → vote +0.6</td></tr>
+      <tr><td>Funding rate</td><td>−(rate) ÷ 0.03</td><td>+0.009%/8h → vote −0.3 (mild crowding)</td></tr>
+      <tr><td>Twitter breadth</td><td>(bulls − bears) ÷ (bulls + bears), 7-day totals</td><td>237 vs 169 → vote +0.17</td></tr>
+      <tr><td>BTC dominance</td><td>(52 − dominance) ÷ 8</td><td>59.3% → vote −0.91</td></tr>
+      <tr><td>Fresh source quotes</td><td>AI reads the call → −1…+1, × freshness (fades over 21 days)</td><td>"breakout is bullish, expect a dip" → +0.5</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">Then per category: <b style="color:var(--cyan)">score = 50 + 50 × Σ(vote × weight) ÷ Σ(weight)</b>. The only AI judgment anywhere in the scores is turning a written CCI/Cowen quote into one number — everything else is deterministic arithmetic you could redo with a calculator.</p>
 </section>
 
 <section>
