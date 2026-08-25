@@ -84,7 +84,7 @@ a{color:var(--blue)}
   <h2>📡 Live metrics</h2>
   <div class="grid4" id="metrics" style="margin-top:10px"></div>
   <div class="grid4" style="margin-top:10px">
-    <div class="metric"><div class="lab">Total crypto mkt cap</div><div class="val" id="mTotal">—</div><div class="chg muted">last cycle peak ~$3.9T</div></div>
+    <div class="metric"><div class="lab">Total crypto mkt cap</div><div class="val" id="mTotal">—</div><div class="chg muted">last cycle peak ~$4.27T (Oct 2025)</div></div>
     <div class="metric"><div class="lab">Last Friday weekly close</div><div class="val" id="mWk">—</div><div class="chg" id="mWkSt">—</div></div>
     <div class="metric"><div class="lab">Portfolio (crypto + cash)</div><div class="val" id="mPort">—</div><div class="chg muted">edit holdings below</div></div>
     <div class="metric"><div class="lab">Portfolio peak (tracked)</div><div class="val" id="mPeak">—</div><div class="chg" id="mDD">—</div></div>
@@ -188,7 +188,7 @@ function fmtP(n){if(n>=1000)return "$"+Math.round(n).toLocaleString("en-US");if(
 
 function getHold(){try{var h=JSON.parse(localStorage.getItem("hq_hold")||"null");if(h)return h;}catch(e){}return JSON.parse(JSON.stringify(DEF_HOLD));}
 function setHold(h){try{localStorage.setItem("hq_hold",JSON.stringify(h))}catch(e){}}
-function resetHoldings(){setHold(JSON.parse(JSON.stringify(DEF_HOLD)));render();}
+function resetHoldings(){setHold(JSON.parse(JSON.stringify(DEF_HOLD)));try{localStorage.removeItem("hq_peak")}catch(e){};render();}
 
 // ---------- data ----------
 function loadSnap(){P={};IDS.forEach(function(id){P[id]={p:SNAP[id].p,c:SNAP[id].c};});TOTALMC=SNAP_TOTAL;WK=SNAP_WK;WK2OK=false;live=false;}
@@ -196,14 +196,15 @@ loadSnap();
 
 function fetchLive(){
   var u="https://api.coingecko.com/api/v3/simple/price?ids="+IDS.join(",")+"&vs_currencies=usd&include_24hr_change=true&include_market_cap=true";
+  function j(x){return fetch(x).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()});}
   Promise.all([
-    fetch(u).then(function(r){return r.json()}),
-    fetch("https://api.coingecko.com/api/v3/global").then(function(r){return r.json()}),
-    fetch("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=16&interval=daily").then(function(r){return r.json()})
+    j(u),
+    j("https://api.coingecko.com/api/v3/global"),
+    j("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=16&interval=daily")
   ]).then(function(res){
-    var d=res[0];IDS.forEach(function(id){if(d[id]&&d[id].usd){P[id]={p:d[id].usd,c:d[id].usd_24h_change||0,mc:d[id].usd_market_cap};}});
+    var d=res[0];IDS.forEach(function(id){if(d[id]&&isFinite(+d[id].usd)&&+d[id].usd>0){P[id]={p:+d[id].usd,c:+(d[id].usd_24h_change||0),mc:d[id].usd_market_cap};}});
     if(res[1]&&res[1].data&&res[1].data.total_market_cap)TOTALMC=res[1].data.total_market_cap.usd;
-    var fri=[];(res[2].prices||[]).forEach(function(pt){var dt=new Date(pt[0]);if(dt.getUTCDay()===6)fri.push(pt[1]);});
+    var fri=[];(res[2].prices||[]).forEach(function(pt){if(pt[0]%86400000!==0)return;if(new Date(pt[0]).getUTCDay()===6)fri.push(pt[1]);});
     if(fri.length){WK=fri[fri.length-1];WK2OK=fri.length>=2&&fri[fri.length-1]>74000&&fri[fri.length-2]>74000;}
     live=true;document.getElementById("staleBanner").style.display="none";
     document.getElementById("asof").textContent=new Date().toLocaleString();
@@ -216,7 +217,7 @@ function portVal(){var h=getHold(),v=h.usdc||0;IDS.forEach(function(id){v+=(h[id
 
 var LAD_PORT=[[500000,"Sell 25% of crypto → USDC","his 2024 structure"],[750000,"Sell another 25-35% (walk-away number)",""],[1000000,"Sell most — keep 10% runner",""]];
 var LAD_BTC=[[94000,"Trim 20% of alts (feed's breakout target hit)","Axel/rekt structure"],[110000,"Trim another 25% (2024 rung that DID hit)",""],[126000,"ATH retest — sell to 35% exposure",""],[150000,"Exit zone — runner only",""]];
-var LAD_MC=[[3.3e12,"Trim 20% of alts","below last-cycle peak on purpose"],[4.0e12,"Heavy trim — sell half of what's left","~last cycle's $3.9T top"],[5.0e12,"Exit — runner only","new-high territory"]];
+var LAD_MC=[[3.6e12,"Trim 20% of alts","below last-cycle peak on purpose"],[4.3e12,"Heavy trim — sell half of what's left","~last cycle's $4.27T top (Oct 2025)"],[5.2e12,"Exit — runner only","new-high territory"]];
 
 var COINS=[
  {id:"zcash",rungs:[[911,"Trim 20%","SOURCED","CMC-AI fib ext"],[1000,"Sell 25%","SOURCED","AltcoinSherpa + BeInCrypto target"],[1300,"Sell down to runner","STRETCH","no source"]],note:"CCI's only held alt. Your June ladder ($480/580/680) already blew through — don't repeat that."},
@@ -242,7 +243,7 @@ function render(){
   var pv=portVal();
   document.getElementById("mPort").textContent=fmt(pv);
   var peak=0;try{peak=+localStorage.getItem("hq_peak")||0}catch(e){}
-  if(pv>peak){peak=pv;try{localStorage.setItem("hq_peak",String(peak))}catch(e){}}
+  if(live&&pv>peak&&(peak===0||pv<peak*2+500000)){peak=pv;try{localStorage.setItem("hq_peak",String(peak))}catch(e){}}
   document.getElementById("mPeak").textContent=fmt(peak);
   var dd=peak>0?(1-pv/peak)*100:0;
   document.getElementById("mDD").innerHTML=dd>1?'<span class="dn">−'+dd.toFixed(1)+'% from peak</span>':'<span class="up">at/near peak</span>';
@@ -264,7 +265,7 @@ function render(){
   b+=rung(btc>=82000?"hit":(btc>=79000?"close":"armed"),"Wkly close > $82k","CCI bull confirmation (Sam Aug 12/14). Confidence upgrade — not a buy by itself.",btc>=82000?"AT LEVEL — need close":(btc>=79000?"CLOSE":"ARMED"));
   b+=rung(btc>=86000?"hit":"armed","Wkly close > $86k","T2: buy $12k ($8k BTC-or-core / max $4k alts, sell ladders pre-written).",btc>=86000?"AT LEVEL — need close":"ARMED");
   b+=rung(btc<=68000?"hit":"armed","BTC $68k / $65k","T3: standing limit orders $6k + $6k. Place them NOW so the dip buys itself (Cowen's October scenario).",btc<=68000?"IN ZONE":"ARMED");
-  b+=rung(btc<71500?"danger":"armed","Wkly close < $71.5k","KILL SWITCH: cancel T1-T2. Below $65k: dip orders only.",btc<71500?"TRIGGERED":"SAFE");
+  b+=rung(WK<71500?"danger":(btc<71500?"close":"armed"),"Wkly close < $71.5k","KILL SWITCH: cancel T1-T2. Below $65k: dip orders only. (Spot dips don't count — Friday closes do.)",WK<71500?"TRIGGERED":(btc<71500?"SPOT IN ZONE":"SAFE"));
   document.getElementById("buyRungs").innerHTML=b;
 
   // global ladders
@@ -296,19 +297,21 @@ function render(){
   // code red status
   var cr="Status: ";
   if(peak<400000)cr+="not active yet (arms at $400k portfolio). ";
-  else cr+= dd>=(peak>750000?30:25)?"🚨 TRIGGERED — execute the sell TODAY. ":"armed, watching drawdown ("+dd.toFixed(1)+"%). ";
-  cr+= btc<71500?"⚠️ BTC under $71.5k — tranches cancelled.":"BTC above kill-switch.";
+  else if(peak>750000&&dd>=30)cr+="🚨 TRIGGERED — sell 90% TODAY. ";
+  else if(dd>=25)cr+="🚨 TRIGGERED — sell 50% TODAY. ";
+  else cr+="armed, watching drawdown ("+dd.toFixed(1)+"%). ";
+  cr+= WK<71500?"⚠️ Weekly close under $71.5k — tranches cancelled.":(btc<71500?"⚠️ SPOT under $71.5k — cancel only on a Friday close.":"BTC above kill-switch.");
   document.getElementById("crStatus").innerHTML=cr;
 
   // instruction card
   var ins=[];
   if(btc<65000){ins.push("<b>BTC under $65k:</b> dip orders fire. NOTHING else. No panic sells of the core plan — Code Red rules only.");}
-  else if(btc<71500){ins.push("<b>Kill switch zone:</b> no buys. Hold. Wait for a weekly close back above $74k.");}
+  else if(WK<71500){ins.push("<b>Kill switch zone (weekly close under $71.5k):</b> no buys. Hold. Wait for a weekly close back above $74k.");}
   else{
     if(WK2OK){ins.push("<b>T1 CONDITION MET</b> (two Friday closes > $74k): buy the $10k tranche. Split: half BTC-or-strongest core, half your top-conviction alt — NOT the frothiest one.");}
     else{ins.push("<b>HOLD — do not add today.</b> The move already happened (+25% week). Next checkpoint: <b>Friday's close vs $74k</b> ("+(WK>74000?"1 of 2 closes done":"0 of 2")+"). CCI, your feed, and the plan all agree: chase nothing.");}
     ins.push("<b>Place the standing dip orders NOW</b> if not placed: $6k at BTC $68k, $6k at $65k. That's Cowen's October scenario pre-paid.");
-    ins.push("<b>Sell-side:</b> every rung above marked HIT is an order, not a suggestion. ZEC is closest — trim rung at $911.");
+    ins.push("<b>Sell-side:</b> every rung marked HIT is an order, not a suggestion — check the per-coin trees for the nearest rungs.");
   }
   ins.push("<b>Sept debt cliff:</b> ~$36.7k leaves 0% in September. Balance-transfer plan + Sakline refund (~Sep 23) handle it — don't feed it from crypto, don't feed crypto from it.");
   ins.push("<b>Never:</b> new debt into crypto &middot; same-day unplanned trades &middot; adds into a +60% weekly candle.");
@@ -318,7 +321,7 @@ function updHold(id,v){var h=getHold();h[id]=parseFloat(v)||0;setHold(h);render(
 
 render();
 fetchLive();
-setInterval(fetchLive,120000);
+setInterval(fetchLive,300000);
 </script>
 </body>
 </html>

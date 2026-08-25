@@ -90,14 +90,14 @@ footer{background:var(--panel);border:1px solid var(--line);border-radius:16px;p
     <div class="branch">
       <div class="bnode g"><span class="tag">AT 5x (~$500k)</span>SELL THE BASIS (~$100k)<br><span class="small muted">original stake off the table — house money forever after</span></div>
       <div class="bnode g"><span class="tag">AT ~7x (bag ≈ $560k)</span>SELL DOWN TO $75k RUNNER<br><span class="small muted">banked ≈ $585-600k total</span></div>
-      <div class="bnode g"><span class="tag">RUNNER AT ~10x</span>EXIT ~$107-130k<br><span class="small muted">grand total ≈ $700-750k pre-tax 🎯</span></div>
+      <div class="bnode g"><span class="tag">RUNNER AT ~10x</span>EXIT ~$107-130k<br><span class="small muted">grand total ≈ $690-750k pre-tax 🎯</span></div>
     </div>
     <div class="branch2">
       <div class="bnode r"><span class="tag">🚨 CODE RED (overrides everything)</span>>$400k then −25% from peak → sell 50% TODAY &middot; >$750k then −30% → sell 90% TODAY</div>
       <div class="bnode y"><span class="tag">⏰ TIME-STOP</span>Feb 2027: ladder out regardless of price (power-law camp says top is later — if they're right, the runner catches it)</div>
     </div>
     <div class="arrow">↓ <span>after tax: first $108.7k of gains FREE, ~20% after</span></div>
-    <div class="node action"><b>💰 EXIT — target ~$600-650k net</b><br><span class="small">→ USDC at ~6% (~$36k/yr interest) &middot; $50k/yr life (Thailand = half) &middot; kill remaining card debt</span></div>
+    <div class="node action"><b>💰 EXIT — target ~$595-650k net</b><br><span class="small">→ USDC at ~6% (~$36k/yr interest) &middot; $50k/yr life (Thailand = half) &middot; kill remaining card debt</span></div>
     <div class="arrow">↓ <span>bear market 2027-2029</span></div>
     <div class="node action"><b>🔁 NEXT CYCLE — seed $500-600k</b><br><span class="small">same machine, bigger numbers → 5x = $2.5-3M → <b>21 BTC at the next bear bottom</b> 🏁</span></div>
   </div>
@@ -110,7 +110,7 @@ footer{background:var(--panel);border:1px solid var(--line);border-radius:16px;p
   <div class="bars">
     <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:8px"><span class="v">$11k</span></div><div class="bar kept" style="height:2px"><span class="v">~$0</span></div></div><div class="barlab">Cycle 1 ('17-18)<br><span class="cap">0% kept</span></div></div>
     <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:180px"><span class="v">$1M</span></div><div class="bar kept" style="height:8px"><span class="v">$40k</span></div></div><div class="barlab">Cycle 2 ('20-22)<br><span class="cap">4% kept</span></div></div>
-    <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:117px"><span class="v">$650k</span></div><div class="bar kept" style="height:25px"><span class="v">$140k</span></div></div><div class="barlab">Cycle 3 ('23-26)<br><span class="cap">22% kept</span></div></div>
+    <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:135px"><span class="v">$750k</span></div><div class="bar kept" style="height:29px"><span class="v">$161k</span></div></div><div class="barlab">Cycle 3 ('23-26)<br><span class="cap">~21% kept</span></div></div>
     <div class="barcol"><div class="barwrap"><div class="bar peak" style="height:135px;opacity:.5"><span class="v">$750k?</span></div><div class="bar kept" style="height:95px;background:var(--yellow)"><span class="v">$525k+?</span></div></div><div class="barlab">Cycle 4 (NOW)<br><span class="cap" style="color:var(--yellow)">target 70%</span></div></div>
   </div>
   <p class="small muted" style="text-align:center">The trend is real: 0% → 4% → 22%. The only sells that ever fired were WRITTEN triggers. Cycle 4 is all written triggers.</p>
@@ -154,6 +154,8 @@ footer{background:var(--panel);border:1px solid var(--line);border-radius:16px;p
 function fmt(n){return "$"+Math.round(n).toLocaleString("en-US");}
 function calc(){
   var B=+s_b.value,m1=+s_m1.value,m2=+s_m2.value,K=+s_k.value,m3=+s_m3.value;
+  if(m2<m1){s_m2.value=m1;m2=m1;}
+  if(m3<m2){s_m3.value=m2;m3=m2;}
   v_b.textContent=fmt(B);v_m1.textContent=m1.toFixed(1)+"x";v_m2.textContent=m2.toFixed(1)+"x";
   v_k.textContent=fmt(K);v_m3.textContent=m3.toFixed(1)+"x";
   var p1=B*m1, s1=Math.min(B,p1);            // sell the basis at m1
@@ -171,9 +173,9 @@ function calc(){
   o_seed.textContent="~"+fmt(net-50000);
   o_verdict.innerHTML = net>=750000 ? "<b style='color:var(--green)'>🎉 Over the $750k dream number NET.</b>"
     : net>=550000 ? "<b style='color:var(--yellow)'>✅ Lands in the happy zone — next cycle seeds $500k+, lifestyle covered.</b>"
-    : "<b style='color:var(--red)'>Below the $500k seed — raise a multiple or the basis to see what it takes.</b>";
+    : "<b style='color:var(--red)'>Below the $550k happy zone — raise a multiple or the basis to see what it takes.</b>";
   // chart
-  var W=460,H=220,pad=30, maxV=Math.max(p2,B*m3*0.2,tot)*1.05;
+  var W=460,H=220,pad=30, maxV=Math.max(p1,p2,tot)*1.05;
   function X(f){return pad+f*(W-2*pad);}function Y(v){return H-pad-(v/maxV)*(H-2*pad);}
   // path: 1x -> m1 (full B growing) -> sell -> m2 (r1 growing) -> sell -> m3 (runner)
   var pts=[[0,B],[0.35,p1]], sells=[[0.35,p1]];
