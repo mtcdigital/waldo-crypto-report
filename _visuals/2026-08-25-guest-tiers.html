@@ -1,0 +1,85 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Guest Risk Tiers</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff;--orange:#fb923c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 40px}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+header{text-align:center;padding:34px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:2rem;margin:8px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);max-width:36em;margin:0 auto}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+h2{font-size:1.12rem;margin-bottom:6px}
+p{margin:8px 0}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+.tier{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+.tier h3{font-size:.98rem;margin-bottom:2px}
+.tier .who{font-size:.82rem;color:var(--muted);margin-bottom:10px}
+.bar{display:flex;height:22px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.bar div{height:100%}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:baseline}
+.check{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.9rem}
+.check b{color:var(--blue)}
+.linkbox{background:var(--panel2);border:2px solid var(--green);border-radius:14px;padding:14px;text-align:center;margin:12px 0}
+.linkbox .u{font-weight:800;word-break:break-all}
+footer{background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:20px;margin:24px 0;font-size:.9rem}
+footer h2{color:var(--blue)}
+ul{margin:8px 0 8px 20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Guest Report Only · Aug 25, 2026 · family report untouched</div>
+  <h1>🎚️ The Guest Risk Tiers</h1>
+  <p class="sub">Your definition, built in: risk level changes <b>what the invested money buys</b>. The AI still sizes the cash cushion from the trend — but Bitcoin-heavy ≠ high risk anymore.</p>
+</header>
+
+<section>
+  <h2>The four tiers now live on the guest link</h2>
+  <p class="small muted">Bars show the invested portion only (cash cushion sits outside, sized by the AI — ~28% today at high risk).</p>
+
+  <div class="tier"><h3>🟢 Low risk</h3><div class="who">Anchored on Bitcoin, backed by the liquid majors. Sleep at night.</div>
+    <div class="bar"><div style="width:50%;background:#f59e0b"></div><div style="width:30%;background:#8b5cf6"></div><div style="width:15%;background:#34d399"></div><div style="width:5%;background:#fbbf24"></div></div>
+    <div class="legend"><span><i style="background:#f59e0b"></i>Bitcoin 50%</span><span><i style="background:#8b5cf6"></i>Majors (ETH/SOL/SUI) 30%</span><span><i style="background:#34d399"></i>Mid-caps (ZEC/ONDO/XMR/DASH) 15%</span><span><i style="background:#fbbf24"></i>Gold 5%</span></div></div>
+
+  <div class="tier"><h3>🟡 Medium risk <span class="small muted">(default)</span></h3><div class="who">Half the book in top-200 mid-caps, backed by the majors.</div>
+    <div class="bar"><div style="width:20%;background:#f59e0b"></div><div style="width:30%;background:#8b5cf6"></div><div style="width:50%;background:#34d399"></div></div>
+    <div class="legend"><span><i style="background:#f59e0b"></i>Bitcoin 20%</span><span><i style="background:#8b5cf6"></i>Majors 30%</span><span><i style="background:#34d399"></i>Mid-caps 50%</span></div></div>
+
+  <div class="tier"><h3>🟠 High risk</h3><div class="who">Over 90% altcoins. Big upside, brutal drawdowns — accepted going in.</div>
+    <div class="bar"><div style="width:8%;background:#f59e0b"></div><div style="width:22%;background:#8b5cf6"></div><div style="width:70%;background:#34d399"></div></div>
+    <div class="legend"><span><i style="background:#f59e0b"></i>Bitcoin 8%</span><span><i style="background:#8b5cf6"></i>Majors 22%</span><span><i style="background:#34d399"></i>Mid-caps 70%</span></div></div>
+
+  <div class="tier"><h3>🔴 Very high risk <span class="small muted">(new tier)</span></h3><div class="who">95% meme coins. Lottery-ticket money only.</div>
+    <div class="bar"><div style="width:5%;background:#f59e0b"></div><div style="width:95%;background:#fde047"></div></div>
+    <div class="legend"><span><i style="background:#f59e0b"></i>Bitcoin 5%</span><span><i style="background:#fde047"></i>Memes (DOGE/PEPE/PUMP) 95%</span></div></div>
+</section>
+
+<section>
+  <h2>✍️ Verbiage changed too</h2>
+  <div class="check"><b>Was:</b> "If this system had $1,000,000 today" → <b>Now:</b> "What our AI recommends if you had $1,000,000 today" — plus the intro now asks "what should <i>you</i> do with $1,000,000 today — and why?"</div>
+  <div class="check"><b>Still true:</b> Todaro scrub verified at 0 traces on this rebuild too — the tier change and the scrub run together every time.</div>
+  <div class="check"><b>Family report:</b> completely untouched — it keeps the original engine profiles. These tiers exist only on the guest link, applied automatically on every "refresh the guest report."</div>
+</section>
+
+<section>
+  <h2>📤 The link (unchanged)</h2>
+  <div class="linkbox"><div class="u"><a href="https://mtcdigital.github.io/crypto-brain-report/">mtcdigital.github.io/crypto-brain-report</a></div><div class="small muted" style="margin-top:6px">password: PREVIEW · already live with the new tiers</div></div>
+</section>
+
+<footer>
+  <h2>👉 What's next for Everett</h2>
+  <ul>
+    <li><b>Open the link, tap High risk</b> — you should see ZEC/ONDO/XMR leading the table and Bitcoin down at ~6%.</li>
+    <li><b>Tell me if the group splits feel right</b> (ZEC 30 / ONDO 30 / XMR 25 / DASH 15 inside mid-caps; DOGE 40 / PEPE 35 / PUMP 25 inside memes) — one-line tweaks.</li>
+    <li><b>Decide later:</b> want these same tiers on the family report too? Say the word — right now it's guest-only, per your instruction.</li>
+  </ul>
+  <p class="small muted" style="margin-top:10px">This task: ~40k tokens (~$0.85). Changed: make_guest_copy.py only. Family report, pipeline, Drive: untouched.</p>
+</footer>
+</div>
