@@ -160,7 +160,7 @@ a{color:var(--blue)}
 </section>
 
 <footer>
-  <b>Rules of the page:</b> This is Everett's own plan, not financial advice. Passphrase is a curtain, not a vault — don't put anything here you'd hate a stranger seeing (debt details live only in the local SharedBrain docs). &nbsp;Holdings are stored in YOUR browser (localStorage), never uploaded. &nbsp;Prices: CoinGecko public API. &nbsp;Full receipts &amp; source files: SharedBrain → Individual Folders → Everett → projects → Everett Master Cycle Plan (docs 00-08). &nbsp;Pages: <a href="the-mirror.html">🪞 The Mirror (9-yr trade forensics)</a> &middot; <a href="the-machine.html">⚙️ The Machine (workflow + exit math)</a> &middot; <a href="index.html">today's scraper report</a> &middot; <a href="archive.html">archive</a>.
+  <b>Rules of the page:</b> This is Everett's own plan, not financial advice. Passphrase is a curtain, not a vault — don't put anything here you'd hate a stranger seeing (debt details live only in the local SharedBrain docs). &nbsp;Holdings are stored in YOUR browser (localStorage), never uploaded. &nbsp;Prices: CoinGecko public API. &nbsp;Full receipts &amp; source files: SharedBrain → Individual Folders → Everett → projects → Everett Master Cycle Plan (docs 00-08). &nbsp;Pages: <a href="the-mirror.html">🪞 The Mirror (9-yr trade forensics)</a> &middot; <a href="the-machine.html">⚙️ The Machine (workflow + exit math)</a> &middot; <a href="index.html">today's scraper report</a> &middot; <a href="archive.html">archive</a>. &nbsp;<span class="muted">This page: ~100k tokens (~$2.00).</span>
 </footer>
 </div>
 
@@ -204,12 +204,22 @@ function fetchLive(){
   ]).then(function(res){
     var d=res[0];IDS.forEach(function(id){if(d[id]&&isFinite(+d[id].usd)&&+d[id].usd>0){P[id]={p:+d[id].usd,c:+(d[id].usd_24h_change||0),mc:d[id].usd_market_cap};}});
     if(res[1]&&res[1].data&&res[1].data.total_market_cap)TOTALMC=res[1].data.total_market_cap.usd;
-    var fri=[];(res[2].prices||[]).forEach(function(pt){if(pt[0]%86400000!==0)return;if(new Date(pt[0]).getUTCDay()===6)fri.push(pt[1]);});
-    if(fri.length){WK=fri[fri.length-1];WK2OK=fri.length>=2&&fri[fri.length-1]>74000&&fri[fri.length-2]>74000;}
-    live=true;document.getElementById("staleBanner").style.display="none";
+    // Friday close = bar nearest Sat 00:00 UTC (±1h tolerance, one bar per week — CoinGecko's free tier ignores interval=daily)
+    var wkMap={};(res[2].prices||[]).forEach(function(pt){
+      var m=pt[0]%86400000,d=new Date(pt[0]).getUTCDay(),dist=-1;
+      if(d===6&&m<=3600000)dist=m;else if(d===5&&m>=82800000)dist=86400000-m;
+      if(dist<0)return;
+      var k=Math.floor(pt[0]/604800000);
+      if(!(k in wkMap)||dist<wkMap[k].d)wkMap[k]={p:pt[1],d:dist};
+    });
+    var fri=Object.keys(wkMap).sort(function(a,b){return a-b}).map(function(k){return wkMap[k].p});
+    var sb=document.getElementById("staleBanner");
+    if(fri.length){WK=fri[fri.length-1];WK2OK=fri.length>=2&&fri[fri.length-1]>74000&&fri[fri.length-2]>74000;sb.style.display="none";}
+    else{sb.textContent="⚠️ Weekly-close feed came back empty — weekly-close triggers are using the Aug 25 snapshot ($76.9k). Live prices are still live.";sb.style.display="block";}
+    live=true;
     document.getElementById("asof").textContent=new Date().toLocaleString();
     render();
-  }).catch(function(e){document.getElementById("staleBanner").style.display="block";document.getElementById("asof").textContent="snapshot Aug 25, 2026";render();});
+  }).catch(function(e){var sb=document.getElementById("staleBanner");sb.textContent="⚠️ Live prices unavailable right now (rate limit) — showing the Aug 25, 2026 snapshot. Refresh in a minute.";sb.style.display="block";document.getElementById("asof").textContent="snapshot Aug 25, 2026";render();});
 }
 
 // ---------- ladders config ----------
@@ -262,8 +272,8 @@ function render(){
   var btc=P.bitcoin.p, b="";
   function rung(cls,trig,txt,st){return '<div class="rung '+cls+'"><span class="trig">'+trig+'</span><span>'+txt+'</span><span class="st '+cls+'">'+st+'</span></div>';}
   b+=rung(WK2OK?"hit":(WK>74000?"close":"armed"),"2× wkly close > $74k","T1: buy $10k (Fri close counter: "+(WK>74000?"1+":"0")+"/2). CCI's own '74kish' HTF support.",WK2OK?"FIRED — EXECUTE":(WK>74000?"1 OF 2":"ARMED"));
-  b+=rung(btc>=82000?"hit":(btc>=79000?"close":"armed"),"Wkly close > $82k","CCI bull confirmation (Sam Aug 12/14). Confidence upgrade — not a buy by itself.",btc>=82000?"AT LEVEL — need close":(btc>=79000?"CLOSE":"ARMED"));
-  b+=rung(btc>=86000?"hit":"armed","Wkly close > $86k","T2: buy $12k ($8k BTC-or-core / max $4k alts, sell ladders pre-written).",btc>=86000?"AT LEVEL — need close":"ARMED");
+  b+=rung(WK>=82000?"hit":(btc>=79000?"close":"armed"),"Wkly close > $82k","CCI bull confirmation (Sam Aug 12/14). Confidence upgrade — not a buy by itself.",WK>=82000?"CONFIRMED ✓":(btc>=82000?"AT LEVEL — need Fri close":(btc>=79000?"CLOSE":"ARMED")));
+  b+=rung(WK>=86000?"hit":(btc>=83000?"close":"armed"),"Wkly close > $86k","T2: buy $12k ($8k BTC-or-core / max $4k alts, sell ladders pre-written).",WK>=86000?"FIRED — EXECUTE":(btc>=86000?"AT LEVEL — need Fri close":(btc>=83000?"CLOSE":"ARMED")));
   b+=rung(btc<=68000?"hit":"armed","BTC $68k / $65k","T3: standing limit orders $6k + $6k. Place them NOW so the dip buys itself (Cowen's October scenario).",btc<=68000?"IN ZONE":"ARMED");
   b+=rung(WK<71500?"danger":(btc<71500?"close":"armed"),"Wkly close < $71.5k","KILL SWITCH: cancel T1-T2. Below $65k: dip orders only. (Spot dips don't count — Friday closes do.)",WK<71500?"TRIGGERED":(btc<71500?"SPOT IN ZONE":"SAFE"));
   document.getElementById("buyRungs").innerHTML=b;
@@ -317,7 +327,15 @@ function render(){
   ins.push("<b>Never:</b> new debt into crypto &middot; same-day unplanned trades &middot; adds into a +60% weekly candle.");
   document.getElementById("instructions").innerHTML=ins.map(function(i){return "<li>"+i+"</li>"}).join("");
 }
-function updHold(id,v){var h=getHold();h[id]=parseFloat(v)||0;setHold(h);render();}
+function updHold(id,v){
+  // scale the tracked peak with bookkeeping edits so drawdown measures price moves, not unit changes
+  var oldPv=portVal(),h=getHold();h[id]=parseFloat(v)||0;setHold(h);
+  var newPv=portVal();
+  try{var pk=+localStorage.getItem("hq_peak")||0;
+    if(pk>0&&oldPv>0&&newPv!==oldPv)localStorage.setItem("hq_peak",String(Math.round(pk*newPv/oldPv)));
+  }catch(e){}
+  render();
+}
 
 render();
 fetchLive();
