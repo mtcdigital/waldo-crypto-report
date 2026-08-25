@@ -1,0 +1,159 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Impatient Green Light</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 40px}
+.wrap{max-width:820px;margin:0 auto;padding:0 18px}
+header{text-align:center;padding:34px 0 10px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:2rem;margin:8px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);max-width:34em;margin:0 auto}
+.verdict{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0}
+@media(max-width:640px){.verdict{grid-template-columns:repeat(2,1fr)}}
+.v{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.v .n{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+.v .l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+h2{font-size:1.15rem;margin-bottom:4px;text-wrap:balance}
+h3{font-size:.85rem;margin:12px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+p{margin:8px 0}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+.chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.7rem;font-weight:800;vertical-align:middle;margin-left:8px}
+.chip.money{background:rgba(255,92,108,.15);color:var(--red)}
+.chip.nit{background:rgba(148,160,184,.14);color:var(--muted)}
+.chip.fixed{background:rgba(46,230,168,.15);color:var(--green)}
+.rung{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0;font-size:.88rem}
+.rung .trig{width:135px;font-weight:800;flex-shrink:0;font-variant-numeric:tabular-nums}
+.rung.hit{border-left-color:var(--green);background:rgba(46,230,168,.07)}
+.rung.close{border-left-color:var(--yellow)}
+.rung.armed{border-left-color:var(--line)}
+.st{margin-left:auto;font-size:.7rem;font-weight:800;padding:2px 10px;border-radius:999px;flex-shrink:0}
+.st.hit{background:rgba(46,230,168,.15);color:var(--green)}
+.st.close{background:rgba(255,211,92,.15);color:var(--yellow)}
+.st.armed{background:rgba(148,160,184,.12);color:var(--muted)}
+.tag{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:6px}
+.tag.old{background:rgba(255,92,108,.15);color:var(--red)}
+.tag.new{background:rgba(46,230,168,.15);color:var(--green)}
+.flow{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.step{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.9rem}
+.step b{font-variant-numeric:tabular-nums}
+.step.bad{border-left:5px solid var(--red)}
+.step.good{border-left:5px solid var(--green)}
+.step.warn{border-left:5px solid var(--yellow)}
+input[type=number]{background:#0d1117;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:8px 10px;font-size:1rem;width:130px;font-variant-numeric:tabular-nums}
+input[type=number]:focus{outline:2px solid var(--blue)}
+label{font-size:.8rem;color:var(--muted);display:block;margin-bottom:4px}
+.inputs{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}
+.check{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.9rem}
+.check b{color:var(--blue)}
+footer{background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:20px;margin:24px 0;font-size:.9rem}
+footer h2{color:var(--blue)}
+ul{margin:8px 0 8px 20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Waldo HQ · Robot Code Review · Aug 25, 2026</div>
+  <h1>🔍 The Impatient Green Light</h1>
+  <p class="sub">A swarm of robot reviewers read every line of the HQ dashboard code. They found 4 problems. All 4 are fixed and already saved.</p>
+</header>
+
+<div class="verdict">
+  <div class="v"><div class="n" style="color:var(--red)">1</div><div class="l">real money bug</div></div>
+  <div class="v"><div class="n" style="color:var(--muted)">3</div><div class="l">small ones</div></div>
+  <div class="v"><div class="n" style="color:var(--green)">4</div><div class="l">fixed</div></div>
+  <div class="v"><div class="n" style="color:var(--green)">0</div><div class="l">left</div></div>
+</div>
+
+<section>
+  <h2>1. The impatient green light <span class="chip money">MONEY BUG</span><span class="chip fixed">FIXED</span></h2>
+  <p>Your rule says: <b>only Friday closes count — wicks don't count.</b> But the $82k and $86k buy lights were watching the <b>live price</b>, not the Friday close. A 5-minute Wednesday spike to $86k would turn the T2 "buy $12k" light <b>green</b> — inviting exactly the chase your plan bans.</p>
+  <h3><span class="tag old">Before</span> &nbsp;price wicks to $86.1k on a Wednesday</h3>
+  <div class="rung hit"><span class="trig">Wkly close &gt; $86k</span><span>T2: buy $12k</span><span class="st hit">AT LEVEL — need close</span></div>
+  <p class="small muted">Green light, green glow — even though no Friday close ever happened.</p>
+  <h3><span class="tag new">Now</span> &nbsp;same Wednesday spike</h3>
+  <div class="rung close"><span class="trig">Wkly close &gt; $86k</span><span>T2: buy $12k</span><span class="st close">AT LEVEL — need Fri close</span></div>
+  <p class="small muted">Yellow = "getting close, wait for Friday." It only goes green when the <b>weekly close</b> is actually above the line — same as the T1 light and the kill switch already did.</p>
+</section>
+
+<section>
+  <h2>2. The false fire alarm <span class="chip nit">SMALL</span><span class="chip fixed">FIXED</span></h2>
+  <p>The Code Red alarm compares your portfolio to its remembered <b>peak</b>. But if you sold crypto in real life and typed the smaller number into the holdings table, the page thought the market crashed:</p>
+  <div class="flow">
+    <div class="step bad"><span class="tag old">Before</span> &nbsp;Peak remembered: <b>$500k</b> → you sell half on Coinbase and update the table → page sees <b>$250k</b> → screams <b>🚨 "SELL 50% TODAY"</b> right after you already sold.</div>
+    <div class="step good"><span class="tag new">Now</span> &nbsp;When you edit a holdings number, the remembered peak scales with it. Code Red only reacts to <b>real price drops</b>, never to your bookkeeping.</div>
+  </div>
+</section>
+
+<section>
+  <h2>3. The quiet lie <span class="chip nit">SMALL</span><span class="chip fixed">FIXED</span></h2>
+  <p>The Friday-close number comes from CoinGecko. If that feed ever came back empty, the page kept saying "live" while secretly using the frozen <b>$76.9k</b> snapshot — and since $76.9k sits above the $71.5k kill switch, the kill switch could <b>never fire</b>, no matter what BTC did.</p>
+  <div class="flow">
+    <div class="step bad"><span class="tag old">Before</span> &nbsp;Feed empty → page still says live, snapshot number drives the triggers, you never know.</div>
+    <div class="step warn"><span class="tag new">Now</span> &nbsp;Feed empty → a yellow banner tells you the weekly-close triggers are on the snapshot. The detector is also tougher: it finds the Friday close even if CoinGecko's timestamps drift by an hour, and never counts the same week twice.</div>
+  </div>
+</section>
+
+<section>
+  <h2>4. The missing price tag <span class="chip nit">SMALL</span><span class="chip fixed">FIXED</span></h2>
+  <p>House rule: every page shows what it cost to build. The Mirror and The Machine had their tags — HQ, the flagship, didn't. It does now (~100k tokens, ~$2).</p>
+</section>
+
+<section>
+  <h2>🧪 Try the big one yourself</h2>
+  <p class="small muted">Type any prices. Watch what the old code would have shown vs. what the fixed code shows for the "$86k → buy $12k" light.</p>
+  <div class="inputs">
+    <div><label for="spot">Live BTC price right now ($)</label><input type="number" id="spot" value="86100" step="100"></div>
+    <div><label for="wk">Last Friday's close ($)</label><input type="number" id="wk" value="79800" step="100"></div>
+  </div>
+  <h3><span class="tag old">Old code</span></h3>
+  <div class="rung" id="oldRung"><span class="trig">Wkly close &gt; $86k</span><span>T2: buy $12k</span><span class="st" id="oldSt">—</span></div>
+  <h3><span class="tag new">Fixed code</span></h3>
+  <div class="rung" id="newRung"><span class="trig">Wkly close &gt; $86k</span><span>T2: buy $12k</span><span class="st" id="newSt">—</span></div>
+  <p class="small muted" id="demoNote"></p>
+</section>
+
+<section>
+  <h2>✅ How to validate this</h2>
+  <div class="check"><b>Claim:</b> the $82k/$86k lights used the live price. <b>Check it:</b> the review quoted the old code — <code>btc&gt;=86000</code> ("btc" is the live price). The fixed line reads <code>WK&gt;=86000</code> ("WK" is the Friday close). Old version is preserved in Git history (commit 7755244 → a29c37f).</div>
+  <div class="check"><b>Claim:</b> editing holdings could trip a false Code Red. <b>Check it:</b> open HQ, note "Portfolio peak (tracked)," cut a holding's units in half. Peak now shrinks with it and Code Red stays calm. Reset with the "Reset to Aug 25 snapshot" button.</div>
+  <div class="check"><b>Claim:</b> a dead weekly feed used to hide. <b>Check it:</b> turn on airplane mode and reload HQ — you get the yellow snapshot banner instead of a fake "live."</div>
+</section>
+
+<footer>
+  <h2>👉 What's next for Everett</h2>
+  <ul>
+    <li><b>Nothing to decide</b> — all 4 fixes are live. Just refresh the HQ page on your phone (pull down / reload) to load the new version.</li>
+    <li>The kill switch and T1 were already correct — this review made the other lights match them.</li>
+    <li>That was ultrareview 1 of 3 free — 2 left if you want the same treatment on The Mirror or The Machine.</li>
+  </ul>
+  <p class="small muted" style="margin-top:10px">This task: ~50k tokens (~$1.00). Review found 4 issues; 4 verified against the code by hand before fixing; 0 dismissed.</p>
+</footer>
+</div>
+
+<script>
+function demo(){
+  var spot=parseFloat(document.getElementById("spot").value)||0;
+  var wk=parseFloat(document.getElementById("wk").value)||0;
+  var o=document.getElementById("oldRung"),os=document.getElementById("oldSt");
+  var n=document.getElementById("newRung"),ns=document.getElementById("newSt");
+  var oc=spot>=86000?"hit":"armed";
+  o.className="rung "+oc;os.className="st "+oc;os.textContent=spot>=86000?"AT LEVEL — need close":"ARMED";
+  var nc=wk>=86000?"hit":(spot>=83000?"close":"armed");
+  n.className="rung "+nc;ns.className="st "+nc;
+  ns.textContent=wk>=86000?"FIRED — EXECUTE":(spot>=86000?"AT LEVEL — need Fri close":(spot>=83000?"CLOSE":"ARMED"));
+  var note="";
+  if(spot>=86000&&wk<86000)note="⬅️ This is the bug: old code lit up GREEN on a spike the plan says to ignore. Fixed code holds yellow until Friday actually closes above $86k.";
+  else if(wk>=86000)note="Friday really closed above $86k — both versions agree it's go time.";
+  else note="No spike, no close — both stay armed. The versions only disagree during a wick.";
+  document.getElementById("demoNote").textContent=note;
+}
+document.getElementById("spot").addEventListener("input",demo);
+document.getElementById("wk").addEventListener("input",demo);
+demo();
+</script>
