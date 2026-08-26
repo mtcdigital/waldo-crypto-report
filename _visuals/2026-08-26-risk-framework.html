@@ -1,0 +1,107 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Risk Framework</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff;--cyan:#22d3ee;--orange:#ff9f43}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 40px}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px}
+header{text-align:center;padding:34px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:2rem;margin:8px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);max-width:38em;margin:0 auto}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+h2{font-size:1.12rem;margin-bottom:6px}
+p{margin:8px 0}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums}
+th{color:var(--muted);text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;padding:8px;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.tablebox{overflow-x:auto}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.7rem;font-weight:800}
+.t-low{background:rgba(46,230,168,.15);color:var(--green)}
+.t-med{background:rgba(92,157,255,.15);color:var(--blue)}
+.t-high{background:rgba(255,159,67,.16);color:var(--orange)}
+.t-ultra{background:rgba(255,92,108,.16);color:var(--red)}
+.num{text-align:right;font-weight:700}
+.check{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.9rem}
+.check b{color:var(--blue)}
+.formula{background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px;margin:10px 0;text-align:center}
+.formula b{color:var(--cyan)}
+footer{background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:20px;margin:24px 0;font-size:.9rem}
+footer h2{color:var(--blue)}
+ul{margin:8px 0 8px 20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Waldo Bros · Portfolio Risk Framework · Aug 26, 2026</div>
+  <h1>🧬 The Risk Framework</h1>
+  <p class="sub">How the $1M recommendation decides what each risk tier holds — synthesized from the brothers' Aug 25 call. Two layers: every <b>coin</b> gets a risk tag from live data, and every <b>tier</b> blends all four silos. Only the mix changes.</p>
+</header>
+
+<section>
+  <h2>Layer 1 — every coin gets a risk tag (live data, not opinions)</h2>
+  <p class="small muted">Data source: <b>CoinGecko</b> — market-cap rank, the "Meme" category flag, and live market cap. Refreshed weekly, cached, with a safe fallback if the API is rate-limited. Rules fire in this order:</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Rule (in order)</th><th>Tag</th><th>Who that catches today</th></tr></thead>
+    <tbody>
+      <tr><td>Bitcoin, or gold-backed token</td><td><span class="tag t-low">LOW</span></td><td>BTC, PAXG</td></tr>
+      <tr><td>CoinGecko classes it a <b>meme</b> — at any size. <b>Meme overrides rank:</b> Dogecoin is top-10 and still tags ultra.</td><td><span class="tag t-ultra">ULTRA-HIGH</span></td><td>DOGE, PEPE, PUMP</td></tr>
+      <tr><td>Top-10 market-cap rank, deep liquidity, not a meme</td><td><span class="tag t-med">MEDIUM</span></td><td>ETH, SOL</td></tr>
+      <tr><td>Top-200 rank with a real product behind it</td><td><span class="tag t-high">HIGH</span></td><td>ZEC, ONDO, XMR, DASH, SUI, HYPE</td></tr>
+      <tr><td>Smaller / unranked (attention is the whole engine)</td><td><span class="tag t-ultra">ULTRA-HIGH</span></td><td>whatever the scraper surfaces next</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">Inside each silo, coins are weighted by <b>√(live market cap)</b> — bigger coin, bigger slice, but the giants don't drown everything. The Twitter Scraper's job upstream is to surface new candidates for the universe; CoinGecko then classifies them by the same rules, no hand-tagging.</p>
+</section>
+
+<section>
+  <h2>Layer 2 — every tier blends all four silos (the blend matrix)</h2>
+  <p class="small muted">Your consensus numbers. No silo is ever exclusive: high risk keeps a Bitcoin sliver, medium keeps a taste of the memes — the "one silo, parse it out" idea from the call.</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Tier</th><th class="num">Low assets</th><th class="num">Medium</th><th class="num">High</th><th class="num">Ultra-high</th><th>Return target</th></tr></thead>
+    <tbody>
+      <tr><td><b>Low risk</b></td><td class="num">60%</td><td class="num">30%</td><td class="num">10%</td><td class="num">0%</td><td>~2–2.5× a cycle</td></tr>
+      <tr><td><b>Medium risk</b> <span class="muted small">(default)</span></td><td class="num">20%</td><td class="num">50%</td><td class="num">25%</td><td class="num">5%</td><td>~2.5–3.5×</td></tr>
+      <tr><td><b>High risk</b></td><td class="num">5%</td><td class="num">15%</td><td class="num">60%</td><td class="num">20%</td><td>~3.5–5×</td></tr>
+      <tr><td><b>Ultra-high risk</b></td><td class="num">0%</td><td class="num">5%</td><td class="num">15%</td><td class="num">80%</td><td>5×+ — money you can lose</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">Percentages apply to the <b>invested</b> portion. The cash cushion is still sized separately by the AI's trend/value scores — that part is market timing, not risk appetite — so all tiers get more deployed as the trend confirms.</p>
+</section>
+
+<section>
+  <h2>What it produced today (live on the guest report now)</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Tier</th><th>Top holdings (of $1M, cash included)</th></tr></thead>
+    <tbody>
+      <tr><td><b>Low</b></td><td>Cash 64 · BTC 20.9 · ETH 7.5 · SOL 3.3 · HYPE 1.1 · ZEC 0.8 · Gold 0.7…</td></tr>
+      <tr><td><b>Medium</b></td><td>Cash 46.4 · ETH 18.7 · BTC 10.7 · SOL 8.1 · HYPE 4.1 · ZEC 2.9 · … · DOGE 1.4 <span class="muted small">(the meme taste)</span></td></tr>
+      <tr><td><b>High</b></td><td>Cash 24.9 · HYPE 13.9 · ZEC 9.6 · ETH 7.9 · <b>DOGE 7.8</b> · XMR 7.7 · SUI 7.6 · <b>PEPE 4.3</b> · BTC 3.8 <span class="muted small">(memes now present — the exact fix from the call)</span></td></tr>
+      <tr><td><b>Ultra-high</b></td><td>DOGE 31.2 · Cash 24.9 · PEPE 17.3 · PUMP 11.6 · HYPE 3.5 · ETH 2.6 · ZEC 2.4…</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Why it works this way (the honest reasoning)</h2>
+  <div class="check"><b>No source publishes risk-tiered allocations.</b> Only CCI comes close, and they're foundationally conservative (their "high risk" still holds ~40% BTC). So: the sources feed <i>what to buy and when</i> (scores, calls, scraper candidates); the blend matrix is <b>the family's own rule set</b>, written down once, applied consistently — instead of re-prompting an AI's mood every week.</div>
+  <div class="check"><b>The tags are data, the matrix is policy.</b> Facts (rank, meme flag, market cap) come from CoinGecko and update themselves. The judgment calls (60/30/10 splits, return targets) are yours — each one is a single number in the config, changeable in one line when the brothers want to re-vote.</div>
+  <div class="check"><b>Return targets are framing, not promises.</b> "High risk targets ~3.5–5×" describes the kind of outcome the mix is built to chase, and what it can lose chasing it.</div>
+</section>
+
+<footer>
+  <h2>👉 For the brothers to decide (each is a one-line change)</h2>
+  <ul>
+    <li><b>Bless or adjust the blend matrix numbers</b> — the table above is my synthesis of your call; nothing is sacred.</li>
+    <li><b>Universe additions:</b> want the scraper's weekly top plays auto-added to the coin universe (classified by the same rules)? Say the word.</li>
+    <li><b>Parked ideas from the call:</b> the exit-signals tab (fear/greed, market cap vs ladder, news + App Store top-signs) and citation links to Discord posts — both good next builds.</li>
+  </ul>
+  <p class="small muted" style="margin-top:10px">This task: ~60k tokens (~$1.30). Live on the guest link now, with the source-cards section moved to the top of the renamed "What our sources are saying" tab.</p>
+</footer>
+</div>
