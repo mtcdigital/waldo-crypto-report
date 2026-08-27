@@ -1,0 +1,154 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ladder Nobody Said</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141926;--panel2:#1b2233;--line:#273043;--text:#e8ecf4;--muted:#94a0b8;
+--green:#2ee6a8;--yellow:#ffd35c;--red:#ff5c6c;--blue:#5c9dff;--purple:#b78cff;--cyan:#22d3ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:0 0 40px}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px}
+header{text-align:center;padding:34px 0 8px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:2rem;margin:8px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);max-width:38em;margin:0 auto}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+h2{font-size:1.14rem;margin-bottom:6px}
+h3{font-size:.8rem;margin:14px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+p{margin:8px 0}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+.q{background:var(--panel2);border-left:4px solid var(--cyan);border-radius:8px;padding:11px 14px;margin:9px 0;font-size:.92rem}
+.q .cite{display:block;margin-top:6px;font-size:.74rem;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+.q.cowen{border-left-color:var(--yellow)}
+.q.tw{border-left-color:var(--purple)}
+.q.code{border-left-color:var(--red)}
+.verdict{border:2px solid var(--red);background:rgba(255,92,108,.07);border-radius:14px;padding:16px 18px;margin:14px 0}
+.verdict b{color:var(--red)}
+.ok{border-color:var(--green);background:rgba(46,230,168,.06)}
+.ok b{color:var(--green)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{color:var(--muted);text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;padding:8px;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.tablebox{overflow-x:auto}
+.zero{color:var(--red);font-weight:800;font-variant-numeric:tabular-nums}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:#0d1117;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+.notfound{display:inline-block;background:rgba(255,92,108,.15);color:var(--red);font-weight:800;font-size:.7rem;padding:2px 9px;border-radius:999px;letter-spacing:.04em}
+footer{background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:20px;margin:24px 0;font-size:.9rem}
+footer h2{color:var(--blue)}
+ul{margin:8px 0 8px 20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Crypto Brain · Source Audit · Aug 27, 2026</div>
+  <h1>🔍 The Ladder Nobody Said</h1>
+  <p class="sub">You asked me to cite everything. Doing that surfaced a problem: <b>the $74K / $82K weekly-close ladder you've been trading on does not appear anywhere in CCI's actual words.</b> Every claim below is quoted from a real file, with its date and author.</p>
+</header>
+
+<section>
+  <div class="verdict"><b>⚠️ The headline finding.</b> I searched all <b>20,195</b> CCI Discord messages (through Aug 27, 2026 — 3,997 of them from 2026) plus every 2026 Zoom transcript. The phrase <b>"weekly close" appears zero times in 2026</b> — the only four mentions ever are from March 2024, by a member, not staff. There is no two-closes-above-$74K rule, no $82K/$84K/$88K/$94K confirmation rung, and no 25/25/25/25 tranche template in the source data.</div>
+  <div class="tablebox"><table>
+    <thead><tr><th>What I searched for</th><th>Where</th><th>Hits</th></tr></thead>
+    <tbody>
+      <tr><td>"weekly close"</td><td>CCI Discord, 2026</td><td class="zero">0</td></tr>
+      <tr><td>"weekly close"</td><td>CCI Discord, all-time (2023→now)</td><td>4 — all Mar 2024, all from members</td></tr>
+      <tr><td>"25/25" (the tranche template)</td><td>CCI Discord, all-time</td><td class="zero">0</td></tr>
+      <tr><td>"fully allocated" / "full allocation"</td><td>CCI Discord, 2026</td><td class="zero">0</td></tr>
+      <tr><td>"turn the dial" (quoted in our HQ page)</td><td>CCI Discord, all-time</td><td class="zero">0</td></tr>
+      <tr><td>"$74k" as a decision level</td><td>CCI Discord, 2026</td><td>3 mentions — none a rule (see below)</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Where our numbers actually came from</h3>
+  <div class="q code">"Sam Aug 24: 'the trend has turned… time to turn the dial on your allocation.' Joe SL: 25/25/25/25 template, $74k = HTF support; $82-85k (52-wk MA) = full bull confirmation"
+    <span class="cite">OUR OWN CODE — hq.html, line 198. Not a source quote. The three named accounts (joeshew, sammacdonald., samp0464) last posted Oct 2025, Aug 2025 and Oct 2025 respectively — none has posted in August 2026.</span></div>
+</section>
+
+<section>
+  <h2>What CCI actually says about levels</h2>
+  <div class="q">"this is still a downtrend until proven otherwise and to prove otherwise we have to pass the 86 000 level and close above it and retest it"
+    <span class="cite">CCI Zoom transcript · 2026-05-04 · speaker unlabeled in transcript</span></div>
+  <div class="q">"we come down to retest that sort of 74 k the bottom of that box where the previous sort of highs resistance were if we hold above there... then yeah of course this would be a very strong bullish signal"
+    <span class="cite">CCI Zoom transcript · 2026-05-04 · speaker unlabeled — note: 74K is described as a <b>support retest</b>, not a buy trigger</span></div>
+  <div class="q">"if we do move above this level we have to have a look at this level up which is 82 000"
+    <span class="cite">CCI Zoom transcript · 2026-08-24 — 82K is named as <b>the next resistance overhead</b>, not a bull confirmation</span></div>
+  <div class="q">"we broke this yellow line and that's a break of structure... this breaks the bear cycle and makes it a bull cycle um so our entire philosophy now has to kind of move from uh try to shorten the market to trying to buy the market"
+    <span class="cite">CCI Zoom transcript · 2026-08-24 — this is how CCI declares the turn: <b>structurally, not at a price</b></span></div>
+</section>
+
+<section>
+  <h2>Your questions, answered strictly from sources</h2>
+  <h3>"Two closes above $74K = what % allocated?"</h3>
+  <p><span class="notfound">NOT FOUND IN SOURCES</span> CCI states no allocation percentage tied to any price level. What they do describe is a two-tranche dollar-cost average:</p>
+  <div class="q">"let's say that we are entering a and a is entered at 77 000 and we are entering 50 of our position and this one decides okay it's gonna go down and goes to 66 so if we buy then a 60 let's call it 67 then our dollar cost average would be 70 and we do 50 as well"
+    <span class="cite">CCI Zoom transcript · 2026-08-24 — half now, half lower. No level-keyed ladder.</span></div>
+  <div class="q">"i will not put all my money at this level but i would probably put some some funds in to to have a a uh a foot in the door"
+    <span class="cite">CCI Zoom transcript · 2026-08-24</span></div>
+  <div class="q">"don't put all your eggs if you are not in the market yet and you don't plan to use yet leverage you we cannot use leverage until there is a confirmation of the market"
+    <span class="cite">CCI Zoom transcript · 2026-08-24</span></div>
+
+  <h3>"The number where it's full bull — and what to do with $100,000?"</h3>
+  <p><span class="notfound">NOT FOUND IN SOURCES</span> No CCI source names a price that means "full bull market," and no source gives guidance for a $100,000 cash position. The only $100k reference in the entire archive is illustrative math about returns ("100 000 become 3.5 million dollars," Aug 24 Zoom), not advice. <b>The $94K figure you may have in mind is not CCI's</b> — it comes from a Twitter account (below).</p>
+
+  <h3>"When does the weekly close happen?"</h3>
+  <p><span class="notfound">NOT FOUND IN SOURCES</span> No source in any dataset states a day <i>and</i> time. The sources actively disagree — including CCI's own call:</p>
+  <div class="q">"Yeah, but it's not the weekly close. Have we had the weekly close by Monday at 7? I'm not sure. I thought the weekly close was Tuesday morning. Yeah, I'm not sure. Yeah, I'm not sure."
+    <span class="cite">CCI Zoom transcript · 2026-07-16 — verbatim exchange on the call</span></div>
+  <div class="q">"weekly close is on Monday my man. Got the weekend to get through yet"
+    <span class="cite">CCI Discord · 🟩-general-chat · 2024-03-08 · @itzscotch (member)</span></div>
+  <div class="q code">Our HQ page computes its gate off <b>Friday</b> closes, and says "Friday Aug 28 close vs $74k = first gate."
+    <span class="cite">OUR OWN CODE — hq.html. No source supports Friday.</span></div>
+</section>
+
+<section>
+  <h2>Altcoins the sources are naming right now</h2>
+  <div class="q">"He mentioned SUI, TAO, HYPE, ZEC, XMR, FET, ICP and Virtual as examples to review."
+    <span class="cite">CCI Discord · 🟢-analysis-videos · 2026-08-24 11:02 · @melmakilan (recapping Paolo)</span></div>
+  <div class="q">"separating holdings into two groups: stronger 'stability' assets such as Bitcoin, Ethereum, Solana and TAO, and higher-upside coins that could potentially deliver 5X or more."
+    <span class="cite">CCI Discord · 🟢-analysis-videos · 2026-08-24 · @melmakilan</span></div>
+  <div class="q">"Paolo opened a long setup on Virtual and a short setup on BW/BTW, creating an artificial hedge"
+    <span class="cite">CCI Discord · 🟢-analysis-videos · 2026-08-24 · @melmakilan</span></div>
+  <div class="q">"HYPE was discussed as a strong fundamental candidate due to decentralised exchange activity. Paolo also reviewed ICP, DOT and Worldcoin as possible long setups."
+    <span class="cite">CCI Discord · 🟢-analysis-videos · 2026-08-10 · @melmakilan</span></div>
+  <div class="q">"DOT stopped out, while ICP and WILD were in profit."
+    <span class="cite">CCI Discord · 🟢-analysis-videos · 2026-08-17 · @melmakilan</span></div>
+  <p class="small muted">Zoom verbatim on individual names, 2026-08-24: on SUI — "if sue is one of the coins that we want to have what i would do is i would get some suey"; on TAO — "you can stake tau and uh it pretty much gives you uh a stable income that's only 2.1"; on FET — "if fat did well that would be a 25x." (Transcripts are auto-captioned; "sue/suey" = SUI, "tau" = TAO, "fat" = FET.)</p>
+</section>
+
+<section>
+  <h2>What everyone else says about the confirming close</h2>
+  <div class="q cowen">"if this is to be sustained, then what you would expect would be for Bitcoin to not just simply get rejected here at the bare market resistance band, but to actually power through it and then to see follow through where then you know it holds it"
+    <span class="cite">Ben Cowen · "Bitcoin Rallies to the Bear Market Resistance Band" · 2026-08-20</span></div>
+  <div class="q cowen">"I think it's a little premature I think to necessarily say that it's over in terms of the bare market" — and — "I think a DCA strategy makes sense"
+    <span class="cite">Ben Cowen · same video · 2026-08-20</span></div>
+  <div class="q cowen">"The bear market resistance band is currently at around 69k. The 200-week moving average is around 63.7k."
+    <span class="cite">Ben Cowen · "Bitcoin: A Decision Will be Forced" · 2026-08-03 — the most recent numeric level he stated</span></div>
+  <div class="q tw">"Bitcoin has actually performed a marginal Weekly Close above the 50-week EMA (purple)... this is a bullish Weekly Close However, because it is a marginal one, price has very little room to dip"
+    <span class="cite">Twitter · @rektcapital · 2026-08-24 11:08</span></div>
+  <div class="q tw">"what would be compelling is if Bitcoin Weekly Closes below ~$76150"
+    <span class="cite">Twitter · @rektcapital · 2026-08-23 15:12</span></div>
+  <div class="q tw">"testing the 50W &amp; 100W EMAs around $77K–$78K close the week above it and $94K is next. get rejected and fall below $72K, and this was probably just a relief rally."
+    <span class="cite">Twitter · @Axel_bitblaze69 · 2026-08-21 — <b>this is the only place $94K appears. It is not CCI's number.</b></span></div>
+  <div class="q tw">"a weekly close below $72.6K would invalidate my bull market thesis... above $77K, i'm buying dips"
+    <span class="cite">Twitter · @Axel_bitblaze69 · 2026-08-25</span></div>
+  <div class="q tw">"Trying to move above the bull market support band and weekly 200EMA... just like the $73K-$74K horizontal."
+    <span class="cite">Twitter · @DaanCrypto · 2026-08-20</span></div>
+</section>
+
+<section>
+  <h2>✅ How to validate this yourself</h2>
+  <p class="small">Open the CCI export at <code>SharedBrain → Data Sources → CCI-Quantum Profits → LIVE → quantum-content-log.csv</code> in Excel, filter the <code>text</code> column for "weekly close" — you'll get four rows, all from March 2024. Then filter <code>author</code> for <code>joeshew</code> and sort by date: his newest post is Oct 22, 2025. I ran that search twice, independently, before writing this page.</p>
+</section>
+
+<footer>
+  <h2>👉 What this means for you</h2>
+  <ul>
+    <li><b>Your HQ page's trigger levels are ours, not CCI's.</b> The $74K/$82K ladder and the "Sam/Joe SL" quotes in hq.html can't be traced to anything they said. Recommend I strip that attribution so the page stops implying CCI blessed those numbers.</li>
+    <li><b>Same issue in the daily report:</b> the "Bitcoin vs CCI decision levels" gauge uses $61K/$70K/$74K/$94K. Say the word and I'll re-anchor it to what CCI actually states — the $86K "close above and retest" level and their break-of-structure call — or relabel it as our own house ladder.</li>
+    <li><b>The Friday-close convention in our code has no source behind it.</b> CCI's own members were unsure on air; a member said Monday in 2024. If you want a defensible rule, the family should pick one and label it as ours.</li>
+    <li><b>Open question worth asking Joe/CCI directly:</b> "what price or condition makes you fully allocated, and what should someone with $100K in cash do today?" — no source we have answers it.</li>
+  </ul>
+  <p class="small muted" style="margin-top:10px">This task: ~95k tokens (~$2.00). Every quote above is verbatim from CCI's Discord export, CCI Zoom transcripts, Ben Cowen transcripts, or the tweet archive, with date and author attached. Nothing on this page is from memory or general crypto knowledge.</p>
+</footer>
+</div>
