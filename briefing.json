@@ -1,34 +1,33 @@
 {
- "as_of": "2026-09-01 11:45:57 EDT",
+ "as_of": "2026-09-02 12:05:47 EDT",
  "signals": {
-  "btc_price": "78,008,",
-  "weekly_rsi": "51.3",
-  "fear_greed": "69 (Greed)",
-  "btc_dominance": "59.1%",
+  "btc_price": "77,059,",
+  "weekly_rsi": "51.5",
+  "fear_greed": "63 (Greed)",
+  "btc_dominance": "59.0%",
   "pivot_rules_fired": "R14",
   "high_conviction": [
-   "CASHCAT",
-   "FONE",
    "ETH",
-   "PONS",
-   "PUMP",
-   "SOL",
-   "BTC",
-   "ZEC",
-   "HYPE",
-   "LIT",
    "ANSEM",
-   "UNI",
-   "MARSCOIN",
-   "XRP",
-   "ENA",
-   "PEPE"
+   "PUMP",
+   "NUDES",
+   "BONER",
+   "CASHCAT",
+   "AI",
+   "HYPE",
+   "ZEC",
+   "LIT",
+   "BTC",
+   "NEAR",
+   "SOL",
+   "HOOD",
+   "ENA"
   ],
-  "daily_report": "2026-08-31"
+  "daily_report": "2026-09-02"
  },
  "bags": [],
  "notes": [
   "portfolio.json missing \u2014 run portfolio_sync.py"
  ],
- "headline": "0 of your 0 coins are on today's high-conviction list. BTC $78,008,. Fear & Greed 69 (Greed). Triggers and instructions: see the cards below."
+ "headline": "0 of your 0 coins are on today's high-conviction list. BTC $77,059,. Fear & Greed 63 (Greed). Triggers and instructions: see the cards below."
 }
