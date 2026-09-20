@@ -1,5 +1,5 @@
 {
- "as_of": "2026-09-19 11:59:52 EDT",
+ "as_of": "2026-09-20 15:15:17 EDT",
  "signals": {
   "btc_price": "81,630,",
   "weekly_rsi": "73.4",
@@ -11,14 +11,13 @@
    "ZCAT",
    "ZEC",
    "NEAR",
+   "CATE",
    "CASHCAT",
    "BNB",
    "BTC",
-   "CATE",
    "PONS",
    "ETH",
    "LIT",
-   "PAID",
    "UNI",
    "ENA",
    "HYPE",
@@ -26,59 +25,61 @@
    "XAU",
    "PUMP",
    "LTC",
-   "XRP",
+   "DOGE",
    "LINK",
+   "XRP",
+   "TAO",
    "INJ",
    "PEPE"
   ],
-  "daily_report": "2026-09-18"
+  "daily_report": "2026-09-19"
  },
  "bags": [
   {
    "asset": "USDC",
-   "usd": 86988.5,
+   "usd": 85623.79,
    "high_conviction_today": false,
    "mentioned_today": true,
    "note": "Not on today's high-conviction list."
   },
   {
    "asset": "ZEC",
-   "usd": 17616.05,
+   "usd": 17218.46,
    "high_conviction_today": true,
    "mentioned_today": true,
    "note": "On today's high-conviction list."
   },
   {
    "asset": "HYPE",
-   "usd": 1121.42,
+   "usd": 1223.15,
    "high_conviction_today": true,
    "mentioned_today": true,
    "note": "On today's high-conviction list."
   },
   {
    "asset": "PUMP",
-   "usd": 980.93,
+   "usd": 1092.94,
    "high_conviction_today": true,
    "mentioned_today": true,
    "note": "On today's high-conviction list."
   },
   {
    "asset": "PEPE",
-   "usd": 585.39,
+   "usd": 609.75,
    "high_conviction_today": true,
    "mentioned_today": true,
    "note": "On today's high-conviction list."
   },
   {
    "asset": "ETH",
-   "usd": 28.02,
+   "usd": 27.88,
    "high_conviction_today": true,
    "mentioned_today": true,
    "note": "On today's high-conviction list."
   }
  ],
  "notes": [],
- "portfolio_total": 107320.31,
- "portfolio_as_of": "2026-09-19 11:59:52 EDT",
+ "portfolio_total": 105795.97,
+ "portfolio_as_of": "2026-09-20 15:15:17 EDT",
  "headline": "5 of your 5 coins are on today's high-conviction list. BTC $81,630,. Fear & Greed 71 (Greed). Triggers and instructions: see the cards below."
 }
