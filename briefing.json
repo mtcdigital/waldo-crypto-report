@@ -1,10 +1,10 @@
 {
- "as_of": "2026-09-30 13:04:39 EDT",
+ "as_of": "2026-10-01 13:55:47 EDT",
  "signals": {
-  "btc_price": "83,834,",
-  "weekly_rsi": "72.8",
-  "fear_greed": "73 (Greed)",
-  "btc_dominance": "58.2%",
+  "btc_price": "84,891,",
+  "weekly_rsi": "77.8",
+  "fear_greed": "74 (Greed)",
+  "btc_dominance": "58.6%",
   "pivot_rules_fired": "R13",
   "high_conviction": [
    "CASHCAT",
@@ -58,68 +58,68 @@
    "NET",
    "NEET"
   ],
-  "daily_report": "2026-09-30"
+  "daily_report": "2026-10-01"
  },
  "bags": [
   {
    "asset": "PUMP",
-   "usd": 40153.18,
+   "usd": 46253.88,
    "high_conviction_today": true,
    "mentioned_today": false,
    "note": "On today's high-conviction list."
   },
   {
-   "asset": "USDC",
-   "usd": 39399.47,
+   "asset": "PEPE",
+   "usd": 32661.06,
    "high_conviction_today": true,
    "mentioned_today": false,
    "note": "On today's high-conviction list."
   },
   {
    "asset": "ZRO",
-   "usd": 18720.05,
+   "usd": 21321.83,
    "high_conviction_today": false,
    "mentioned_today": false,
    "note": "Not on today's high-conviction list."
   },
   {
-   "asset": "PEPE",
-   "usd": 17450.05,
-   "high_conviction_today": true,
-   "mentioned_today": false,
-   "note": "On today's high-conviction list."
-  },
-  {
-   "asset": "HYPE",
-   "usd": 6975.62,
+   "asset": "USDC",
+   "usd": 17121.86,
    "high_conviction_today": true,
    "mentioned_today": false,
    "note": "On today's high-conviction list."
   },
   {
    "asset": "ZEC",
-   "usd": 5638.9,
+   "usd": 5284.81,
+   "high_conviction_today": true,
+   "mentioned_today": false,
+   "note": "On today's high-conviction list."
+  },
+  {
+   "asset": "HYPE",
+   "usd": 4357.4,
    "high_conviction_today": true,
    "mentioned_today": false,
    "note": "On today's high-conviction list."
   },
   {
    "asset": "SOL",
-   "usd": 31.89,
+   "usd": 31.31,
    "high_conviction_today": true,
    "mentioned_today": false,
    "note": "On today's high-conviction list."
   },
   {
    "asset": "ETH",
-   "usd": 28.59,
+   "usd": 28.65,
    "high_conviction_today": true,
    "mentioned_today": false,
    "note": "On today's high-conviction list."
   }
  ],
  "notes": [],
- "portfolio_total": 128397.75,
- "portfolio_as_of": "2026-09-30 13:04:39 EDT",
- "headline": "7 of your 7 coins are on today's high-conviction list. BTC $83,834,. Fear & Greed 73 (Greed). Triggers and instructions: see the cards below."
+ "portfolio_total": 127060.8,
+ "portfolio_as_of": "2026-10-01 13:55:47 EDT",
+ "headline": "7 of your 7 coins are on today's high-conviction list. BTC $84,891,. Fear & Greed 74 (Greed). Triggers and instructions: see the cards below."
 }
