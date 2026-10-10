@@ -1,53 +1,53 @@
 {
- "as_of": "2026-10-09 13:02:56 EDT",
+ "as_of": "2026-10-10 12:12:52 EDT",
  "signals": {
-  "btc_price": "82,994,",
-  "weekly_rsi": "75.5",
-  "fear_greed": "59 (Greed)",
-  "btc_dominance": "59.3%",
+  "btc_price": "82,952,",
+  "weekly_rsi": "77.4",
+  "fear_greed": "64 (Greed)",
+  "btc_dominance": "59.1%",
   "pivot_rules_fired": "R13",
   "high_conviction": [],
-  "daily_report": "2026-10-09"
+  "daily_report": "2026-10-10"
  },
  "bags": [
   {
    "asset": "PUMP",
-   "usd": 58375.59,
+   "usd": 61034.36,
    "high_conviction_today": false,
    "mentioned_today": false,
    "note": "Not on today's high-conviction list."
   },
   {
    "asset": "PEPE",
-   "usd": 42515.18,
+   "usd": 43986.86,
    "high_conviction_today": false,
    "mentioned_today": false,
    "note": "Not on today's high-conviction list."
   },
   {
    "asset": "ZRO",
-   "usd": 34004.55,
+   "usd": 33988.51,
    "high_conviction_today": false,
    "mentioned_today": false,
    "note": "Not on today's high-conviction list."
   },
   {
    "asset": "USELESS",
-   "usd": 496.77,
+   "usd": 490.38,
    "high_conviction_today": false,
    "mentioned_today": false,
    "note": "Not on today's high-conviction list."
   },
   {
    "asset": "SOL",
-   "usd": 29.06,
+   "usd": 29.21,
    "high_conviction_today": false,
    "mentioned_today": false,
    "note": "Not on today's high-conviction list."
   },
   {
    "asset": "ETH",
-   "usd": 26.41,
+   "usd": 26.61,
    "high_conviction_today": false,
    "mentioned_today": false,
    "note": "Not on today's high-conviction list."
@@ -61,7 +61,7 @@
   }
  ],
  "notes": [],
- "portfolio_total": 135456.52,
- "portfolio_as_of": "2026-10-09 13:02:56 EDT",
- "headline": "0 of your 6 coins are on today's high-conviction list. BTC $82,994,. Fear & Greed 59 (Greed). Triggers and instructions: see the cards below."
+ "portfolio_total": 139564.89,
+ "portfolio_as_of": "2026-10-10 12:12:51 EDT",
+ "headline": "0 of your 6 coins are on today's high-conviction list. BTC $82,952,. Fear & Greed 64 (Greed). Triggers and instructions: see the cards below."
 }
