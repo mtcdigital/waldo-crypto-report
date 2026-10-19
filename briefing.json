@@ -1,10 +1,10 @@
 {
- "as_of": "2026-10-17 13:55:47 EDT",
+ "as_of": "2026-10-18 17:29:52 EDT",
  "signals": {
-  "btc_price": "81,614,",
-  "weekly_rsi": "72.5",
-  "fear_greed": "62 (Greed)",
-  "btc_dominance": "59.3%",
+  "btc_price": null,
+  "weekly_rsi": null,
+  "fear_greed": null,
+  "btc_dominance": null,
   "pivot_rules_fired": null,
   "high_conviction": [
    "NEAR",
@@ -21,8 +21,8 @@
    "VVV",
    "HYPE",
    "NVDA",
-   "STONK",
    "PONS",
+   "STONK",
    "SOL",
    "STRK",
    "BOT",
@@ -42,7 +42,7 @@
    "AI",
    "ALLINU"
   ],
-  "daily_report": "2026-10-17"
+  "daily_report": "2026-10-18"
  },
  "bags": [
   {
@@ -91,5 +91,5 @@
  "notes": [],
  "portfolio_total": 116439.45,
  "portfolio_as_of": "2026-10-17 13:55:47 EDT",
- "headline": "5 of your 6 coins are on today's high-conviction list. BTC $81,614,. Fear & Greed 62 (Greed). Triggers and instructions: see the cards below."
+ "headline": "Triggers and instructions: see the cards below."
 }
