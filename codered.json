@@ -1,18 +1,100 @@
 {
- "armed": false,
- "armed_at": null,
- "armed_btc": null,
- "peak": null,
- "peak_at": null,
- "fired": false,
- "fired_at": null,
- "acked": false,
- "last_check": "2026-10-22T15:51:46.266938+00:00",
- "last_bag": 122324.21,
- "last_btc": 81477.44,
- "last_line": null,
+ "as_of": "2026-10-22T16:00:21.595753+00:00",
+ "bag": 122927.89,
+ "btc": 81649.0,
+ "mcap": 2749749903431.808,
+ "mayer": 1.122,
+ "anchor": 120000,
+ "multiple": 1.02,
+ "code_red": {
+  "armed": false,
+  "armed_at": null,
+  "armed_btc": null,
+  "peak": null,
+  "line": null,
+  "fired": false,
+  "fired_at": null,
+  "acked": false
+ },
  "rule": {
-  "arm_btc": 130000.0,
+  "arm_btc": 130000,
   "drop": 0.3
+ },
+ "fired": {
+  "PEPE_5w_warn@2026-10-18": {
+   "at": "2026-10-22T16:00:21.308178+00:00",
+   "status": "CONFIRMED",
+   "acked": false
+  }
+ },
+ "lines": {
+  "BTC": {
+   "week": "2026-10-18",
+   "close": 82006.85,
+   "sma50": 76544.7104,
+   "sma20": 71529.7475,
+   "sma200d": 72795.44705,
+   "last": 81643.6
+  },
+  "PUMP": {
+   "week": "2026-10-18",
+   "close": 0.00417,
+   "sma20": 0.003171,
+   "sma10": 0.0045563,
+   "sma5": 0.0051392
+  },
+  "ZRO": {
+   "week": "2026-10-18",
+   "close": 1.8664,
+   "sma20": 1.119825,
+   "sma10": 1.38645,
+   "sma5": 1.7564
+  },
+  "INJ": {
+   "week": "2026-10-18",
+   "close": 8.718,
+   "sma20": 5.726,
+   "sma10": 6.5357,
+   "sma5": 7.9403999999999995
+  },
+  "PEPE": {
+   "week": "2026-10-18",
+   "close": 4.01e-06,
+   "sma20": 3.3015e-06,
+   "sma10": 3.8059999999999996e-06,
+   "sma5": 4.198e-06
+  }
+ },
+ "positions": {
+  "PUMP": {
+   "units": 10823173.571707,
+   "price": 0.004689,
+   "usd": 50749.86
+  },
+  "PEPE": {
+   "units": 9177828580.40845,
+   "price": 4.43e-06,
+   "usd": 40657.78
+  },
+  "ZRO": {
+   "units": 17228.11790152,
+   "price": 1.7851,
+   "usd": 30753.91
+  },
+  "INJ": {
+   "units": 89.71425839,
+   "price": 7.949,
+   "usd": 713.14
+  },
+  "SOL": {
+   "units": 0.264913631,
+   "price": 104.71,
+   "usd": 27.74
+  },
+  "ETH": {
+   "units": 0.01061345882508,
+   "price": 2398.96,
+   "usd": 25.46
+  }
  }
 }
