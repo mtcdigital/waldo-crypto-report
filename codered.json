@@ -1,0 +1,18 @@
+{
+ "armed": false,
+ "armed_at": null,
+ "armed_btc": null,
+ "peak": null,
+ "peak_at": null,
+ "fired": false,
+ "fired_at": null,
+ "acked": false,
+ "last_check": "2026-10-22T15:36:53.229383+00:00",
+ "last_bag": 122712.6,
+ "last_btc": 81529.01,
+ "last_line": null,
+ "rule": {
+  "arm_btc": 130000.0,
+  "drop": 0.3
+ }
+}
