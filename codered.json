@@ -1,8 +1,8 @@
 {
- "as_of": "2026-10-24T19:16:57.329212+00:00",
- "bag": 117761.91,
- "btc": 80412.3,
- "mcap": 2706609413284.1646,
+ "as_of": "2026-10-24T19:33:58.945545+00:00",
+ "bag": 117911.68,
+ "btc": 80422.6,
+ "mcap": 2709937059922.6196,
  "mayer": 1.103,
  "anchor": 120000,
  "multiple": 0.98,
@@ -68,33 +68,165 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.004259,
-   "usd": 46095.9
+   "price": 0.004267,
+   "usd": 46182.48
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 4.45e-06,
-   "usd": 40841.34
+   "price": 4.48e-06,
+   "usd": 41116.67
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.7468,
-   "usd": 30094.08
+   "price": 1.7346,
+   "usd": 29883.89
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 7.569,
-   "usd": 679.05
+   "price": 7.547,
+   "usd": 677.07
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 101.04,
-   "usd": 26.77
+   "price": 100.98,
+   "usd": 26.75
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2335.15,
-   "usd": 24.78
+   "price": 2337.03,
+   "usd": 24.8
   }
- }
+ },
+ "bags": {
+  "ira": {
+   "label": "IRA bag",
+   "status": "CONFIRMED",
+   "value": 50727.57,
+   "holdings": [
+    {
+     "account": "Roth ...5057",
+     "sym": "MSTR",
+     "kind": "stock",
+     "units": 86.521,
+     "usd": 12632.93,
+     "note": null
+    },
+    {
+     "account": "Roth ...5057",
+     "sym": "NBIS call",
+     "kind": "fixed",
+     "units": 1,
+     "usd": 295.0,
+     "note": "NBIS $300 call, exp Jan 15 2027. Not on any plan; value is the Oct 22 screenshot, not live."
+    },
+    {
+     "account": "Roth ...5057",
+     "sym": "CASH",
+     "kind": "cash",
+     "units": null,
+     "usd": 83.66,
+     "note": null
+    },
+    {
+     "account": "Rollover ...3643",
+     "sym": "MSTR",
+     "kind": "stock",
+     "units": 120.056,
+     "usd": 17529.38,
+     "note": null
+    },
+    {
+     "account": "Rollover ...3643",
+     "sym": "MSTX",
+     "kind": "stock",
+     "units": 1281.629,
+     "usd": 20185.66,
+     "note": "2x daily MSTR. 40% of the IRA. Keep / trim / retire: open."
+    },
+    {
+     "account": "Rollover ...3643",
+     "sym": "CASH",
+     "kind": "cash",
+     "units": null,
+     "usd": 0.95,
+     "note": null
+    }
+   ],
+   "prices": {
+    "MSTR": 146.01,
+    "MSTX": 15.75
+   },
+   "landed": true,
+   "expected_usd": null,
+   "btc_trigger": 160000,
+   "dollar_target": {
+    "status": "PROPOSED",
+    "usd": 182000,
+    "alt_usd": 160000,
+    "mult": 3.14,
+    "note": "3.14x on the $58K the Oct 13 sheet assumed. On the real $51K it is $160K. Everett picks the base; until then this is logged, not texted."
+   },
+   "wrong_exit": {
+    "status": "PROPOSED",
+    "band": 0.0,
+    "note": "Default I-was-wrong exit: Bitcoin weekly close under its 200-day average. Not picked yet (Oct 13 sheet). The main bag's 200-day minus 5% rule is CONFIRMED and texts on its own."
+   },
+   "action": "Sell everything -> S&P 500 fund inside the IRA. No tax inside the IRA. MSTR sells Monday at the open if Bitcoin crosses on a weekend.",
+   "as_of": "2026-10-22 Fidelity screenshots",
+   "notes": [
+    "Trigger 2 should also be a GTC limit sell at average cost x 3.14 per account (average cost still not recorded).",
+    "Roth $13K is tax-free forever; Rollover $38K is pre-tax."
+   ]
+  },
+  "refund": {
+   "label": "Amzora refund bag",
+   "status": "CONFIRMED",
+   "value": 0.0,
+   "holdings": [],
+   "prices": {},
+   "landed": false,
+   "expected_usd": 35000,
+   "btc_trigger": 160000,
+   "dollar_target": {
+    "status": "CONFIRMED",
+    "usd": 110000,
+    "mult": 3.14,
+    "note": "3.14x on $35K (Oct 13 rule sheet). Recompute from the real amount and fill when it lands."
+   },
+   "wrong_exit": {
+    "status": "PROPOSED",
+    "band": 0.0,
+    "note": "Same default as the IRA; not picked."
+   },
+   "action": "Sell everything -> USDC -> the cards. Taxable: short-term inside 12 months of the buy; the $108,723 carryover may cover part.",
+   "as_of": "2026-10-22 (Q36)",
+   "notes": [
+    "Arrives as USDC into a separate Phantom wallet, not connected to anything (Q36). Track read-only by public address.",
+    "Plan of record (Oct 13 sheet) is 100% MSTR in a taxable account; that needs a brokerage, not Phantom. Decision open: MSTR at Fidelity, or BTC/SOL in its own Coinbase portfolio, or pay the cards.",
+    "$3,500 living money is already set aside (Q29)."
+   ]
+  }
+ },
+ "stocks": {
+  "MSTR": {
+   "price": 146.01,
+   "at": "2026-10-23T20:00:01+00:00"
+  },
+  "MSTX": {
+   "price": 15.75,
+   "at": "2026-10-23T20:00:01+00:00"
+  }
+ },
+ "alerts": [
+  {
+   "bag": "main",
+   "key": "PEPE_5w_warn@2026-10-18",
+   "level": "yellow",
+   "title": "PEPE Sunday close under its 5-week line (heads-up, no action)",
+   "at": "2026-10-22T16:03:24.178720+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  }
+ ]
 }
