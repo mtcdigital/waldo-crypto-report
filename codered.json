@@ -1,9 +1,9 @@
 {
- "as_of": "2026-10-26T21:51:56.636227+00:00",
- "bag": 114059.41,
- "btc": 80056.44,
- "mcap": 2699065742633.511,
- "mayer": 1.097,
+ "as_of": "2026-10-26T22:11:34.257336+00:00",
+ "bag": 113821.79,
+ "btc": 79887.26,
+ "mcap": 2697695526289.818,
+ "mayer": 1.095,
  "anchor": 120000,
  "multiple": 0.95,
  "code_red": {
@@ -24,7 +24,7 @@
   "PEPE_5w_warn@2026-10-18": {
    "at": "2026-10-22T16:03:24.178720+00:00",
    "status": "CONFIRMED",
-   "acked": false
+   "acked": true
   }
  },
  "lines": {
@@ -33,14 +33,15 @@
    "close": 80053.16,
    "sma50": 76051.8746,
    "sma20": 72367.269,
-   "sma200d": 72984.99330000003,
-   "last": 79992.63
+   "sma200d": 72984.46645000004,
+   "last": 79887.26
   },
   "PUMP": {
    "week": "2026-10-25",
    "close": 0.004228,
    "sma20": 0.00330605,
    "sma10": 0.004712600000000001,
+   "sma8": 0.004678250000000001,
    "sma5": 0.0051388
   },
   "PEPE": {
@@ -48,6 +49,7 @@
    "close": 4.28e-06,
    "sma20": 3.3750000000000007e-06,
    "sma10": 3.977e-06,
+   "sma8": 4.0362500000000005e-06,
    "sma5": 4.253999999999999e-06
   },
   "ZRO": {
@@ -55,6 +57,7 @@
    "close": 1.7598,
    "sma20": 1.1628149999999997,
    "sma10": 1.48693,
+   "sma8": 1.5823375000000002,
    "sma5": 1.8726600000000002
   },
   "INJ": {
@@ -62,14 +65,15 @@
    "close": 7.861,
    "sma20": 5.84755,
    "sma10": 6.914200000000001,
+   "sma8": 7.3477500000000004,
    "sma5": 7.9544
   }
  },
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.004242,
-   "usd": 45911.9
+   "price": 0.004224,
+   "usd": 45717.09
   },
   "PEPE": {
    "units": 9177828580.40845,
@@ -78,23 +82,23 @@
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.6307,
-   "usd": 28093.89
+   "price": 1.6286,
+   "usd": 28057.71
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 8.04,
-   "usd": 721.3
+   "price": 7.968,
+   "usd": 714.84
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 100.64,
-   "usd": 26.66
+   "price": 100.26,
+   "usd": 26.56
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2312.55,
-   "usd": 24.54
+   "price": 2306.98,
+   "usd": 24.49
   }
  },
  "bags": {
@@ -168,8 +172,9 @@
    },
    "wrong_exit": {
     "status": "PROPOSED",
-    "band": 0.0,
-    "note": "Default I-was-wrong exit: Bitcoin weekly close under its 200-day average. Not picked yet (Oct 13 sheet). The main bag's 200-day minus 5% rule is CONFIRMED and texts on its own."
+    "band": 0.03,
+    "note": "PROPOSED default changed Oct 26 to match the main bag: Bitcoin weekly close under its 50-week line minus 3% (the 200-day is retired). Not picked yet.",
+    "line": "sma50"
    },
    "action": "Sell everything -> S&P 500 fund inside the IRA. No tax inside the IRA. MSTR sells Monday at the open if Bitcoin crosses on a weekend.",
    "as_of": "2026-10-22 Fidelity screenshots",
@@ -195,8 +200,9 @@
    },
    "wrong_exit": {
     "status": "PROPOSED",
-    "band": 0.0,
-    "note": "Same default as the IRA; not picked."
+    "band": 0.03,
+    "note": "PROPOSED default changed Oct 26 to match the main bag: Bitcoin weekly close under its 50-week line minus 3% (the 200-day is retired). Not picked yet.",
+    "line": "sma50"
    },
    "action": "Sell everything -> USDC -> the cards. Taxable: short-term inside 12 months of the buy; the $108,723 carryover may cover part.",
    "as_of": "2026-10-22 (Q36)",
@@ -217,18 +223,7 @@
    "at": "2026-10-26T20:00:01+00:00"
   }
  },
- "alerts": [
-  {
-   "bag": "main",
-   "key": "PEPE_5w_warn@2026-10-18",
-   "level": "yellow",
-   "title": "PEPE Sunday close under its 5-week line (heads-up, no action)",
-   "at": "2026-10-22T16:03:24.178720+00:00",
-   "acked": false,
-   "status": "CONFIRMED",
-   "alerts_sent": 1
-  }
- ],
+ "alerts": [],
  "stock_hist": {
   "MSTR": {
    "t": [
