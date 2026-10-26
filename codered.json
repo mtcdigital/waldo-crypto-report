@@ -1,11 +1,11 @@
 {
- "as_of": "2026-10-26T17:36:23.330816+00:00",
- "bag": 116338.93,
- "btc": 80257.37,
- "mcap": 2709726808755.6606,
- "mayer": 1.1,
+ "as_of": "2026-10-26T17:51:25.828970+00:00",
+ "bag": 115148.85,
+ "btc": 80007.79,
+ "mcap": 2703880059743.3555,
+ "mayer": 1.096,
  "anchor": 120000,
- "multiple": 0.97,
+ "multiple": 0.96,
  "code_red": {
   "armed": false,
   "armed_at": null,
@@ -68,47 +68,47 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.0043,
-   "usd": 46539.65
+   "price": 0.004246,
+   "usd": 45955.19
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 4.37e-06,
-   "usd": 40107.11
+   "price": 4.34e-06,
+   "usd": 39831.78
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.6793,
-   "usd": 28931.18
+   "price": 1.66,
+   "usd": 28598.68
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 7.908,
-   "usd": 709.46
+   "price": 7.935,
+   "usd": 711.88
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 101.4,
-   "usd": 26.86
+   "price": 100.95,
+   "usd": 26.74
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2324.26,
-   "usd": 24.67
+   "price": 2316.03,
+   "usd": 24.58
   }
  },
  "bags": {
   "ira": {
    "label": "IRA bag",
    "status": "CONFIRMED",
-   "value": 48756.07,
+   "value": 48171.24,
    "holdings": [
     {
      "account": "Roth ...5057",
      "sym": "MSTR",
      "kind": "stock",
      "units": 86.521,
-     "usd": 12284.94,
+     "usd": 12179.56,
      "note": null
     },
     {
@@ -132,7 +132,7 @@
      "sym": "MSTR",
      "kind": "stock",
      "units": 120.056,
-     "usd": 17046.51,
+     "usd": 16900.28,
      "note": null
     },
     {
@@ -140,7 +140,7 @@
      "sym": "MSTX",
      "kind": "stock",
      "units": 1281.629,
-     "usd": 19045.01,
+     "usd": 18711.78,
      "note": "2x daily MSTR. 40% of the IRA. Keep / trim / retire: open."
     },
     {
@@ -153,8 +153,8 @@
     }
    ],
    "prices": {
-    "MSTR": 141.988,
-    "MSTX": 14.86
+    "MSTR": 140.77,
+    "MSTX": 14.6
    },
    "landed": true,
    "expected_usd": null,
@@ -209,12 +209,12 @@
  },
  "stocks": {
   "MSTR": {
-   "price": 141.988,
-   "at": "2026-10-26T17:36:16+00:00"
+   "price": 140.77,
+   "at": "2026-10-26T17:51:24+00:00"
   },
   "MSTX": {
-   "price": 14.86,
-   "at": "2026-10-26T17:36:15+00:00"
+   "price": 14.6,
+   "at": "2026-10-26T17:51:01+00:00"
   }
  },
  "alerts": [
