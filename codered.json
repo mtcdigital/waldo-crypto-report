@@ -1,11 +1,11 @@
 {
- "as_of": "2026-10-26T14:46:38.380466+00:00",
- "bag": 116024.22,
- "btc": 79847.44,
- "mcap": 2704568367635.0654,
- "mayer": 1.094,
+ "as_of": "2026-10-26T15:01:39.840734+00:00",
+ "bag": 117421.21,
+ "btc": 80258.02,
+ "mcap": 2717401985982.91,
+ "mayer": 1.1,
  "anchor": 120000,
- "multiple": 0.97,
+ "multiple": 0.98,
  "code_red": {
   "armed": false,
   "armed_at": null,
@@ -68,42 +68,42 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.004278,
-   "usd": 46301.54
+   "price": 0.004346,
+   "usd": 47037.51
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 4.35e-06,
-   "usd": 39923.55
+   "price": 4.37e-06,
+   "usd": 40107.11
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.6871,
-   "usd": 29065.56
+   "price": 1.7146,
+   "usd": 29539.33
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 7.903,
-   "usd": 709.01
+   "price": 7.943,
+   "usd": 712.6
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2313.6,
-   "usd": 24.56
+   "price": 2323.22,
+   "usd": 24.66
   }
  },
  "bags": {
   "ira": {
    "label": "IRA bag",
    "status": "CONFIRMED",
-   "value": 48603.77,
+   "value": 49253.9,
    "holdings": [
     {
      "account": "Roth ...5057",
      "sym": "MSTR",
      "kind": "stock",
      "units": 86.521,
-     "usd": 12258.73,
+     "usd": 12375.36,
      "note": null
     },
     {
@@ -127,7 +127,7 @@
      "sym": "MSTR",
      "kind": "stock",
      "units": 120.056,
-     "usd": 17010.13,
+     "usd": 17171.97,
      "note": null
     },
     {
@@ -135,7 +135,7 @@
      "sym": "MSTX",
      "kind": "stock",
      "units": 1281.629,
-     "usd": 18955.29,
+     "usd": 19326.97,
      "note": "2x daily MSTR. 40% of the IRA. Keep / trim / retire: open."
     },
     {
@@ -148,8 +148,8 @@
     }
    ],
    "prices": {
-    "MSTR": 141.685,
-    "MSTX": 14.79
+    "MSTR": 143.033,
+    "MSTX": 15.08
    },
    "landed": true,
    "expected_usd": null,
@@ -204,12 +204,12 @@
  },
  "stocks": {
   "MSTR": {
-   "price": 141.685,
-   "at": "2026-10-26T14:46:37+00:00"
+   "price": 143.033,
+   "at": "2026-10-26T15:01:39+00:00"
   },
   "MSTX": {
-   "price": 14.79,
-   "at": "2026-10-26T14:46:37+00:00"
+   "price": 15.08,
+   "at": "2026-10-26T15:01:39+00:00"
   }
  },
  "alerts": [
