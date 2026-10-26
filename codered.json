@@ -1,11 +1,11 @@
 {
- "as_of": "2026-10-26T22:57:43.835800+00:00",
- "bag": 113567.7,
- "btc": 79851.93,
+ "as_of": "2026-10-26T23:07:08.141921+00:00",
+ "bag": 112981.72,
+ "btc": 79646.55,
  "mcap": 2692868643200.052,
- "mayer": 1.094,
+ "mayer": 1.091,
  "anchor": 120000,
- "multiple": 0.95,
+ "multiple": 0.94,
  "code_red": {
   "armed": false,
   "armed_at": null,
@@ -123,33 +123,33 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.004224,
-   "usd": 45717.09
+   "price": 0.0042,
+   "usd": 45457.33
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 4.27e-06,
-   "usd": 39189.33
+   "price": 4.25e-06,
+   "usd": 39005.77
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.6191,
-   "usd": 27894.05
+   "price": 1.6111,
+   "usd": 27756.22
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 7.983,
-   "usd": 716.19
+   "price": 7.931,
+   "usd": 711.52
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 100.18,
-   "usd": 26.54
+   "price": 99.85,
+   "usd": 26.45
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2309.28,
-   "usd": 24.51
+   "price": 2301.35,
+   "usd": 24.43
   }
  },
  "bags": {
@@ -278,7 +278,7 @@
   {
    "bag": "main",
    "key": "ZRO_stoporder@6917",
-   "level": "red",
+   "level": "yellow",
    "title": "ZRO: set or move your trailing stop order on Coinbase (R-29)",
    "at": "2026-10-26T22:57:44.741674+00:00",
    "acked": false,
@@ -298,7 +298,7 @@
   {
    "bag": "main",
    "key": "INJ_stoporder@6917",
-   "level": "red",
+   "level": "yellow",
    "title": "INJ: set or move your trailing stop order on Coinbase (R-29)",
    "at": "2026-10-26T22:57:45.965529+00:00",
    "acked": false,
