@@ -1,8 +1,8 @@
 {
- "as_of": "2026-10-26T22:52:06.052785+00:00",
- "bag": 113699.85,
- "btc": 79877.27,
- "mcap": 2693901322343.675,
+ "as_of": "2026-10-26T22:57:43.835800+00:00",
+ "bag": 113567.7,
+ "btc": 79851.93,
+ "mcap": 2692868643200.052,
  "mayer": 1.094,
  "anchor": 120000,
  "multiple": 0.95,
@@ -25,6 +25,21 @@
    "at": "2026-10-22T16:03:24.178720+00:00",
    "status": "CONFIRMED",
    "acked": true
+  },
+  "ZRO_stoporder@6917": {
+   "at": "2026-10-26T22:57:44.741674+00:00",
+   "status": "CONFIRMED",
+   "acked": false
+  },
+  "ZRO_trailhit@2026-10-25": {
+   "at": "2026-10-26T22:57:45.249113+00:00",
+   "status": "CONFIRMED",
+   "acked": false
+  },
+  "INJ_stoporder@6917": {
+   "at": "2026-10-26T22:57:45.965529+00:00",
+   "status": "CONFIRMED",
+   "acked": false
   }
  },
  "lines": {
@@ -33,8 +48,8 @@
    "close": 80053.16,
    "sma50": 76051.8746,
    "sma20": 72367.269,
-   "sma200d": 72983.96120000003,
-   "last": 79786.21
+   "sma200d": 72984.28980000003,
+   "last": 79851.93
   },
   "PUMP": {
    "week": "2026-10-25",
@@ -108,8 +123,8 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.00423,
-   "usd": 45782.02
+   "price": 0.004224,
+   "usd": 45717.09
   },
   "PEPE": {
    "units": 9177828580.40845,
@@ -118,8 +133,8 @@
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.623,
-   "usd": 27961.24
+   "price": 1.6191,
+   "usd": 27894.05
   },
   "INJ": {
    "units": 89.71425839,
@@ -128,13 +143,13 @@
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 100.24,
-   "usd": 26.55
+   "price": 100.18,
+   "usd": 26.54
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2310.42,
-   "usd": 24.52
+   "price": 2309.28,
+   "usd": 24.51
   }
  },
  "bags": {
@@ -259,7 +274,38 @@
    "at": "2026-10-26T20:00:01+00:00"
   }
  },
- "alerts": [],
+ "alerts": [
+  {
+   "bag": "main",
+   "key": "ZRO_stoporder@6917",
+   "level": "red",
+   "title": "ZRO: set or move your trailing stop order on Coinbase (R-29)",
+   "at": "2026-10-26T22:57:44.741674+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  },
+  {
+   "bag": "main",
+   "key": "ZRO_trailhit@2026-10-25",
+   "level": "red",
+   "title": "ZRO is under its trailing stop: sell per R-29 if the order did not fill",
+   "at": "2026-10-26T22:57:45.249113+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  },
+  {
+   "bag": "main",
+   "key": "INJ_stoporder@6917",
+   "level": "red",
+   "title": "INJ: set or move your trailing stop order on Coinbase (R-29)",
+   "at": "2026-10-26T22:57:45.965529+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  }
+ ],
  "stock_hist": {
   "MSTR": {
    "t": [
@@ -1277,5 +1323,9 @@
     14.42
    ]
   }
- }
+ },
+ "dom_hist": {
+  "2026-10-26": 59.46
+ },
+ "trail_sizing_pct": 75
 }
