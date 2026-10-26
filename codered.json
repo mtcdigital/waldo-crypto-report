@@ -1,8 +1,8 @@
 {
- "as_of": "2026-10-26T22:22:02.378981+00:00",
- "bag": 113932.46,
- "btc": 79851.03,
- "mcap": 2694184756453.9443,
+ "as_of": "2026-10-26T22:37:04.219246+00:00",
+ "bag": 113522.39,
+ "btc": 79809.26,
+ "mcap": 2694457414942.9,
  "mayer": 1.094,
  "anchor": 120000,
  "multiple": 0.95,
@@ -33,8 +33,8 @@
    "close": 80053.16,
    "sma50": 76051.8746,
    "sma20": 72367.269,
-   "sma200d": 72984.46645000004,
-   "last": 79887.26
+   "sma200d": 72983.96120000003,
+   "last": 79786.21
   },
   "PUMP": {
    "week": "2026-10-25",
@@ -42,7 +42,16 @@
    "sma20": 0.00330605,
    "sma10": 0.004712600000000001,
    "sma8": 0.004678250000000001,
-   "sma5": 0.0051388
+   "sma5": 0.0051388,
+   "trail": {
+    "armed": false,
+    "peak": 0.006516,
+    "stop": 0.004843500000000001,
+    "armed_week": "2026-09-20",
+    "fired_week": "2026-10-18",
+    "line": 0.00330605,
+    "weeks": 20
+   }
   },
   "PEPE": {
    "week": "2026-10-25",
@@ -50,7 +59,16 @@
    "sma20": 3.3750000000000007e-06,
    "sma10": 3.977e-06,
    "sma8": 4.0362500000000005e-06,
-   "sma5": 4.253999999999999e-06
+   "sma5": 4.253999999999999e-06,
+   "trail": {
+    "armed": false,
+    "peak": 7.17e-06,
+    "stop": 5.988749999999999e-06,
+    "armed_week": "2026-01-04",
+    "fired_week": "2026-01-11",
+    "line": 4.0362500000000005e-06,
+    "weeks": 8
+   }
   },
   "ZRO": {
    "week": "2026-10-25",
@@ -58,7 +76,16 @@
    "sma20": 1.1628149999999997,
    "sma10": 1.48693,
    "sma8": 1.5823375000000002,
-   "sma5": 1.8726600000000002
+   "sma5": 1.8726600000000002,
+   "trail": {
+    "armed": true,
+    "peak": 2.1127,
+    "stop": 1.6377574999999998,
+    "armed_week": "2026-09-27",
+    "fired_week": null,
+    "line": 1.1628149999999997,
+    "weeks": 20
+   }
   },
   "INJ": {
    "week": "2026-10-25",
@@ -66,39 +93,48 @@
    "sma20": 5.84755,
    "sma10": 6.914200000000001,
    "sma8": 7.3477500000000004,
-   "sma5": 7.9544
+   "sma5": 7.9544,
+   "trail": {
+    "armed": true,
+    "peak": 8.718,
+    "stop": 7.282775,
+    "armed_week": "2026-09-20",
+    "fired_week": null,
+    "line": 5.84755,
+    "weeks": 20
+   }
   }
  },
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.004226,
-   "usd": 45738.73
+   "price": 0.004221,
+   "usd": 45684.62
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 4.28e-06,
-   "usd": 39281.11
+   "price": 4.27e-06,
+   "usd": 39189.33
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.6337,
-   "usd": 28145.58
+   "price": 1.6184,
+   "usd": 27881.99
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 7.981,
-   "usd": 716.01
+   "price": 7.975,
+   "usd": 715.47
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 100.2,
-   "usd": 26.54
+   "price": 100.09,
+   "usd": 26.52
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2307.23,
-   "usd": 24.49
+   "price": 2306.07,
+   "usd": 24.48
   }
  },
  "bags": {
@@ -171,9 +207,9 @@
     "note": "3.14x on the $58K the Oct 13 sheet assumed. On the real $51K it is $160K. Everett picks the base; until then this is logged, not texted."
    },
    "wrong_exit": {
-    "status": "PROPOSED",
+    "status": "CONFIRMED",
     "band": 0.03,
-    "note": "PROPOSED default changed Oct 26 to match the main bag: Bitcoin weekly close under its 50-week line minus 3% (the 200-day is retired). Not picked yet.",
+    "note": "Oct 26 audit Q13: CONFIRMED. Bitcoin Sunday close under its 50-week line minus 3% = sell this bag, text + call.",
     "line": "sma50"
    },
    "action": "Sell everything -> S&P 500 fund inside the IRA. No tax inside the IRA. MSTR sells Monday at the open if Bitcoin crosses on a weekend.",
@@ -199,9 +235,9 @@
     "note": "3.14x on $35K (Oct 13 rule sheet). Recompute from the real amount and fill when it lands."
    },
    "wrong_exit": {
-    "status": "PROPOSED",
+    "status": "CONFIRMED",
     "band": 0.03,
-    "note": "PROPOSED default changed Oct 26 to match the main bag: Bitcoin weekly close under its 50-week line minus 3% (the 200-day is retired). Not picked yet.",
+    "note": "Oct 26 audit Q13: CONFIRMED. Bitcoin Sunday close under its 50-week line minus 3% = sell this bag, text + call.",
     "line": "sma50"
    },
    "action": "Sell everything -> USDC -> the cards. Taxable: short-term inside 12 months of the buy; the $108,723 carryover may cover part.",
