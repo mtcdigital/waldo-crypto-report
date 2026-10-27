@@ -1,11 +1,11 @@
 {
- "as_of": "2026-10-27T15:35:32.601719+00:00",
- "bag": 115669.71,
- "btc": 80292.33,
- "mcap": 2712439825276.5845,
- "mayer": 1.1,
+ "as_of": "2026-10-27T15:50:40.004631+00:00",
+ "bag": 116652.02,
+ "btc": 80540.08,
+ "mcap": 2718664463823.518,
+ "mayer": 1.103,
  "anchor": 120000,
- "multiple": 0.96,
+ "multiple": 0.97,
  "code_red": {
   "armed": false,
   "armed_at": null,
@@ -39,12 +39,12 @@
   "INJ_stoporder@6917": {
    "at": "2026-10-26T22:57:45.965529+00:00",
    "status": "CONFIRMED",
-   "acked": false
+   "acked": true
   },
   "ZRO_planorders@2026-10-26": {
    "at": "2026-10-27T01:09:36.237530+00:00",
    "status": "CONFIRMED",
-   "acked": false
+   "acked": true
   }
  },
  "lines": {
@@ -128,47 +128,47 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.004242,
-   "usd": 45911.9
+   "price": 0.004293,
+   "usd": 46463.88
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 4.38e-06,
-   "usd": 40198.89
+   "price": 4.4e-06,
+   "usd": 40382.45
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.6706,
-   "usd": 28781.29
+   "price": 1.6846,
+   "usd": 29022.49
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 8.094,
-   "usd": 726.15
+   "price": 8.154,
+   "usd": 731.53
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 100.63,
-   "usd": 26.66
+   "price": 100.96,
+   "usd": 26.75
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2338.04,
-   "usd": 24.81
+   "price": 2348.34,
+   "usd": 24.92
   }
  },
  "bags": {
   "ira": {
    "label": "IRA bag",
    "status": "CONFIRMED",
-   "value": 47920.35,
+   "value": 48239.01,
    "holdings": [
     {
      "account": "Roth ...5057",
      "sym": "MSTR",
      "kind": "stock",
      "units": 86.521,
-     "usd": 12138.9,
+     "usd": 12199.89,
      "note": null
     },
     {
@@ -192,7 +192,7 @@
      "sym": "MSTR",
      "kind": "stock",
      "units": 120.056,
-     "usd": 16843.86,
+     "usd": 16928.5,
      "note": null
     },
     {
@@ -200,7 +200,7 @@
      "sym": "MSTX",
      "kind": "stock",
      "units": 1281.629,
-     "usd": 18557.99,
+     "usd": 18731.01,
      "note": "2x daily MSTR. 40% of the IRA. Keep / trim / retire: open."
     },
     {
@@ -213,8 +213,8 @@
     }
    ],
    "prices": {
-    "MSTR": 140.3,
-    "MSTX": 14.48
+    "MSTR": 141.005,
+    "MSTX": 14.615
    },
    "landed": true,
    "expected_usd": null,
@@ -271,36 +271,15 @@
  },
  "stocks": {
   "MSTR": {
-   "price": 140.3,
-   "at": "2026-10-27T15:35:36+00:00"
+   "price": 141.005,
+   "at": "2026-10-27T15:50:39+00:00"
   },
   "MSTX": {
-   "price": 14.48,
-   "at": "2026-10-27T15:35:31+00:00"
+   "price": 14.615,
+   "at": "2026-10-27T15:50:36+00:00"
   }
  },
- "alerts": [
-  {
-   "bag": "main",
-   "key": "INJ_stoporder@6917",
-   "level": "yellow",
-   "title": "INJ: set or move your trailing stop order on Coinbase (R-29)",
-   "at": "2026-10-26T22:57:45.965529+00:00",
-   "acked": false,
-   "status": "CONFIRMED",
-   "alerts_sent": 2
-  },
-  {
-   "bag": "main",
-   "key": "ZRO_planorders@2026-10-26",
-   "level": "yellow",
-   "title": "ZRO: place your plan orders",
-   "at": "2026-10-27T01:09:36.237530+00:00",
-   "acked": false,
-   "status": "CONFIRMED",
-   "alerts_sent": 2
-  }
- ],
+ "alerts": [],
  "stock_hist": {
   "MSTR": {
    "t": [
@@ -809,7 +788,7 @@
     145.8,
     146.01,
     139.82,
-    140.3
+    141.02
    ]
   },
   "MSTX": {
@@ -1319,13 +1298,13 @@
     15.72,
     15.75,
     14.42,
-    14.48
+    14.615
    ]
   }
  },
  "dom_hist": {
   "2026-10-26": 59.43,
-  "2026-10-27": 59.39
+  "2026-10-27": 59.41
  },
  "trail_sizing_pct": 75
 }
