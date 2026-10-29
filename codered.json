@@ -1,11 +1,11 @@
 {
- "as_of": "2026-10-29T22:50:18.579953+00:00",
- "bag": 113330.36,
- "btc": 78855.26,
- "mcap": 2651030285378.846,
- "mayer": 1.079,
+ "as_of": "2026-10-29T23:05:20.647749+00:00",
+ "bag": 111896.34,
+ "btc": 78672.09,
+ "mcap": 2657258061843.0293,
+ "mayer": 1.076,
  "anchor": 120000,
- "multiple": 0.94,
+ "multiple": 0.93,
  "code_red": {
   "armed": false,
   "armed_at": null,
@@ -55,6 +55,11 @@
    "at": "2026-10-29T17:04:18.230903+00:00",
    "status": "CONFIRMED",
    "acked": false
+  },
+  "ZRO_rebuyhit@2026-10-26": {
+   "at": "2026-10-29T23:05:23.651624+00:00",
+   "status": "CONFIRMED",
+   "acked": false
   }
  },
  "lines": {
@@ -63,8 +68,8 @@
    "close": 80053.16,
    "sma50": 76051.8746,
    "sma20": 72367.269,
-   "sma200d": 73104.38700000003,
-   "last": 78652.99
+   "sma200d": 73104.45705000003,
+   "last": 78667
   },
   "PUMP": {
    "week": "2026-10-25",
@@ -138,33 +143,33 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.004098,
-   "usd": 44353.37
+   "price": 0.004041,
+   "usd": 43736.44
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 4.47e-06,
-   "usd": 41024.89
+   "price": 4.44e-06,
+   "usd": 40749.56
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.5812,
-   "usd": 27241.1
+   "price": 1.55,
+   "usd": 26703.58
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 7.37,
-   "usd": 661.19
+   "price": 7.326,
+   "usd": 657.25
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 96.92,
-   "usd": 25.68
+   "price": 96.29,
+   "usd": 25.51
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2273.93,
-   "usd": 24.13
+   "price": 2261.52,
+   "usd": 24.0
   }
  },
  "bags": {
@@ -306,6 +311,16 @@
    "level": "yellow",
    "title": "ZRO ran up without your buy-back filling: decide",
    "at": "2026-10-29T17:04:18.230903+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  },
+  {
+   "bag": "main",
+   "key": "ZRO_rebuyhit@2026-10-26",
+   "level": "yellow",
+   "title": "ZRO hit your buy-back level: check the fill",
+   "at": "2026-10-29T23:05:23.651624+00:00",
    "acked": false,
    "status": "CONFIRMED",
    "alerts_sent": 1
@@ -1333,7 +1348,7 @@
   "2026-10-26": 59.43,
   "2026-10-27": 59.48,
   "2026-10-28": 59.48,
-  "2026-10-29": 59.49
+  "2026-10-29": 59.52
  },
  "trail_sizing_pct": 75
 }
