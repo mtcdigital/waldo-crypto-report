@@ -1,11 +1,11 @@
 {
- "as_of": "2026-10-30T00:05:31.902942+00:00",
- "bag": 111069.71,
- "btc": 77940.35,
- "mcap": 2631040154038.8896,
- "mayer": 1.066,
+ "as_of": "2026-10-30T00:20:36.717608+00:00",
+ "bag": 108911.14,
+ "btc": 77143.58,
+ "mcap": 2609668308617.751,
+ "mayer": 1.055,
  "anchor": 120000,
- "multiple": 0.93,
+ "multiple": 0.91,
  "code_red": {
   "armed": false,
   "armed_at": null,
@@ -49,7 +49,7 @@
   "INJ_stoporder@6918": {
    "at": "2026-10-28T03:59:36.555529+00:00",
    "status": "CONFIRMED",
-   "acked": false
+   "acked": true
   },
   "ZRO_ranaway@2026-10-26": {
    "at": "2026-10-29T17:04:18.230903+00:00",
@@ -59,12 +59,12 @@
   "ZRO_rebuyhit@2026-10-26": {
    "at": "2026-10-29T23:05:23.651624+00:00",
    "status": "CONFIRMED",
-   "acked": false
+   "acked": true
   },
   "INJ_trailhit@2026-10-25": {
    "at": "2026-10-30T00:05:35.268199+00:00",
    "status": "CONFIRMED",
-   "acked": false
+   "acked": true
   }
  },
  "lines": {
@@ -148,33 +148,33 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.003941,
-   "usd": 42654.13
+   "price": 0.003829,
+   "usd": 41441.93
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 4.52e-06,
-   "usd": 41483.79
+   "price": 4.46e-06,
+   "usd": 40933.12
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.5225,
-   "usd": 26229.81
+   "price": 1.5004,
+   "usd": 25849.07
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 7.277,
-   "usd": 652.85
+   "price": 7.119,
+   "usd": 638.68
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 95.35,
-   "usd": 25.26
+   "price": 93.8,
+   "usd": 24.85
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 2249.35,
-   "usd": 23.87
+   "price": 2213.91,
+   "usd": 23.5
   }
  },
  "bags": {
@@ -302,40 +302,10 @@
  "alerts": [
   {
    "bag": "main",
-   "key": "INJ_stoporder@6918",
-   "level": "yellow",
-   "title": "INJ: set or move your trailing stop order on Coinbase (R-29)",
-   "at": "2026-10-28T03:59:36.555529+00:00",
-   "acked": false,
-   "status": "CONFIRMED",
-   "alerts_sent": 3
-  },
-  {
-   "bag": "main",
    "key": "ZRO_ranaway@2026-10-26",
    "level": "yellow",
    "title": "ZRO ran up without your buy-back filling: decide",
    "at": "2026-10-29T17:04:18.230903+00:00",
-   "acked": false,
-   "status": "CONFIRMED",
-   "alerts_sent": 1
-  },
-  {
-   "bag": "main",
-   "key": "ZRO_rebuyhit@2026-10-26",
-   "level": "yellow",
-   "title": "ZRO hit your buy-back level: check the fill",
-   "at": "2026-10-29T23:05:23.651624+00:00",
-   "acked": false,
-   "status": "CONFIRMED",
-   "alerts_sent": 1
-  },
-  {
-   "bag": "main",
-   "key": "INJ_trailhit@2026-10-25",
-   "level": "red",
-   "title": "INJ is under its trailing stop: sell per R-29 if the order did not fill",
-   "at": "2026-10-30T00:05:35.268199+00:00",
    "acked": false,
    "status": "CONFIRMED",
    "alerts_sent": 1
