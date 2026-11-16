@@ -1,11 +1,11 @@
 {
- "as_of": "2026-11-15T15:31:04.972982+00:00",
- "bag": 91917.02,
- "btc": 64612.01,
- "mcap": 2187055604206.747,
- "mayer": 0.886,
+ "as_of": "2026-11-16T01:19:43.817388+00:00",
+ "bag": 90334.43,
+ "btc": 64821.43,
+ "mcap": 2193039487148.5767,
+ "mayer": 0.89,
  "anchor": 120000,
- "multiple": 0.77,
+ "multiple": 0.75,
  "code_red": {
   "armed": false,
   "armed_at": null,
@@ -80,82 +80,102 @@
    "at": "2026-11-10T03:49:27.894980+00:00",
    "status": "CONFIRMED",
    "acked": false
+  },
+  "btc_50w@2026-11-15": {
+   "at": "2026-11-16T01:20:10.612676+00:00",
+   "status": "CONFIRMED",
+   "acked": false
+  },
+  "PUMP_20w@2026-11-15": {
+   "at": "2026-11-16T01:20:15.584314+00:00",
+   "status": "CONFIRMED",
+   "acked": false
+  },
+  "PEPE_8w@2026-11-15": {
+   "at": "2026-11-16T01:20:20.928181+00:00",
+   "status": "CONFIRMED",
+   "acked": false
+  },
+  "ira_wrong_exit@2026-11-15": {
+   "at": "2026-11-16T01:20:28.914176+00:00",
+   "status": "CONFIRMED",
+   "acked": false
   }
  },
  "lines": {
   "BTC": {
-   "week": "2026-11-08",
-   "close": 74754.08,
-   "sma50": 75491.7222,
-   "sma20": 73569.388,
-   "sma200d": 72917.36060000003,
-   "last": 64582.42
+   "week": "2026-11-15",
+   "close": 65315.35,
+   "sma50": 74990.639,
+   "sma20": 73861.45500000002,
+   "sma200d": 72863.62245000002,
+   "last": 64825.22
   },
   "PUMP": {
-   "week": "2026-11-08",
-   "close": 0.003523,
-   "sma20": 0.0035395999999999995,
-   "sma10": 0.004513700000000001,
-   "sma8": 0.004704374999999999,
-   "sma5": 0.004345,
+   "week": "2026-11-15",
+   "close": 0.002971,
+   "sma20": 0.00361635,
+   "sma10": 0.0044079,
+   "sma8": 0.004547,
+   "sma5": 0.003816,
    "trail": {
     "armed": false,
     "peak": 0.006516,
     "stop": 0.004843500000000001,
     "armed_week": "2026-09-20",
     "fired_week": "2026-10-18",
-    "line": 0.0035395999999999995,
+    "line": 0.00361635,
     "weeks": 20
    }
   },
   "PEPE": {
-   "week": "2026-11-08",
-   "close": 4.95e-06,
-   "sma20": 3.5809999999999997e-06,
-   "sma10": 4.2120000000000005e-06,
-   "sma8": 4.3875e-06,
-   "sma5": 4.465999999999999e-06,
+   "week": "2026-11-15",
+   "close": 3.87e-06,
+   "sma20": 3.657e-06,
+   "sma10": 4.233e-06,
+   "sma8": 4.37125e-06,
+   "sma5": 4.398000000000001e-06,
    "trail": {
     "armed": false,
     "peak": 7.17e-06,
     "stop": 5.988749999999999e-06,
     "armed_week": "2026-01-04",
     "fired_week": "2026-01-11",
-    "line": 4.3875e-06,
+    "line": 4.37125e-06,
     "weeks": 8
    }
   },
   "ZRO": {
-   "week": "2026-11-08",
-   "close": 1.5489,
-   "sma20": 1.2377049999999996,
-   "sma10": 1.6017500000000002,
-   "sma8": 1.737575,
-   "sma5": 1.81954,
+   "week": "2026-11-15",
+   "close": 1.4072,
+   "sma20": 1.2694149999999997,
+   "sma10": 1.6321400000000001,
+   "sma8": 1.7661625,
+   "sma5": 1.6784399999999997,
    "trail": {
     "armed": false,
     "peak": 2.1127,
     "stop": 1.6752024999999997,
     "armed_week": "2026-09-27",
     "fired_week": "2026-11-08",
-    "line": 1.2377049999999996,
+    "line": 1.2694149999999997,
     "weeks": 20
    }
   },
   "INJ": {
-   "week": "2026-11-08",
-   "close": 8.029,
-   "sma20": 6.10745,
-   "sma10": 7.4034,
-   "sma8": 7.851875,
-   "sma5": 7.9198,
+   "week": "2026-11-15",
+   "close": 6.99,
+   "sma20": 6.2297,
+   "sma10": 7.570899999999999,
+   "sma8": 7.75175,
+   "sma5": 7.7642,
    "trail": {
     "armed": false,
     "peak": 8.718,
     "stop": 7.332450000000001,
     "armed_week": "2026-09-20",
     "fired_week": "2026-11-01",
-    "line": 6.10745,
+    "line": 6.2297,
     "weeks": 20
    }
   }
@@ -163,33 +183,33 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.002879,
-   "usd": 31159.92
+   "price": 0.002884,
+   "usd": 31214.03
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 3.92e-06,
-   "usd": 35977.09
+   "price": 3.81e-06,
+   "usd": 34967.53
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.3999,
-   "usd": 24117.64
+   "price": 1.3642,
+   "usd": 23502.6
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 6.959,
-   "usd": 624.32
+   "price": 6.823,
+   "usd": 612.12
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 71.18,
-   "usd": 18.86
+   "price": 71.48,
+   "usd": 18.94
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 1808.31,
-   "usd": 19.19
+   "price": 1810.53,
+   "usd": 19.22
   }
  },
  "bags": {
@@ -351,6 +371,46 @@
    "level": "red",
    "title": "ZRO Sunday close under its trailing stop (R-29): sell ZRO, lock the gain",
    "at": "2026-11-10T03:49:27.894980+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  },
+  {
+   "bag": "main",
+   "key": "btc_50w@2026-11-15",
+   "level": "red",
+   "title": "Bitcoin Sunday close under 50-week minus 3%: sell the attention side",
+   "at": "2026-11-16T01:20:10.612676+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  },
+  {
+   "bag": "main",
+   "key": "PUMP_20w@2026-11-15",
+   "level": "red",
+   "title": "PUMP Sunday close under its 20-week line minus the band: sell PUMP",
+   "at": "2026-11-16T01:20:15.584314+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  },
+  {
+   "bag": "main",
+   "key": "PEPE_8w@2026-11-15",
+   "level": "red",
+   "title": "PEPE Sunday close under its 8-week line minus the band: sell PEPE",
+   "at": "2026-11-16T01:20:20.928181+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
+  },
+  {
+   "bag": "ira",
+   "key": "ira_wrong_exit@2026-11-15",
+   "level": "red",
+   "title": "IRA: Bitcoin week under its 50-week minus 3%: sell the IRA bag (I-was-wrong exit)",
+   "at": "2026-11-16T01:20:28.914176+00:00",
    "acked": false,
    "status": "CONFIRMED",
    "alerts_sent": 1
@@ -1394,7 +1454,8 @@
   "2026-11-12": 59.88,
   "2026-11-13": 58.91,
   "2026-11-14": 58.79,
-  "2026-11-15": 59.36
+  "2026-11-15": 59.36,
+  "2026-11-16": 59.4
  },
  "trail_sizing_pct": 75
 }
