@@ -1,8 +1,8 @@
 {
- "as_of": "2026-11-18T05:58:10.105626+00:00",
- "bag": 87898.5,
- "btc": 64588.73,
- "mcap": 2220204271297.533,
+ "as_of": "2026-11-18T06:13:19.248551+00:00",
+ "bag": 87520.69,
+ "btc": 64601.73,
+ "mcap": 2222346247272.389,
  "mayer": 0.888,
  "anchor": 120000,
  "multiple": 0.73,
@@ -100,6 +100,11 @@
    "at": "2026-11-16T01:20:28.914176+00:00",
    "status": "CONFIRMED",
    "acked": false
+  },
+  "ZRO_planstop@2026-10-26": {
+   "at": "2026-11-18T06:13:21.085373+00:00",
+   "status": "CONFIRMED",
+   "acked": false
   }
  },
  "lines": {
@@ -183,33 +188,33 @@
  "positions": {
   "PUMP": {
    "units": 10823173.571707,
-   "price": 0.0027,
-   "usd": 29222.57
+   "price": 0.002684,
+   "usd": 29049.4
   },
   "PEPE": {
    "units": 9177828580.40845,
-   "price": 3.78e-06,
-   "usd": 34692.19
+   "price": 3.77e-06,
+   "usd": 34600.41
   },
   "ZRO": {
    "units": 17228.11790152,
-   "price": 1.3516,
-   "usd": 23285.52
+   "price": 1.3452,
+   "usd": 23175.26
   },
   "INJ": {
    "units": 89.71425839,
-   "price": 7.347,
-   "usd": 659.13
+   "price": 7.318,
+   "usd": 656.53
   },
   "SOL": {
    "units": 0.264913631,
-   "price": 75.06,
-   "usd": 19.88
+   "price": 74.99,
+   "usd": 19.87
   },
   "ETH": {
    "units": 0.01061345882508,
-   "price": 1809.47,
-   "usd": 19.2
+   "price": 1810.61,
+   "usd": 19.22
   }
  },
  "bags": {
@@ -414,6 +419,16 @@
    "acked": false,
    "status": "CONFIRMED",
    "alerts_sent": 3
+  },
+  {
+   "bag": "main",
+   "key": "ZRO_planstop@2026-10-26",
+   "level": "red",
+   "title": "ZRO broke your plan stop: sell",
+   "at": "2026-11-18T06:13:21.085373+00:00",
+   "acked": false,
+   "status": "CONFIRMED",
+   "alerts_sent": 1
   }
  ],
  "stock_hist": {
